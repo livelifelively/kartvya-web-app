@@ -1,0 +1,405 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model PoliticalRegionsIndia {
+  id                                             String                                          @id @default(auto()) @map("_id") @db.ObjectId
+  name_english                                   String
+  category                                       RegionsIndiaTypes
+  country                                        String
+  zone                                           String?
+  state_or_union_territory                       String?
+  loksabha_constituency                          String[]
+  autonomous_administrative_division             String[]
+  vidhansabha_constituency                       String[]
+  division                                       String[]
+  district                                       String[]
+  sub_district                                   String[]
+  block                                          String[]
+  panchayat                                      String[]
+  village                                        String[]
+  village_ward                                   String[]
+  city                                           String[]
+  city_ward                                      String[]
+  PoliticalRegionsStatesOrUnionTerritories       PoliticalRegionsStatesOrUnionTerritories[]
+  PoliticalRegionsZoneCouncils                   PoliticalRegionsZoneCouncils?
+  PoliticalRegionsLoksabhaConstituencies         PoliticalRegionsLoksabhaConstituencies?
+  GovernmentMinistriesIndia                      GovernmentMinistriesIndia[]
+  PoliticalRegionsStateVidhansabhaConstituencies PoliticalRegionsStateVidhansabhaConstituencies?
+  PoliticalRegionsStateDistricts                 PoliticalRegionsStateDistricts?
+
+  // @@unique([name_english, category, country, zone, state_or_union_territory, loksabha_constituency, autonomous_administrative_division, vidhansabha_constituency, division, district, sub_district, block, panchayat, village, village_ward, city, city_ward], name: "place")
+  @@index([country], name: "country")
+  @@index([name_english], name: "name_english")
+  @@index([category], name: "category")
+  @@index([zone], name: "zone")
+  @@index([state_or_union_territory], name: "state_or_union_territory")
+  @@index([loksabha_constituency], name: "loksabha_constituency")
+  @@index([autonomous_administrative_division], name: "autonomous_administrative_division")
+  @@index([vidhansabha_constituency], name: "vidhansabha_constituency")
+  @@index([division], name: "division")
+  @@index([district], name: "district")
+  @@index([sub_district], name: "sub_district")
+  @@index([block], name: "block")
+  @@index([panchayat], name: "panchayat")
+  @@index([village], name: "village")
+  @@index([village_ward], name: "village_ward")
+  @@index([city], name: "city")
+  @@index([city_ward], name: "city_ward")
+}
+
+model PoliticalRegionsStatesOrUnionTerritories {
+  id                            String                             @id @default(auto()) @map("_id") @db.ObjectId
+  political_region              PoliticalRegionsIndia              @relation(fields: [political_region_id], references: [id])
+  political_region_id           String                             @unique @db.ObjectId
+  name_english                  String                             @unique
+  other_names                   RegionNameInOtherLanguages[]
+  state_or_union_territory      RegionsIndiaTypes
+  zone                          String
+  country                       String
+  iso_code                      String
+  vehicle_code                  String
+  population                    PopulationInYear[]
+  area                          RegionArea
+  literacy_rate                 Int?
+  sex_ratio                     Int?
+  capital                       StateCapital
+  largest_city                  String?
+  established_on                DateTime?
+  dissolved_on                  DateTime?
+  official_languages            IndianLanguages[]
+  additional_official_languages IndianLanguages[]
+  wikidata_qid                  String                             @unique
+  source_data_ids               LoksabhaConstituencySourceDataIds?
+
+  // @@index([name_english], name: "name_english")
+  @@index([state_or_union_territory], name: "state_or_union_territory")
+  @@index([zone], name: "zone")
+}
+
+model PoliticalRegionsLoksabhaConstituencies {
+  id                       String                             @id @default(auto()) @map("_id") @db.ObjectId
+  political_region         PoliticalRegionsIndia              @relation(fields: [political_region_id], references: [id])
+  political_region_id      String                             @unique @db.ObjectId
+  name_english             String
+  other_names              RegionNameInOtherLanguages[]
+  country                  String
+  state_or_union_territory String
+  zone                     String
+  elections                Election[]
+  district                 String[]
+  vidhansabha_constituency String[]
+  wiki                     Wiki                               @unique
+  established_on           Int?
+  dissolved_on             Int?
+  source_data_ids          LoksabhaConstituencySourceDataIds?
+
+  @@index([name_english], name: "name_english")
+  @@index([established_on], name: "established_on")
+  @@index([dissolved_on], name: "dissolved_on")
+}
+
+model PoliticalRegionsStateVidhansabhaConstituencies {
+  id                       String                                @id @default(auto()) @map("_id") @db.ObjectId
+  political_region         PoliticalRegionsIndia                 @relation(fields: [political_region_id], references: [id])
+  political_region_id      String                                @unique @db.ObjectId
+  name_english             String
+  other_names              RegionNameInOtherLanguages[]
+  country                  String
+  state_or_union_territory String
+  zone                     String
+  elections                Election[]
+  district                 String[]
+  loksabha_constituency    String[]
+  wiki                     Wiki                                  @unique
+  established_on           Int?
+  dissolved_on             Int?
+  source_data_ids          VidhansabhaConstituencySourceDataIds?
+
+  @@index([name_english], name: "name_english")
+  @@index([established_on], name: "established_on")
+  @@index([dissolved_on], name: "dissolved_on")
+}
+
+model PoliticalRegionsStateDistricts {
+  id                       String                       @id @default(auto()) @map("_id") @db.ObjectId
+  political_region         PoliticalRegionsIndia        @relation(fields: [political_region_id], references: [id])
+  political_region_id      String                       @unique @db.ObjectId
+  name_english             String
+  other_names              RegionNameInOtherLanguages[]
+  country                  String
+  state_or_union_territory String
+  zone                     String
+  loksabha_constituency    String[]
+  vidhansabha_constituency String[]
+  wiki                     Wiki                         @unique
+  established_on           Int?
+  dissolved_on             Int?
+  source_data_ids          DistrictSourceDataIds?
+
+  @@index([name_english], name: "name_english")
+  @@index([established_on], name: "established_on")
+  @@index([dissolved_on], name: "dissolved_on")
+}
+
+model PoliticalRegionsZoneCouncils {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  political_region    PoliticalRegionsIndia @relation(fields: [political_region_id], references: [id])
+  political_region_id String                @unique @db.ObjectId
+  headquarters        String?
+}
+
+model GovernmentMinistriesIndia {
+  id                       String                  @id @default(auto()) @map("_id") @db.ObjectId
+  name_english             String
+  government               GovernmentType
+  political_region         PoliticalRegionsIndia   @relation(fields: [political_region_id], references: [id])
+  political_region_id      String                  @db.ObjectId
+  website                  String?
+  union_list               String[]
+  state_list               String[]
+  concurrent_list          String[]
+  about                    String?
+  slug                     String                  @unique
+  primary_responsibilities PrimaryResponsibility[]
+  wikidata_qid             String                  @unique
+
+  @@index([name_english], name: "name_english")
+}
+
+model PublicServicesIndia {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  name_english         String   @unique
+  slug                 String   @unique
+  description          String?
+  image                String?
+  exampleOrganisations String[]
+}
+
+model User {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?      @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  onboarded      Boolean      @default(false)
+  profile        Profile?
+  preferences    Preferences?
+
+  accounts Account[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+type Preferences {
+  // theme Theme
+  // language Language
+  // currency Currency
+  // timezone Timezone
+  // country Country
+  // region Region
+  // city City
+  publicServiceDomains String[]
+}
+
+type Profile {
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+type Wiki {
+  wikipedia_url String
+  wikidata_qid  String
+}
+
+type LoksabhaConstituencySourceDataIds {
+  pc_id   Int?
+  st_code Int?
+  pc_no   Int?
+}
+
+type VidhansabhaConstituencySourceDataIds {
+  st_code Int?
+  ac_no   Int?
+}
+
+type DistrictSourceDataIds {
+  st_code Int?
+}
+
+type PrimaryResponsibility {
+  title       String
+  description String
+}
+
+enum GovernmentType {
+  union
+  state
+}
+
+type ListSubject {
+  list_id String
+  text    String
+}
+
+enum RegionsIndiaTypes {
+  country
+  zone
+  state_or_union_territory
+  state
+  union_territory
+  loksabha_constituency
+  autonomous_administrative_division
+  vidhansabha_constituency
+  division
+  district
+  sub_district
+  block
+  panchayat
+  village
+  village_ward
+  city
+  city_ward
+}
+
+enum IndianLanguages {
+  english
+  hindi
+  telugu
+  urdu
+  chhattisgarhi
+  konkani
+  marathi
+  gujarati
+  malayalam
+  assamese
+  bengali
+  bodo
+  angika
+  bhojpuri
+  bhumij
+  ho
+  kharia
+  khortha
+  kurmali
+  kurukh
+  magahi
+  maithili
+  mundari
+  nagpuri
+  odia
+  santali
+  meitei
+  khasi
+  punjabi
+  sanskrit
+  mizo
+  nepali
+  bhutia
+  gurung
+  lepcha
+  limbu
+  manggar
+  mukhia
+  newari
+  rai
+  sherpa
+  tamang
+  tamil
+  kannada
+  kokborok
+  french
+  kashmiri
+  dogri
+}
+
+type RegionArea {
+  value Int
+  unit  AreaUnit
+}
+
+enum AreaUnit {
+  km2
+  mi2
+  acre
+  hectare
+}
+
+type StateCapital {
+  has_winter_capital Boolean
+  summer_capital     String
+  winter_capital     String?
+}
+
+type RegionNameInOtherLanguages {
+  language IndianLanguages
+  name     String
+}
+
+type PopulationInYear {
+  year       Int
+  population Int
+}
+
+type Election {
+  title                String
+  candidates           Candidate[]
+  results              ElectionResult[]
+  election_phase       Int
+  election_date        DateTime
+  reservation_category ReservationCategory
+}
+
+type Candidate {
+  name            String
+  independent     Boolean
+  political_party PoliticalParty?
+}
+
+type PoliticalParty {
+  name           String
+  logo           String
+  established_on DateTime?
+}
+
+type ElectionResult {
+  candidate        Candidate
+  votes            Int
+  votes_percentage Int
+  winner           Boolean
+}
+
+enum ReservationCategory {
+  SC
+  ST
+  OBC
+  GEN
+}
