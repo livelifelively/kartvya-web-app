@@ -11,7 +11,7 @@ export function Logo({ size, color, linksToHome = true }: LogoProps) {
   const LogoContent = () => {
     return (
       <Title size={size ? size : 'h2'} className={classes.logoText}>
-        Kartvya
+        kartvya
       </Title>
     );
   };
