@@ -1,8 +1,13 @@
 import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Logo from '../logo/logo';
+import { ReactNode } from 'react';
 
-export function ResponsiveAppShell() {
+interface ResponsiveAppShellProps {
+  children: ReactNode;
+}
+
+export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -29,7 +34,7 @@ export function ResponsiveAppShell() {
             <Skeleton key={index} h={28} mt="sm" animate={false} />
           ))}
       </AppShell.Navbar>
-      <AppShell.Main>Main</AppShell.Main>
+      <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   );
 }
