@@ -33,7 +33,7 @@ export function About({ featuresData }: AboutProps) {
   ));
 
   return (
-    <NoSideBarsAppShell title="About Us - Qbeela">
+    <NoSideBarsAppShell title="About Us - Kartvya">
       <Container size={700} className={classes.inner}>
         <h1 className={classes.title}>
           Geo-enabled digital platform for{' '}

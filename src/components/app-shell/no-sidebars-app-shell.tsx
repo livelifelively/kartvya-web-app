@@ -13,7 +13,7 @@ export interface NoSideBarsAppShellProps {
 
 export function NoSideBarsAppShell({
   children,
-  title = 'Welcome to Qbeela!',
+  title = 'Welcome to Kartvya!',
   footerType,
   error,
 }: NoSideBarsAppShellProps) {

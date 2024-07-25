@@ -33,7 +33,7 @@ const featuresData = [
 ];
 
 function LevelsPage() {
-  <Levels featuresData={featuresData} />;
+  return <Levels featuresData={featuresData} />;
 }
 
 export default LevelsPage;

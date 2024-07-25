@@ -54,7 +54,7 @@ export function Levels({ featuresData }: LevelsProps) {
   ));
 
   return (
-    <NoSideBarsAppShell title="Qbeela Levels - Qbeela">
+    <NoSideBarsAppShell title="Kartvya Levels - Kartvya">
       <Container size={700} className={classes.inner}>
         <h1 className={classes.title}>
           The Five Levels of{' '}
@@ -66,7 +66,7 @@ export function Levels({ featuresData }: LevelsProps) {
         <Text className={classes.description} color="dimmed">
           A{' '}
           <Text component="span" variant="text" color="brandBlue" inherit>
-            Qbeela Level
+            Kartvya Level
           </Text>{' '}
           represents citizens engagement stage on our platform. Each level of engagement builds on
           the previous level, providing citizens with increasing levels of participation and
