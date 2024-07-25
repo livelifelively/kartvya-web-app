@@ -1,0 +1,11 @@
+.logo {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.logoText {
+  color: var(--mantine-color-brandBlue-5);
+  font-family: 'Quicksand';
+  font-weight: 700;
+}
