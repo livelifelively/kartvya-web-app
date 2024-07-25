@@ -1,0 +1,72 @@
+.inner {
+  position: relative;
+  padding-top: var(--mantine-spacing-80); /* Assuming you have a CSS variable for rem(80) */
+  padding-bottom: var(--mantine-spacing-100); /* Assuming you have a CSS variable for rem(100) */
+
+  @media (max-width: var(--mantine-breakpoint-sm)) {
+    padding-bottom: var(--mantine-spacing-80);
+    padding-top: var(--mantine-spacing-80);
+  }
+}
+
+.title {
+  font-family: 'Greycliff CF', var(--mantine-font-family);
+  font-size: var(--mantine-font-size-62); /* Assuming you have a CSS variable for rem(62) */
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
+  color: var(--mantine-color-text);
+
+  @media (max-width: var(--mantine-breakpoint-sm)) {
+    font-size: var(--mantine-font-size-42); /* Assuming you have a CSS variable for rem(42) */
+    line-height: 1.2;
+  }
+}
+
+.description {
+  margin-top: var(--mantine-spacing-xl);
+  font-size: var(--mantine-font-size-24); /* Assuming you have a CSS variable for rem(24) */
+
+  @media (max-width: var(--mantine-breakpoint-sm)) {
+    font-size: var(--mantine-font-size-18); /* Assuming you have a CSS variable for rem(18) */
+  }
+}
+
+.controls {
+  margin-top: calc(var(--mantine-spacing-xl) * 2);
+
+  @media (max-width: var(--mantine-breakpoint-sm)) {
+    margin-top: var(--mantine-spacing-xl);
+  }
+}
+
+.control {
+  height: var(--mantine-size-54); /* Assuming you have a CSS variable for rem(54) */
+  padding-left: var(--mantine-spacing-38); /* Assuming you have a CSS variable for rem(38) */
+  padding-right: var(--mantine-spacing-38);
+
+  @media (max-width: var(--mantine-breakpoint-sm)) {
+    height: var(--mantine-size-54);
+    padding-left: var(--mantine-spacing-18); /* Assuming you have a CSS variable for rem(18) */
+    padding-right: var(--mantine-spacing-18);
+    flex: 1;
+  }
+}
+
+.card {
+  border: var(--mantine-border-width-1) solid var(--mantine-color-card-border); /* Assuming you have CSS variables for rem(1) and the border color */
+}
+
+.cardTitle {
+  &::after {
+    content: '';
+    display: block;
+    background-color: var(
+      --mantine-color-yellow-8
+    ); /* Assuming you have a CSS variable for theme.colors.yellow[8] */
+    width: var(--mantine-size-45); /* Assuming you have a CSS variable for rem(45) */
+    height: var(--mantine-size-2); /* Assuming you have a CSS variable for rem(2) */
+    margin-top: var(--mantine-spacing-sm);
+  }
+}
