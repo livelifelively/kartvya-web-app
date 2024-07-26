@@ -1,4 +1,4 @@
-import { AppShell, Burger, Group, Skeleton } from '@mantine/core';
+import { AppShell, Burger, Container, Group, Skeleton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Logo from '../logo/logo';
 import { ReactNode } from 'react';
@@ -14,7 +14,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
     <AppShell
       header={{ height: { base: 50, md: 60, lg: 70 } }}
       navbar={{
-        width: { base: 200, md: 300, lg: 400 },
+        width: { base: 200, md: 250, lg: 300 },
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
@@ -26,7 +26,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
           <Logo size={25} />
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="sm">
+      <AppShell.Navbar p="sm" withBorder={false}>
         Navbar
         {Array(15)
           .fill(0)
@@ -34,7 +34,11 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
             <Skeleton key={index} h={28} mt="sm" animate={false} />
           ))}
       </AppShell.Navbar>
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main>
+        <Container size="sm" px={0}>
+          {children}
+        </Container>
+      </AppShell.Main>
     </AppShell>
   );
 }
