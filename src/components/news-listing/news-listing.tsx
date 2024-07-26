@@ -1,6 +1,10 @@
 import { Box } from '@mantine/core';
 import { NewsCard } from '../news-card/news-card';
 
+/**### '
+
+**New Delhi, 26th July 2024** –  */
+
 const newsListingData = [
   {
     id: 1,
@@ -32,6 +36,25 @@ const newsListingData = [
       { label: 'Department of Military Affairs' },
       { label: 'Shri Sanjay Seth' },
       { label: 'Shri Arun Kumar Sagar' },
+    ],
+    location: {
+      name: 'New Delhi',
+    },
+    date: 'July 26, 2024',
+  },
+  {
+    id: 3,
+    image:
+      'https://media.licdn.com/dms/image/D4D12AQGMcLysVTOTGQ/article-cover_image-shrink_600_2000/0/1663924914690?e=2147483647&v=beta&t=HifjxcBkfvOoJ9t4DsgvWYKiA___sMgPdVN2cS72EpU',
+    title: "Indian Army Launches IoT-Based Generator System 'Vidyut Rakshak",
+    description:
+      "The Indian Army has launched 'Vidyut Rakshak,' an IoT-based generator monitoring and control system. Initially deployed in the Leh-Ladakh region, it enhances operational efficiency by enabling remote control and fault prediction for multiple generators. Developed at a cost of ₹5 Lakh, it significantly boosts the Army's capability in remote areas.",
+    badges: [
+      { label: 'Ministry of Defence' },
+      { label: 'Department of Military Affairs' },
+      { label: 'Shri Sanjay Seth' },
+      { label: 'Shri DhairyaSheel Sambhajirao Mane' },
+      { label: 'Shri Sudheer Gupta' },
     ],
     location: {
       name: 'New Delhi',
