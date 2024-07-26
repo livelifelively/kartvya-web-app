@@ -4,7 +4,7 @@ import classes from './news-card.module.css';
 
 const mockdata = {
   image:
-    'https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80',
+    'https://staticimg.amarujala.com/assets/images/2022/04/17/janani-suraksha-yojana_1650174950.jpeg?w=674&dpr=1.0',
   title:
     'Union Government allocates ₹2,116.19 crores to promote in hospital deliveries. Aims To reduce maternal and neonatal mortality',
   description:
@@ -24,16 +24,16 @@ const mockdata = {
 export function NewsCard() {
   const { image, title, description, badges, location, date } = mockdata;
   const features = badges.map((badge) => (
-    <Badge variant="light" key={badge.label}>
+    <Badge variant="light" key={badge.label} size="xs">
       {badge.label}
     </Badge>
   ));
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
-      {/* <Card.Section mb="md">
+      <Card.Section>
         <Image src={image} alt={title} height={180} />
-      </Card.Section> */}
+      </Card.Section>
 
       <Card.Section className={classes.section}>
         <Group justify="apart">
