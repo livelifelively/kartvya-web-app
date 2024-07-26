@@ -5,64 +5,70 @@ import classes from './news-card.module.css';
 const mockdata = {
   image:
     'https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80',
-  title: 'Verudela Beach',
-  country: 'Croatia',
+  title:
+    'Union Government allocates ₹2,116.19 crores to promote in hospital deliveries. Aims To reduce maternal and neonatal mortality',
   description:
-    'Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully equipped and modernly furnished 4-star self-service apartments located on the Adriatic coastline by one of the most beautiful beaches in Pula.',
+    'The Union Government has allocated ₹2,116.19 crores to promote in-hospital deliveries and reduce maternal and neonatal mortality. ₹1,709.23 crores will go to Low Performing States like Assam, Bihar, and Uttar Pradesh under the Janani Suraksha Yojana in FY 2023-24. Utilization rates have improved to 83%. The scheme provides financial incentives ranging from ₹600 to ₹1400 to encourage hospital deliveries. Over 1 million Accredited Social Health Activists (ASHAs) have been appointed to support safer childbirths.',
   badges: [
-    { emoji: '☀️', label: 'Sunny weather' },
-    { emoji: '🦓', label: 'Onsite zoo' },
-    { emoji: '🌊', label: 'Sea' },
-    { emoji: '🌲', label: 'Nature' },
-    { emoji: '🤽', label: 'Water sports' },
+    { label: 'Ministry of Health & Family Welfare' },
+    { label: 'Department of Health and Family Welfare' },
+    { label: 'Smt. Anupriya Patel' },
+    { label: 'Shri Pradeep Kumar Singh' },
   ],
+  location: {
+    name: 'New Delhi',
+  },
+  date: 'July 26, 2024',
 };
 
 export function NewsCard() {
-  const { image, title, description, country, badges } = mockdata;
+  const { image, title, description, badges, location, date } = mockdata;
   const features = badges.map((badge) => (
-    <Badge variant="light" key={badge.label} leftSection={badge.emoji}>
+    <Badge variant="light" key={badge.label}>
       {badge.label}
     </Badge>
   ));
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section>
+      {/* <Card.Section mb="md">
         <Image src={image} alt={title} height={180} />
-      </Card.Section>
+      </Card.Section> */}
 
-      <Card.Section className={classes.section} mt="md">
+      <Card.Section className={classes.section}>
         <Group justify="apart">
           <Text fz="lg" fw={500}>
             {title}
           </Text>
-          <Badge size="sm" variant="light">
+          {/* <Badge size="sm" variant="light">
             {country}
-          </Badge>
+          </Badge> */}
         </Group>
+        <Text fz="xs" mt="xs">
+          {`${location.name}, ${date}`}
+        </Text>
         <Text fz="sm" mt="xs">
           {description}
         </Text>
       </Card.Section>
 
       <Card.Section className={classes.section}>
-        <Text mt="md" className={classes.label} c="dimmed">
+        {/* <Text mt="md" className={classes.label} c="dimmed">
           Perfect for you, if you enjoy
-        </Text>
+        </Text> */}
         <Group gap={7} mt={5}>
           {features}
         </Group>
       </Card.Section>
 
-      <Group mt="xs">
+      {/* <Group mt="xs">
         <Button radius="md" style={{ flex: 1 }}>
           Show details
         </Button>
         <ActionIcon variant="default" radius="md" size={36}>
           <IconHeart className={classes.like} stroke={1.5} />
         </ActionIcon>
-      </Group>
+      </Group> */}
     </Card>
   );
 }
