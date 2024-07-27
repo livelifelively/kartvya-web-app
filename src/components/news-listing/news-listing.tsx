@@ -79,9 +79,9 @@ const newsListingData = [
     id: 5,
     image:
       'https://www2.gov.bc.ca/assets/gov/public-safety-and-emergency-services/emergency-preparedness-response-recovery/embc/preparedbc/decorative-graphics/know-your-hazards/pandemics/pandemic-preparedness-banner.png',
-    title: 'Govt Highlights Disease Surveillance Platform',
+    title: 'Govt Highlights Pan India Disease Surveillance Platform',
     description:
-      'The Ministry of Health and Family Welfare detailed the Integrated Disease Surveillance Programme (IDSP), operational since 2004, to monitor public health. The platform uses the Integrated Health Information Platform (IHIP) for real-time data. In 2023, 1,862 outbreaks were reported, with Kerala (253), Karnataka (223), and Maharashtra (208) leading.',
+      'India has a system called the Integrated Disease Surveillance Programme (IDSP) to keep track of diseases and protect public health. Using an online platform, Integrated Health Information Platform (IHIP), it collects real-time data to quickly detect and control disease outbreaks. In 2023, there were 1,862 outbreaks, with Kerala (253), Karnataka (223), and Maharashtra (208) reporting the most. The system monitors diseases like COVID-19, Monkeypox, and Dengue. Health workers, doctors, and labs gather and report data nationwide. This helps in early detection and quick response, ensuring public safety. The IDSP has been operational since 2004 and covers all 36 States and Union Territories. This information was shared by the Ministry of Health and Family Welfare in response to a question in the Lok Sabha.',
     badges: [
       { label: 'Ministry of Defence' },
       { label: 'Department of Military Affairs' },
