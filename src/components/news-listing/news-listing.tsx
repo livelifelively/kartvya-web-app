@@ -1,10 +1,6 @@
 import { Box } from '@mantine/core';
 import { NewsCard } from '../news-card/news-card';
 
-/**### '
-
-**New Delhi, 26th July 2024** –  */
-
 const newsListingData = [
   {
     id: 1,
@@ -55,6 +51,42 @@ const newsListingData = [
       { label: 'Shri Sanjay Seth' },
       { label: 'Shri DhairyaSheel Sambhajirao Mane' },
       { label: 'Shri Sudheer Gupta' },
+    ],
+    location: {
+      name: 'New Delhi',
+    },
+    date: 'July 26, 2024',
+  },
+  {
+    id: 4,
+    image:
+      'https://img-cdn.thepublive.com/fit-in/1280x960/filters:format(webp)/shethepeople/media/media_files/gpDBnjz75xRgSBpl1Jna.jpg',
+    title: 'Sainik Schools are Co-Educational, Open to Partnerships for All-Girls Sainik Schools',
+    description:
+      'The Ministry of Defense clarified in Lok Sabha that all 33 existing Sainik Schools are co-educational, with 1541 girls enrolled. While no new all-girls Sainik Schools are planned under the traditional model, partnerships with NGOs and private entities are encouraged. Samvid Gurukulam in Mathura, UP, has been approved as an all-girls Sainik School',
+    badges: [
+      { label: 'Ministry of Defence' },
+      { label: 'Department of Military Affairs' },
+      { label: 'Shri Sanjay Seth' },
+      { label: 'Shri Brijmohan Agrawal' },
+    ],
+    location: {
+      name: 'New Delhi',
+    },
+    date: 'July 26, 2024',
+  },
+  {
+    id: 5,
+    image:
+      'https://www2.gov.bc.ca/assets/gov/public-safety-and-emergency-services/emergency-preparedness-response-recovery/embc/preparedbc/decorative-graphics/know-your-hazards/pandemics/pandemic-preparedness-banner.png',
+    title: 'Govt Highlights Disease Surveillance Platform',
+    description:
+      'The Ministry of Health and Family Welfare detailed the Integrated Disease Surveillance Programme (IDSP), operational since 2004, to monitor public health. The platform uses the Integrated Health Information Platform (IHIP) for real-time data. In 2023, 1,862 outbreaks were reported, with Kerala (253), Karnataka (223), and Maharashtra (208) leading.',
+    badges: [
+      { label: 'Ministry of Defence' },
+      { label: 'Department of Military Affairs' },
+      { label: 'Smt. Anupriya Patel' },
+      { label: 'Smt. Poonamben Hematbhai Maadam' },
     ],
     location: {
       name: 'New Delhi',

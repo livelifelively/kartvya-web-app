@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <>
       <ResponsiveAppShell>
-        <SubjectBadges />
+        {/* <SubjectBadges /> */}
         <NewsListing />
       </ResponsiveAppShell>
     </>
