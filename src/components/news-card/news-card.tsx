@@ -1,20 +1,29 @@
-import { IconHeart } from '@tabler/icons-react';
-import { Card, Image, Text, Group, Badge, Button, ActionIcon } from '@mantine/core';
-import classes from './news-card.module.css';
+// import { IconHeart } from '@tabler/icons-react';
+import { Card, Text, Group, Anchor, Breadcrumbs } from '@mantine/core';
 import { capitalize } from 'lodash';
+import classes from './news-card.module.css';
 
 interface NewsCardProps {
   newsData: any;
 }
 
 export function NewsCard({ newsData }: NewsCardProps) {
-  const { image, title, description, badges, location, date, civic_domain, government_level } =
-    newsData;
+  const { title, description, location, date, civic_domain, government_level } = newsData;
   // const features = badges.map((badge: any) => (
   //   <Badge variant="light" key={badge.label} size="xs">
   //     {badge.label}
   //   </Badge>
   // ));
+
+  const items = [
+    { title: capitalize(civic_domain[0]), href: '#' },
+    { title: capitalize(government_level), href: '#' },
+    { title: 'Ministry of Health & Family Welfare', href: '#' },
+  ].map((item, index) => (
+    <Anchor href={item.href} key={index} fz="xs">
+      {item.title}
+    </Anchor>
+  ));
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
@@ -27,10 +36,9 @@ export function NewsCard({ newsData }: NewsCardProps) {
       </Card.Section> */}
 
       <Card.Section className={classes.section}>
-        <Text fz="xs" mt="xs" mb="xs">
-          {capitalize(civic_domain[0])} {'>'} {capitalize(government_level)} {'>'} Ministry of
-          Health & Family Welfare
-        </Text>
+        <Breadcrumbs separator=">" separatorMargin="xs" mb="xs">
+          {items}
+        </Breadcrumbs>
         <Group justify="apart">
           <Text fz="xl" fw={500}>
             {title}
