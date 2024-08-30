@@ -19,6 +19,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
+      footer={{ height: { base: 60, md: 0 } }}
       padding="md"
     >
       <AppShell.Header>
