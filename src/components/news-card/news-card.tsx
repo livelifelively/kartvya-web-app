@@ -36,7 +36,7 @@ export function NewsCard({ newsData }: NewsCardProps) {
       </Card.Section> */}
 
       <Card.Section className={classes.section}>
-        <Breadcrumbs separator=">" separatorMargin="xs" mb="xs">
+        <Breadcrumbs separator="&middot;" separatorMargin={4} mb="xs">
           {items}
         </Breadcrumbs>
         <Group justify="apart">

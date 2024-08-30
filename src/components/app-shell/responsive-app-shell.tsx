@@ -1,7 +1,8 @@
 import { AppShell, Burger, Container, Group, Skeleton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import Logo from '../logo/logo';
 import { ReactNode } from 'react';
+import { Logo } from '../logo/logo';
+import { BottomMobileTabs } from '../bottom-mobile-tabs/bottom-mobile-tabs';
 
 interface ResponsiveAppShellProps {
   children: ReactNode;
@@ -39,6 +40,9 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
           {children}
         </Container>
       </AppShell.Main>
+      <AppShell.Footer p="none">
+        <BottomMobileTabs />
+      </AppShell.Footer>
     </AppShell>
   );
 }
