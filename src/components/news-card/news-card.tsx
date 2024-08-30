@@ -1,28 +1,38 @@
 import { IconHeart } from '@tabler/icons-react';
 import { Card, Image, Text, Group, Badge, Button, ActionIcon } from '@mantine/core';
 import classes from './news-card.module.css';
+import { capitalize } from 'lodash';
 
 interface NewsCardProps {
   newsData: any;
 }
 
 export function NewsCard({ newsData }: NewsCardProps) {
-  const { image, title, description, badges, location, date } = newsData;
-  const features = badges.map((badge: any) => (
-    <Badge variant="light" key={badge.label} size="xs">
-      {badge.label}
-    </Badge>
-  ));
+  const { image, title, description, badges, location, date, civic_domain, government_level } =
+    newsData;
+  // const features = badges.map((badge: any) => (
+  //   <Badge variant="light" key={badge.label} size="xs">
+  //     {badge.label}
+  //   </Badge>
+  // ));
 
   return (
     <Card withBorder radius="md" p="md" className={classes.card}>
-      <Card.Section>
+      {/* <Card.Section>
         <Image src={image} alt={title} h={{ sm: 180, md: 500 }} />
-      </Card.Section>
+      </Card.Section> */}
+
+      {/* <Card.Section className={classes.section}>
+        <Group justify="apart"></Group>
+      </Card.Section> */}
 
       <Card.Section className={classes.section}>
+        <Text fz="xs" mt="xs" mb="xs">
+          {capitalize(civic_domain[0])} {'>'} {capitalize(government_level)} {'>'} Ministry of
+          Health & Family Welfare
+        </Text>
         <Group justify="apart">
-          <Text fz="lg" fw={500}>
+          <Text fz="xl" fw={500}>
             {title}
           </Text>
           {/* <Badge size="sm" variant="light">
@@ -38,11 +48,11 @@ export function NewsCard({ newsData }: NewsCardProps) {
       </Card.Section>
 
       <Card.Section className={classes.section}>
-        {/* <Text mt="md" className={classes.label} c="dimmed">
-          Perfect for you, if you enjoy
-        </Text> */}
-        <Group gap={7} mt={5}>
-          {features}
+        <Text c="dimmed" fz="sm">
+          Sources:
+        </Text>
+        <Group gap={7} mt={5} fz="sm">
+          Question hour
         </Group>
       </Card.Section>
 
