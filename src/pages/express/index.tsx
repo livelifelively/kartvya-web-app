@@ -1,5 +1,5 @@
 import { ResponsiveAppShell } from '@/components/app-shell';
-import { NewsListing } from '@/components/news-listing/news-listing';
+import { ExpressionListing } from '@/components/expression-listing/expression-listing';
 // import { SubjectBadges } from '@/components/subject-badges/subject-badges';
 
 export default function ExpressPage() {
@@ -7,7 +7,7 @@ export default function ExpressPage() {
     <>
       <ResponsiveAppShell>
         {/* <SubjectBadges /> */}
-        <NewsListing />
+        <ExpressionListing />
       </ResponsiveAppShell>
     </>
   );

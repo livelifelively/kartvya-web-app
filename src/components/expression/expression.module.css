@@ -1,0 +1,16 @@
+.comment {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+}
+
+.body {
+  padding-left: rem(54px);
+  padding-top: var(--mantine-spacing-sm);
+  /* font-size: var(--mantine-font-size-sm); */
+  font-size: rem(15px);
+}
+
+.content {
+  & > p:last-child {
+    margin-bottom: 0;
+  }
+}
