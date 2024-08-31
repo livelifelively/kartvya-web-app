@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Tabs, Text } from '@mantine/core';
 import {
   IconMessageDots,
@@ -9,11 +10,14 @@ import {
 import classes from './bottom-mobile-tabs.module.css';
 
 export function BottomMobileTabs() {
+  const router = useRouter();
+
   return (
     <Tabs
       inverted
       defaultValue="first"
-      onChange={(value) => console.log(value)}
+      value={router.query.activeTab as string}
+      onChange={(value) => router.push(`/${value}`)}
       classNames={classes}
     >
       <Tabs.List grow justify="space-between">
