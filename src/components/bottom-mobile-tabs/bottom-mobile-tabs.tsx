@@ -18,26 +18,26 @@ export function BottomMobileTabs() {
     >
       <Tabs.List grow justify="space-between">
         <Tabs.Tab value="know" ta="center">
-          <IconBuildingBank size={20} />
-          <Text fz="sm">Know</Text>
+          <IconBuildingBank size={18} />
+          <Text fz="xs">Know</Text>
           {/* <Text ta="center" fz="xs">
             Source backed news
           </Text> */}
         </Tabs.Tab>
         <Tabs.Tab value="express" ta="center">
-          <IconMessageDots size={20} />
-          <Text fz="sm">Express</Text>
+          <IconMessageDots size={18} />
+          <Text fz="xs">Express</Text>
           {/* <Text ta="center" fz="xs">
             Government
           </Text> */}
         </Tabs.Tab>
         <Tabs.Tab value="collaborate" ta="center">
-          <IconAffiliate size={20} />
-          <Text fz="sm">Collaborate</Text>
+          <IconAffiliate size={18} />
+          <Text fz="xs">Collaborate</Text>
         </Tabs.Tab>
         <Tabs.Tab value="profile" ta="center">
-          <IconUserScan size={20} />
-          <Text fz="sm">Profile</Text>
+          <IconUserScan size={18} />
+          <Text fz="xs">Profile</Text>
         </Tabs.Tab>
       </Tabs.List>
     </Tabs>
