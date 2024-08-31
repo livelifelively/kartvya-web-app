@@ -7,15 +7,13 @@ import { useDisclosure } from '@mantine/hooks';
 export interface NoSideBarsAppShellProps {
   children: React.ReactNode;
   title: string;
-  footerType?: any;
-  error?: boolean;
+  // footerType?: any;
+  // error?: boolean;
 }
 
 export function NoSideBarsAppShell({
   children,
   title = 'Welcome to Kartvya!',
-  footerType,
-  error,
 }: NoSideBarsAppShellProps) {
   // if (error) {
   //   return <ServerOverload />;
@@ -31,7 +29,7 @@ export function NoSideBarsAppShell({
         <AppShellCore
           styles={(theme: any) => ({
             body: {
-              backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.white,
+              // backgroundColor: theme.colorScheme === 'dark' ? 'rgb(0, 0, 0)' : theme.white,
               paddingBottom: rem(50),
             },
             main: {

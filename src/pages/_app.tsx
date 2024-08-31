@@ -1,13 +1,16 @@
 import '@mantine/core/styles.css';
+import './global.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
-import { theme } from '../theme';
 import { Notifications } from '@mantine/notifications';
 
+import { useTheme } from '../theme';
+
 export default function App({ Component, pageProps }: AppProps) {
+  const theme = useTheme();
   return (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} defaultColorScheme="auto">
       <Notifications position="top-right" />
       <Head>
         <title>kartvya</title>

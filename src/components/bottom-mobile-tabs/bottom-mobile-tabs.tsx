@@ -1,10 +1,10 @@
 import { Tabs, Text } from '@mantine/core';
 import {
-  IconUsers,
   IconMessageDots,
   IconBuildingBank,
   IconAffiliate,
   IconUserScan,
+  IconBinoculars,
 } from '@tabler/icons-react';
 import classes from './bottom-mobile-tabs.module.css';
 
@@ -34,6 +34,10 @@ export function BottomMobileTabs() {
         <Tabs.Tab value="collaborate" ta="center">
           <IconAffiliate size={18} />
           <Text fz="xs">Collaborate</Text>
+        </Tabs.Tab>
+        <Tabs.Tab value="explore" ta="center">
+          <IconBinoculars size={18} />
+          <Text fz="xs">Explore</Text>
         </Tabs.Tab>
         <Tabs.Tab value="profile" ta="center">
           <IconUserScan size={18} />

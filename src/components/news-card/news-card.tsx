@@ -20,7 +20,7 @@ export function NewsCard({ newsData }: NewsCardProps) {
     { title: capitalize(government_level), href: '#' },
     { title: 'Ministry of Health & Family Welfare', href: '#' },
   ].map((item, index) => (
-    <Anchor href={item.href} key={index} fz="xs">
+    <Anchor href={item.href} key={index} fz="xs" c="indigo">
       {item.title}
     </Anchor>
   ));

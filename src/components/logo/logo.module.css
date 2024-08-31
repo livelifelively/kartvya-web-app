@@ -5,7 +5,7 @@
 }
 
 .logoText {
-  color: var(--mantine-color-brandBlue-5);
+  color: light-dark(var(--mantine-color-brandBlue-5), var(--mantine-color-brandYellow-filled));
   font-family: 'Quicksand';
   font-weight: 700;
 }

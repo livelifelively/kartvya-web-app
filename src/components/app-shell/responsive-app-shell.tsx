@@ -16,7 +16,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
       header={{ height: { base: 50, md: 60, lg: 70 } }}
       navbar={{
         width: { base: 200, md: 250, lg: 300 },
-        breakpoint: 'sm',
+        breakpoint: 'md',
         collapsed: { mobile: !opened },
       }}
       footer={{ height: { base: 60, md: 0 } }}
@@ -36,7 +36,20 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
             <Skeleton key={index} h={28} mt="sm" animate={false} />
           ))}
       </AppShell.Navbar>
-      <AppShell.Main>
+      <AppShell.Main
+        ps={{
+          base: '0rem',
+          xs: '0rem',
+          sm: '0rem',
+          md: 'calc(var(--app-shell-navbar-offset, 0rem) + var(--app-shell-padding))',
+        }}
+        pe={{
+          base: '0rem',
+          xs: '0rem',
+          sm: '0rem',
+          md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
+        }}
+      >
         <Container size="sm" px={0}>
           {children}
         </Container>

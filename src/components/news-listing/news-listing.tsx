@@ -110,7 +110,7 @@ export function NewsListing() {
   return (
     <>
       {newsListingData.map((news: any) => (
-        <Box mb="md">
+        <Box mb="xs">
           <NewsCard newsData={news} key={news.id} />
         </Box>
       ))}
