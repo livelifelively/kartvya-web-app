@@ -1,5 +1,5 @@
-import { About } from '@/components/about/about';
 import { IconUsers, IconScale, IconBuildingBank } from '@tabler/icons-react';
+import { About } from '@/components/about/about';
 
 const featuresData = [
   {

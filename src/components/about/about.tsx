@@ -9,7 +9,7 @@ import {
   Button,
   useMantineTheme,
 } from '@mantine/core';
-import { IconUsers, IconScale, IconBuildingBank } from '@tabler/icons-react';
+// import { IconUsers, IconScale, IconBuildingBank } from '@tabler/icons-react';
 import { NoSideBarsAppShell } from '@/components/app-shell/no-sidebars-app-shell';
 import classes from './about.module.css';
 
