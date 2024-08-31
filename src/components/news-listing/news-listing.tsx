@@ -110,8 +110,8 @@ export function NewsListing() {
   return (
     <>
       {newsListingData.map((news: any) => (
-        <Box mb="xs">
-          <NewsCard newsData={news} key={news.id} />
+        <Box mb="xs" key={news.id}>
+          <NewsCard newsData={news} />
         </Box>
       ))}
     </>
