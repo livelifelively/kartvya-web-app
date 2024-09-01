@@ -1,13 +1,7 @@
 import { Text, Avatar, Group, Paper, Box, ActionIcon, Flex } from '@mantine/core';
-import {
-  IconArrowBigDownLine,
-  IconArrowBigUpLine,
-  IconBookmark,
-  IconMessageDots,
-  IconMessageReply,
-  IconShare3,
-} from '@tabler/icons-react';
+import { IconBookmark, IconMessageDots, IconShare3 } from '@tabler/icons-react';
 import classes from './expression.module.css';
+import SupportOpposeButtons from '../support-oppose/support-oppose';
 
 export function Expression() {
   return (
@@ -40,25 +34,7 @@ export function Expression() {
           direction="row"
           wrap="nowrap"
         >
-          <Flex>
-            <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-              <ActionIcon variant="transparent" radius="md" size={32}>
-                <IconArrowBigUpLine className={classes.like} stroke={1.2} />
-              </ActionIcon>
-              <Text ta="center" fz="xs">
-                47k
-              </Text>
-            </Flex>
-
-            <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-              <ActionIcon variant="transparent" radius="md" size={32}>
-                <IconArrowBigDownLine className={classes.like} stroke={1.2} />
-              </ActionIcon>
-              <Text ta="center" fz="xs">
-                7k
-              </Text>
-            </Flex>
-          </Flex>
+          <SupportOpposeButtons initialSupportCount={34949} initialOpposeCount={896} />
 
           <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
             <ActionIcon variant="transparent" radius="md" size={32}>
