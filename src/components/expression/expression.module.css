@@ -1,10 +1,10 @@
-.comment {
-  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+.expression {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-sm);
 }
 
 .body {
-  padding-left: rem(54px);
-  padding-top: var(--mantine-spacing-sm);
+  padding-left: rem(50px);
+  padding-top: var(--mantine-spacing-xs);
   /* font-size: var(--mantine-font-size-sm); */
   font-size: rem(15px);
 }

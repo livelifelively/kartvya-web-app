@@ -1,5 +1,5 @@
 // import { IconHeart } from '@tabler/icons-react';
-import { Card, Text, Group, Anchor, Breadcrumbs } from '@mantine/core';
+import { Card, Text, Group, Anchor, Breadcrumbs, rem } from '@mantine/core';
 import { capitalize } from 'lodash';
 import classes from './news-card.module.css';
 
@@ -50,7 +50,7 @@ export function NewsCard({ newsData }: NewsCardProps) {
         <Text fz="xs" mt="xs">
           {`${location.name}, ${date}`}
         </Text>
-        <Text fz="sm" mt="xs">
+        <Text fz={rem('15px')} mt="xs">
           {description}
         </Text>
       </Card.Section>
@@ -63,15 +63,6 @@ export function NewsCard({ newsData }: NewsCardProps) {
           Question hour
         </Group>
       </Card.Section>
-
-      {/* <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
-          Show details
-        </Button>
-        <ActionIcon variant="default" radius="md" size={36}>
-          <IconHeart className={classes.like} stroke={1.5} />
-        </ActionIcon>
-      </Group> */}
     </Card>
   );
 }
