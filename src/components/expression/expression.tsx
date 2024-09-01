@@ -3,6 +3,7 @@ import {
   IconArrowBigDownLine,
   IconArrowBigUpLine,
   IconBookmark,
+  IconMessageDots,
   IconMessageReply,
   IconShare3,
 } from '@tabler/icons-react';
@@ -31,8 +32,15 @@ export function Expression() {
           I use Heroku to host my Node.js application, but MongoDB add-on appears to be too test te
           expensive. I consider switching to Digital Ocean VPS to save some cash.
         </Text>
-        <Group mt="md" pt="xs" style={{ borderTop: '1px solid #e5e5e5' }} justify="space-between">
-          <Group>
+        <Flex
+          mt="md"
+          pt="xs"
+          style={{ borderTop: '1px solid #e5e5e5' }}
+          justify="space-between"
+          direction="row"
+          wrap="nowrap"
+        >
+          <Flex>
             <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
               <ActionIcon variant="transparent" radius="md" size={32}>
                 <IconArrowBigUpLine className={classes.like} stroke={1.2} />
@@ -50,11 +58,11 @@ export function Expression() {
                 7k
               </Text>
             </Flex>
-          </Group>
+          </Flex>
 
           <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
             <ActionIcon variant="transparent" radius="md" size={32}>
-              <IconMessageReply className={classes.like} stroke={1.2} />
+              <IconMessageDots className={classes.like} stroke={1.2} />
             </ActionIcon>
             <Text ta="center" fz="xs">
               456
@@ -78,7 +86,7 @@ export function Expression() {
               1.4k
             </Text>
           </Flex>
-        </Group>
+        </Flex>
       </Box>
     </Paper>
   );
