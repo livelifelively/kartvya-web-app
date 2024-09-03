@@ -100,7 +100,9 @@ const LoginForm = ({ providers }: any) => {
       <LoadingOverlay visible={visible} overlayProps={{ blur: 1 }} />
       {providers && providers.linkedin && (
         <LinkedinButton
-          onClick={() => signIn(providers.linkedin.id, { callbackUrl: '/know', redirect: true })}
+          onClick={() =>
+            signIn(providers.linkedin.id, { callbackUrl: '/citizen/know', redirect: true })
+          }
           mb={10}
         />
       )}

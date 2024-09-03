@@ -107,7 +107,7 @@ export default NextAuth({
   pages: {
     signIn: '/auth/login',
     signOut: '/auth/login',
-    newUser: '/know',
+    newUser: '/citizen/know',
   },
   debug: true,
 } as NextAuthOptions);
