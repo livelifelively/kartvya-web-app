@@ -69,6 +69,7 @@ export default NextAuth({
     jwt: async ({ token, user, trigger }) => {
       if (user) {
         token.id = user.id;
+        // token.accessToken
       }
 
       switch (trigger) {
@@ -105,6 +106,7 @@ export default NextAuth({
   },
   pages: {
     signIn: '/auth/login',
+    signOut: '/auth/login',
     newUser: '/know',
   },
   debug: true,

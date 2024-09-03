@@ -13,13 +13,14 @@ import {
   useMantineTheme,
   Text,
 } from '@mantine/core';
-import { getCsrfToken, getProviders, useSession, signIn } from 'next-auth/react';
+import { getCsrfToken, getProviders, useSession, signIn, signOut } from 'next-auth/react';
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { useRouter } from 'next/router';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import AuthShell from '@/components/app-shell/auth-shell';
 import { LinkedinButton } from '@/components/social-buttons/social-buttons';
 import Logo from '@/components/logo/logo';
+import { SignedInUser } from '@/components/auth/signed-in-user';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const providers = await getProviders();
@@ -55,7 +56,7 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
             <Logo size="h1" />
           </Title>
 
-          {/* {/* {session && <SignedInUser session={session} signOut={signOut} router={router} />} */}
+          {session && <SignedInUser session={session} signOut={signOut} />}
 
           {!session && <LoginForm providers={providers} csrfToken={csrfToken} router={router} />}
           <Divider labelPosition="center" mt="xl" mb="xs" />
@@ -65,7 +66,7 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
                 router.push('/about');
               }}
               size="xs"
-              c={colorScheme === 'dark' ? 'brandYellow.6' : 'brandBlue.6'}
+              // c={colorScheme === 'dark' ? 'brandYellow.6' : 'brandBlue.6'}
             >
               {`About Us`}
             </Anchor>

@@ -246,8 +246,8 @@ export function DgraphAdapter(client: DgraphClientParams, options?: DgraphAdapte
             }
           `,
           {
-            accountIds: user.accounts.map((x) => x.id),
-            sessionTokens: user.sessions.map((x) => x.sessionToken),
+            accountIds: user.accounts.map((x: any) => x.id),
+            sessionTokens: user.sessions.map((x: any) => x.sessionToken),
           }
         );
       }
