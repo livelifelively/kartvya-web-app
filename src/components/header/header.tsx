@@ -25,7 +25,11 @@ export function Header({ navbarControls }: HeaderProps) {
       </Group>
       <Group>
         {session && (
-          <Button variant="default" size="xs" onClick={() => signOut()}>
+          <Button
+            variant="default"
+            size="xs"
+            onClick={() => signOut({ callbackUrl: '/auth/login' })}
+          >
             Logout
           </Button>
         )}
