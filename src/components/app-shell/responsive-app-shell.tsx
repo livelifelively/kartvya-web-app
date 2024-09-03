@@ -1,8 +1,9 @@
-import { AppShell, Burger, Container, Group, Skeleton } from '@mantine/core';
+import { AppShell, Container, MantineSize, Skeleton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ReactNode } from 'react';
-import { Logo } from '../logo/logo';
+
 import { BottomMobileTabs } from '../bottom-mobile-tabs/bottom-mobile-tabs';
+import { Header } from '../header/header';
 
 interface ResponsiveAppShellProps {
   children: ReactNode;
@@ -10,23 +11,27 @@ interface ResponsiveAppShellProps {
 
 export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
   const [opened, { toggle }] = useDisclosure();
+  const navbarHiddenFrom: MantineSize = 'md';
 
   return (
     <AppShell
       header={{ height: { base: 50, md: 60, lg: 70 } }}
       navbar={{
         width: { base: 200, md: 250, lg: 300 },
-        breakpoint: 'md',
+        breakpoint: navbarHiddenFrom,
         collapsed: { mobile: !opened },
       }}
       footer={{ height: { base: 60, md: 0 } }}
       padding="md"
     >
-      <AppShell.Header>
+      {/* <AppShell.Header>
         <Group h="100%" px="sm" gap="xs">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Logo size={25} />
         </Group>
+      </AppShell.Header> */}
+      <AppShell.Header>
+        <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
       </AppShell.Header>
       <AppShell.Navbar p="sm" withBorder={false}>
         Navbar

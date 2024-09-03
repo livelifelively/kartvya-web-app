@@ -1,0 +1,15 @@
+.user {
+  display: block;
+  width: 100%;
+  padding: var(--mantine-spacing-md);
+  /* color: var(--color-text); */
+  /* background-color: var(--background-color); */
+  /* border-radius: var(--radius-md); */
+  border: 1px solid var(--mantine-primary-color-filled);
+  margin-bottom: var(--mantine-spacing-md);
+
+  &:hover {
+    background-color: var(--hover-background-color);
+    text-decoration: none;
+  }
+}
