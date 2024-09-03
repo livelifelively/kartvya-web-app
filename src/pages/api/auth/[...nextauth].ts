@@ -47,7 +47,9 @@ export default NextAuth({
           name: profile.name,
           email: profile.email,
           image: profile.picture,
-          emailVerified: profile.email_verified === 'true' ? new Date().toISOString() : null,
+          issuer: profile.iss,
+          email_verified: profile.email_verified,
+          // emailVerified: profile.email_verified === 'true' ? new Date().toISOString() : null,
         };
 
         return toSave;
