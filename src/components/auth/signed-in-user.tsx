@@ -13,7 +13,7 @@ export const SignedInUser = ({ session, signOut }: SignedInUserProps) => (
     <Text size="sm" fw={700} ta="center" mb={10}>
       Continue as
     </Text>
-    <Anchor<'a'> className={classes.user} href="/know">
+    <Anchor<'a'> className={classes.user} href="/citizen/know">
       <Group style={{}}>
         <Avatar src={session.user?.image} radius="xl" />
         <Box style={{ flex: 1 }}>

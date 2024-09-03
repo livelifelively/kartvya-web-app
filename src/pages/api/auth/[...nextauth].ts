@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 
 // Initialize AWS Secrets Manager client
 const secretsManager = new AWS.SecretsManager({
-  region: process.env.AWS_REGION,
+  region: process.env.REGION_AWS,
 });
 
 const getSecretValue = async (SecretId: string): Promise<string> => {
