@@ -36,7 +36,7 @@ export function About({ featuresData }: AboutProps) {
     <NoSideBarsAppShell title="About Us - Kartvya">
       <Container size={700} className={classes.inner}>
         <h1 className={classes.title}>
-          Geo-enabled digital platform for{' '}
+          Geo-enabled knowledge and social graph for{' '}
           <Text component="span" variant="text" color="brandBlue" inherit>
             Citizen Collaboration
           </Text>
@@ -53,7 +53,11 @@ export function About({ featuresData }: AboutProps) {
         </Group>
       </Container>
       <Container>
-        <SimpleGrid cols={3} spacing="xl" mt={50}>
+        <SimpleGrid
+          cols={{ base: 1, sm: 3 }}
+          spacing={{ base: 'sm', md: 'xl' }}
+          mt={{ base: 30, md: 50 }}
+        >
           {features}
         </SimpleGrid>
       </Container>
