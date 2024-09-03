@@ -1,6 +1,6 @@
 import '@mantine/core/styles.css';
 import './global.css';
-import type { AppProps } from 'next/app';
+// import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
@@ -8,7 +8,7 @@ import { Notifications } from '@mantine/notifications';
 import { SessionProvider } from 'next-auth/react';
 import { useTheme } from '../theme';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   const theme = useTheme();
   return (
     <SessionProvider>
