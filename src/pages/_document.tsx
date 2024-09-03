@@ -32,7 +32,7 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&family=Poppins&display=swap"
           rel="stylesheet"
-        ></link>
+        />
         <ColorSchemeScript />
       </Head>
       <body>
