@@ -3,33 +3,10 @@ import type { Adapter } from 'next-auth/adapters';
 
 // import Providers from 'next-auth/providers';
 import LinkedInProvider, { LinkedInProfile } from 'next-auth/providers/linkedin';
-import AWS from 'aws-sdk';
 import { DgraphAdapter } from '@/be-components/dgraph-next-auth-adapter';
 // import { DgraphAdapter } from '@auth/dgraph-adapter';
 
 const jwt = require('jsonwebtoken');
-
-// Initialize AWS Secrets Manager client
-const secretsManager = new AWS.SecretsManager({
-  region: process.env.REGION_AWS,
-});
-
-const getSecretValue = async (SecretId: string): Promise<string> => {
-  try {
-    const secret = await secretsManager.getSecretValue({ SecretId }).promise();
-    return secret.SecretString || '';
-  } catch (error) {
-    console.error(`Error retrieving secret ${SecretId}:`, error);
-    throw new Error(`Failed to retrieve secret ${SecretId}`);
-  }
-};
-
-// Load RSA keys from AWS Secrets Manager
-const loadKeys = async () => {
-  const privateKey = await getSecretValue(process.env.PRIVATE_KEY_SECRET_ID || '');
-  const publicKey = await getSecretValue(process.env.PUBLIC_KEY_SECRET_ID || '');
-  return { privateKey, publicKey };
-};
 
 export default NextAuth({
   providers: [
@@ -96,12 +73,12 @@ export default NextAuth({
   jwt: {
     // Load keys asynchronously
     async encode({ token }) {
-      const { publicKey } = await loadKeys();
-      return jwt.sign(token, publicKey, { algorithm: 'HS256' });
+      const key = process.env.VERIFICATION_KEY || '';
+      return jwt.sign(token, key, { algorithm: 'HS256' });
     },
     async decode({ token }) {
-      const { publicKey } = await loadKeys();
-      return jwt.verify(token, publicKey, { algorithms: ['HS256'] });
+      const key = process.env.VERIFICATION_KEY || '';
+      return jwt.verify(token, key, { algorithms: ['HS256'] });
     },
   },
   session: {

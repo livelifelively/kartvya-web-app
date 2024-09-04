@@ -1,11 +1,6 @@
-# Mantine Next.js template
+# Kartvya Web Application
 
-This is a template for [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/).
-If you want to use app router instead, see [next-app-template](https://github.com/mantinedev/next-app-template).
-
-## Features
-
-This template comes with the following features:
+Application uses the [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/) from [next-app-template](https://github.com/mantinedev/next-app-template). It makes use of following techs
 
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -36,3 +31,12 @@ This template comes with the following features:
 - `storybook` – starts storybook dev server
 - `storybook:build` – build production storybook bundle to `storybook-static`
 - `prettier:write` – formats all files with Prettier
+
+## Deployment
+
+### Amplify:
+
+Amplify picks up commits to the master branch and automatically deployed.
+environment variables are saved on the Amplify
+But to use them need to update amplify.yml in `https://<region>.console.aws.amazon.com/amplify/apps/<application_id>/build`
+the file's copy is being maintained in amplify.yml.
