@@ -2,7 +2,7 @@ import { ResponsiveAppShell } from '@/components/app-shell';
 import { ExpressionListing } from '@/components/expression-listing/expression-listing';
 // import { SubjectBadges } from '@/components/subject-badges/subject-badges';
 
-export default function ExpressPage() {
+function ExpressPage() {
   return (
     <>
       <ResponsiveAppShell>
@@ -12,3 +12,7 @@ export default function ExpressPage() {
     </>
   );
 }
+
+ExpressPage.auth = true;
+
+export default ExpressPage;

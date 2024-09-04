@@ -36,4 +36,6 @@ function LevelsPage() {
   return <Levels featuresData={featuresData} />;
 }
 
+LevelsPage.auth = false;
+
 export default LevelsPage;
