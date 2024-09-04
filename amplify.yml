@@ -1,0 +1,25 @@
+# environment variables are not directly accessible in the amplify build environment
+# need to update a file with all the environment variables
+# this will create a .env.production from the environment variables
+
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - env | grep -e AUTH_DGRAPH_GRAPHQL_ENDPOINT -e AUTH_DGRAPH_GRAPHQL_KEY -e AUTH_HEADER >> .env.production
+        - env | grep -e LINKEDIN_AUTH_CLIENT_ID -e LINKEDIN_AUTH_SECRET -e DGRAPH_NAMESPACE >> .env.production
+        - env | grep -e NEXTAUTH_SECRET -e PRIVATE_KEY_SECRET_ID -e PUBLIC_KEY_SECRET_ID >> .env.production
+        - env | grep -e NEXTAUTH_URL >> .env.production
+        - yarn install
+    build:
+      commands:
+        - yarn run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - node_modules/**/*
