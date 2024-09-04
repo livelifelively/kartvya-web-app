@@ -8,7 +8,6 @@ import {
   Title,
   Divider,
   Box,
-  useMantineColorScheme,
   LoadingOverlay,
   useMantineTheme,
   Text,
@@ -38,7 +37,6 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
   const { data: session } = useSession();
   const theme = useMantineTheme();
 
-  const { colorScheme } = useMantineColorScheme();
   const router = useRouter();
 
   const isMobileOrSmaller = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
@@ -94,6 +92,7 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
 
 const LoginForm = ({ providers }: any) => {
   const [visible] = useDisclosure(false);
+  const theme = useMantineTheme();
 
   return (
     <Box pos={'relative'}>
@@ -104,10 +103,13 @@ const LoginForm = ({ providers }: any) => {
             signIn(providers.linkedin.id, { callbackUrl: '/citizen/know', redirect: true })
           }
           mb={10}
+          c={theme.white}
         />
       )}
     </Box>
   );
 };
+
+Login.auth = false;
 
 export default Login;
