@@ -105,9 +105,9 @@ export default NextAuth({
     strategy: 'jwt',
   },
   pages: {
-    signIn: '/auth/login',
-    signOut: '/auth/login',
+    signIn: '/auth',
+    signOut: '/auth',
     newUser: '/citizen/know',
   },
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
 } as NextAuthOptions);
