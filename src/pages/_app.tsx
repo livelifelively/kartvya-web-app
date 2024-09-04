@@ -7,11 +7,18 @@ import { Notifications } from '@mantine/notifications';
 
 import { SessionProvider } from 'next-auth/react';
 import { useTheme } from '../theme';
+import AuthPageWrapper from '@/components/auth/auth-page-wrapper';
 
-export default function App({ Component, pageProps }: { Component: any; pageProps: any }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: {
+  Component: any;
+  pageProps: any;
+}) {
   const theme = useTheme();
   return (
-    <SessionProvider>
+    <SessionProvider session={session}>
       <MantineProvider theme={theme} defaultColorScheme="auto">
         <Notifications position="top-right" />
         <Head>
@@ -22,7 +29,13 @@ export default function App({ Component, pageProps }: { Component: any; pageProp
           />
           <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
-        <Component {...pageProps} />
+        {Component.auth ? (
+          <AuthPageWrapper>
+            <Component {...pageProps} />
+          </AuthPageWrapper>
+        ) : (
+          <Component {...pageProps} />
+        )}
       </MantineProvider>
     </SessionProvider>
   );
