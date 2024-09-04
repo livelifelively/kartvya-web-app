@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, ActionIcon, Text } from '@mantine/core';
 import {
   IconArrowBigUpLine,
@@ -32,10 +32,24 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
   const [opposeCount, setOpposeCount] = useState<number>(initialOpposeCount);
   const [userAction, setUserAction] = useState<'support' | 'oppose' | null>(null);
 
-  const handleSupportClick = () => {
+  useEffect(() => {
+    // const fetchInitialCounts = async () => {
+    //   try {
+    //     const response = await axios.get('/api/initial-counts');
+    //     setSupportCount(response.data.supportCount);
+    //     setOpposeCount(response.data.opposeCount);
+    //   } catch (error) {
+    //     console.error('Error fetching initial counts:', error);
+    //   }
+    // };
+    // fetchInitialCounts();
+  }, []);
+
+  const handleSupportClick = async () => {
     if (userAction === 'support') {
       setSupportCount(supportCount - 1); // Revert support count
       setUserAction(null); // Reset user action
+      await updateCountsOnServer(supportCount - 1, opposeCount);
       return;
     }
     if (userAction === 'oppose') {
@@ -43,12 +57,14 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
     }
     setSupportCount(supportCount + 1);
     setUserAction('support');
+    await updateCountsOnServer(supportCount + 1, opposeCount);
   };
 
-  const handleOpposeClick = () => {
+  const handleOpposeClick = async () => {
     if (userAction === 'oppose') {
       setOpposeCount(opposeCount - 1); // Revert oppose count
       setUserAction(null); // Reset user action
+      await updateCountsOnServer(supportCount, opposeCount - 1);
       return;
     }
     if (userAction === 'support') {
@@ -56,6 +72,18 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
     }
     setOpposeCount(opposeCount + 1);
     setUserAction('oppose');
+    await updateCountsOnServer(supportCount, opposeCount + 1);
+  };
+
+  const updateCountsOnServer = async (newSupportCount: number, newOpposeCount: number) => {
+    // try {
+    //   await axios.post('/api/update-counts', {
+    //     supportCount: newSupportCount,
+    //     opposeCount: newOpposeCount,
+    //   });
+    // } catch (error) {
+    //   console.error('Error updating counts on server:', error);
+    // }
   };
 
   return (

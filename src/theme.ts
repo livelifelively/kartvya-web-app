@@ -1,4 +1,4 @@
-import { createTheme, MantineColorsTuple } from '@mantine/core';
+import { createTheme, CSSVariablesResolver, MantineColorsTuple } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 
 const brandBlue: MantineColorsTuple = [
@@ -55,3 +55,16 @@ export function useTheme() {
       'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
   });
 }
+
+export const resolver: CSSVariablesResolver = () => ({
+  variables: {
+    // '--mantine-hero-height': theme.other.heroHeight,
+    // '--app-shell-header-offset': '30rem',
+  },
+  light: {
+    // '--mantine-color-deep-orange': theme.other.deepOrangeLight,
+  },
+  dark: {
+    // '--mantine-color-deep-orange': theme.other.deepOrangeDark,
+  },
+});
