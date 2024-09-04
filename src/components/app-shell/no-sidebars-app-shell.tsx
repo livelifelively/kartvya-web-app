@@ -26,7 +26,7 @@ export function NoSideBarsAppShell({
         <AppShell
           layout="alt"
           header={{ height: { base: 50, md: 60, lg: 70 }, offset: true }}
-          footer={{ height: { base: 60, md: 0 }, offset: true }}
+          footer={{ height: { base: 60 }, offset: true }}
         >
           <AppShell.Header>
             <Header />
