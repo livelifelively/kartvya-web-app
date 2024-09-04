@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import { AppShell, Container, Group, rem } from '@mantine/core';
-import { Logo } from '../logo/logo';
+import { AppShell, Container, rem } from '@mantine/core';
 
 /* eslint-disable-next-line */
 export interface AuthShellProps {
@@ -21,12 +20,12 @@ export function AuthShell({ children, title = 'Welcome to Kartvya' }: AuthShellP
       </Head>
       <main className="app">
         <AppShell layout="alt" header={{ height: { base: 50, md: 60, lg: 70 }, offset: true }}>
-          <AppShell.Header>
+          {/* <AppShell.Header>
             <Group h="100%" px="sm" gap="xs">
-              {/* <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" /> */}
+              <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
               <Logo size={25} />
             </Group>
-          </AppShell.Header>
+          </AppShell.Header> */}
           <AppShell.Main
             ps={{
               base: '0rem',
