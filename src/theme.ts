@@ -51,6 +51,7 @@ export function useTheme() {
     },
     primaryColor: colorScheme === 'light' ? 'brandBlue' : 'brandYellow',
     primaryShade: 6,
+    autoContrast: true,
     fontFamily:
       'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
   });
