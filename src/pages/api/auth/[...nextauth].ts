@@ -37,7 +37,10 @@ export default NextAuth({
       clientId: process.env.LINKEDIN_AUTH_CLIENT_ID as string,
       clientSecret: process.env.LINKEDIN_AUTH_SECRET as string,
       authorization: {
-        params: { scope: 'openid profile email' },
+        params: {
+          scope: 'openid profile email',
+          redirect_uri: `${process.env.NEXTAUTH_URL}/callback/linkedin`,
+        },
       },
       client: { token_endpoint_auth_method: 'client_secret_post' },
       issuer: 'https://www.linkedin.com',
