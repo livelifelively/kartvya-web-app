@@ -58,11 +58,16 @@
   border: 1px solid var(--mantine-color-card-border); /* Assuming you have CSS variables for rem(1) and the border color */
 }
 
+.cardIcon {
+  color: var(--mantine-primary-color-filled);
+}
+
 .cardTitle {
   &::after {
     content: '';
     display: block;
-    background-color: var(--mantine-color-yellow-8);
+    /* background-color: var(--mantine-color-yellow-8); */
+    background-color: var(--mantine-primary-color-filled);
     width: rem(45);
     height: rem(2);
     margin-top: var(--mantine-spacing-sm);

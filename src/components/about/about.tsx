@@ -22,13 +22,11 @@ export function About({ featuresData }: AboutProps) {
 
   const features = featuresData.map((feature: any) => (
     <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
-      <feature.icon size={rem(50)} stroke={2} color={theme.colors.yellow[8]} />
-      <Title order={2} fz="lg" fw={600} className={classes.cardTitle} mt="md">
+      <feature.icon size={rem(50)} stroke={2} className={classes.cardIcon} />
+      <Title order={2} fz="xl" fw={600} className={classes.cardTitle} mt="md">
         {feature.title}
       </Title>
-      <Text fz="sm" mt="sm">
-        {feature.description}
-      </Text>
+      <Text mt="sm">{feature.description}</Text>
     </Card>
   ));
 
@@ -37,7 +35,7 @@ export function About({ featuresData }: AboutProps) {
       <Container size={700} className={classes.inner}>
         <h1 className={classes.title}>
           Geo-enabled knowledge and social graph for{' '}
-          <Text component="span" variant="text" color="brandBlue" inherit>
+          <Text component="span" variant="text" c={theme.primaryColor} inherit>
             Citizen Collaboration
           </Text>
         </h1>
@@ -54,7 +52,7 @@ export function About({ featuresData }: AboutProps) {
       </Container>
       <Container>
         <SimpleGrid
-          cols={{ base: 1, sm: 3 }}
+          cols={{ base: 1, sm: 2 }}
           spacing={{ base: 'sm', md: 'xl' }}
           mt={{ base: 30, md: 50 }}
         >
