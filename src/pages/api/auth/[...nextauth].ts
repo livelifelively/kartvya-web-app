@@ -24,6 +24,8 @@ const getSecretValue = async (SecretId: string): Promise<string> => {
   }
 };
 
+console.log('process.env', process.env);
+
 // Load RSA keys from AWS Secrets Manager
 const loadKeys = async () => {
   const privateKey = await getSecretValue(process.env.PRIVATE_KEY_SECRET_ID || '');
