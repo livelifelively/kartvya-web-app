@@ -1,6 +1,6 @@
 .inner {
   position: relative;
-  padding-top: rem(40);
+  padding-top: rem(20);
   padding-bottom: rem(30);
 
   @media (max-width: $mantine-breakpoint-sm) {
@@ -25,7 +25,7 @@
 }
 
 .description {
-  margin-top: var(--mantine-spacing-xl);
+  margin-top: var(--mantine-spacing-lg);
   font-size: rem(24);
 
   @media (max-width: $mantine-breakpoint-sm) {
@@ -34,7 +34,7 @@
 }
 
 .controls {
-  margin-top: calc(var(--mantine-spacing-xl) * 2);
+  margin-top: var(--mantine-spacing-xl);
 
   @media (max-width: $mantine-breakpoint-sm) {
     margin-top: var(--mantine-spacing-xl);
