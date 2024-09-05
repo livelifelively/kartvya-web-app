@@ -63,6 +63,8 @@ export function GithubButton(props: any) {
 }
 
 export function LinkedinButton(props: any) {
+  const { text = 'Continue with Linkedin', otherProps } = props;
+
   return (
     <Button
       leftSection={<IconBrandLinkedin size={30} color="#fff" />}
@@ -75,9 +77,29 @@ export function LinkedinButton(props: any) {
         },
       }}
       fullWidth
-      {...props}
+      {...otherProps}
+      c="#fff"
     >
-      Continue with Linkedin
+      {text}
     </Button>
   );
+
+  // return (
+  //   <Button
+  //     leftSection={<IconBrandLinkedin size={30} />}
+  //     // variant=""
+  //     // // styles={{
+  //     // //   root: {
+  //     // //     backgroundColor: '#0077b5',
+  //     // //     '&:not([dataDisabled]):hover': {
+  //     // //       backgroundColor: darken('#0077b5', 0.1),
+  //     // //     },
+  //     // //   },
+  //     // // }}
+  //     fullWidth
+  //     {...otherProps}
+  //   >
+  //     {text}
+  //   </Button>
+  // );
 }

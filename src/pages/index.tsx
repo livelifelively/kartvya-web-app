@@ -1,18 +1,9 @@
-import { ResponsiveAppShell } from '@/components/app-shell';
-import { NewsListing } from '@/components/news-listing/news-listing';
-// import { SubjectBadges } from '@/components/subject-badges/subject-badges';
+import { About } from '@/components/about/about';
 
-function HomePage() {
-  return (
-    <>
-      <ResponsiveAppShell>
-        {/* <SubjectBadges /> */}
-        <NewsListing />
-      </ResponsiveAppShell>
-    </>
-  );
+function AboutPage() {
+  return <About />;
 }
 
-HomePage.auth = true;
+AboutPage.auth = false;
 
-export default HomePage;
+export default AboutPage;

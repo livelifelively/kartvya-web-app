@@ -92,7 +92,7 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
 
 const LoginForm = ({ providers }: any) => {
   const [visible] = useDisclosure(false);
-  const theme = useMantineTheme();
+  // const theme = useMantineTheme();
 
   return (
     <Box pos={'relative'}>
@@ -103,7 +103,7 @@ const LoginForm = ({ providers }: any) => {
             signIn(providers.linkedin.id, { callbackUrl: '/citizen/know', redirect: true })
           }
           mb={10}
-          c={theme.white}
+          text={'Continue with LinkedIn'}
         />
       )}
     </Box>
