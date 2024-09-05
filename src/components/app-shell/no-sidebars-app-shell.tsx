@@ -9,6 +9,7 @@ import { Header } from '../header/header';
 export interface NoSideBarsAppShellProps {
   children: React.ReactNode;
   title: string;
+  showFooter?: boolean;
   // footerType?: any;
   // error?: boolean;
 }
@@ -16,6 +17,7 @@ export interface NoSideBarsAppShellProps {
 export function NoSideBarsAppShell({
   children,
   title = 'Welcome to Kartvya!',
+  showFooter,
 }: NoSideBarsAppShellProps) {
   return (
     <>
@@ -49,9 +51,11 @@ export function NoSideBarsAppShell({
               {children}
             </Container>
           </AppShell.Main>
-          <AppShell.Footer p="none">
-            <BottomMobileTabs />
-          </AppShell.Footer>
+          {showFooter && (
+            <AppShell.Footer p="none">
+              <BottomMobileTabs />
+            </AppShell.Footer>
+          )}
         </AppShell>
       </main>
     </>

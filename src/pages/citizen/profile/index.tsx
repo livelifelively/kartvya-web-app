@@ -4,12 +4,10 @@ import { NewsListing } from '@/components/news-listing/news-listing';
 
 function ProfilePage() {
   return (
-    <>
-      <ResponsiveAppShell>
-        {/* <SubjectBadges /> */}
-        <NewsListing />
-      </ResponsiveAppShell>
-    </>
+    <ResponsiveAppShell>
+      {/* <SubjectBadges /> */}
+      <NewsListing />
+    </ResponsiveAppShell>
   );
 }
 

@@ -4,12 +4,10 @@ import { NewsListing } from '@/components/news-listing/news-listing';
 
 function CollaboratePage() {
   return (
-    <>
-      <ResponsiveAppShell>
-        {/* <SubjectBadges /> */}
-        <NewsListing />
-      </ResponsiveAppShell>
-    </>
+    <ResponsiveAppShell>
+      {/* <SubjectBadges /> */}
+      <NewsListing />
+    </ResponsiveAppShell>
   );
 }
 

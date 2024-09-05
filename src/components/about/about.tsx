@@ -60,7 +60,7 @@ export function About() {
   ));
 
   return (
-    <NoSideBarsAppShell title="About Us - Kartvya">
+    <>
       <Container className={classes.inner}>
         <h1 className={classes.title}>
           Geo-enabled knowledge graph and social network for{' '}
@@ -110,6 +110,6 @@ export function About() {
           {features}
         </SimpleGrid>
       </Container>
-    </NoSideBarsAppShell>
+    </>
   );
 }

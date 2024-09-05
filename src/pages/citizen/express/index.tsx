@@ -4,12 +4,10 @@ import { ExpressionListing } from '@/components/expression-listing/expression-li
 
 function ExpressPage() {
   return (
-    <>
-      <ResponsiveAppShell>
-        {/* <SubjectBadges /> */}
-        <ExpressionListing />
-      </ResponsiveAppShell>
-    </>
+    <ResponsiveAppShell>
+      {/* <SubjectBadges /> */}
+      <ExpressionListing />
+    </ResponsiveAppShell>
   );
 }
 
