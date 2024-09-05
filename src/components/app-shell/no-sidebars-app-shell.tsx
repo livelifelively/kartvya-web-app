@@ -47,7 +47,7 @@ export function NoSideBarsAppShell({
               md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
             }}
           >
-            <Container size="lg" px={0} pt={rem('20px')} pb={rem(30)}>
+            <Container fluid px={0} pt={rem('20px')} pb={rem(30)}>
               {children}
             </Container>
           </AppShell.Main>

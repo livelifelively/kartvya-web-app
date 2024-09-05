@@ -12,32 +12,29 @@ import {
 } from '@mantine/core';
 import { IconUsers, IconScale, IconBuildingBank, IconTimeline } from '@tabler/icons-react';
 import { signIn } from 'next-auth/react';
-import { NoSideBarsAppShell } from '@/components/app-shell/no-sidebars-app-shell';
 import classes from './about.module.css';
 
 const featuresData = [
   {
-    title: 'Non-Partisan Institutional Information',
-    description:
-      'Institutions centric information that is beyond political headlines. Enables citizens to focus on governance and social impact.',
+    title: 'Provide Non-Partisan, Institutional Information',
+    description: '',
+    // 'Institutional information beyond the news headlines. Enables citizens to know about policy domains, their governance status and performance metrics.',
     icon: IconScale,
   },
   {
-    title: 'Citizens and Policy Subjects Centric',
-    description:
-      'We empower citizens with actionable citizen centric information on all the government policy subjects like health, defence. We are building systems to enable citizens to collaborate with other citizens, governments and other stakeholders to improve state of living.',
+    title: 'Enable Citizens to connect and collaborate on Public Services and Government Policies',
+    description: '',
     icon: IconUsers,
   },
   {
-    title: 'Know your Governments at All Levels',
-    description:
-      'Know what is happening in your local government, state and national governments. Understand how government organisations work on their own and in collaboration with other departments',
+    title: 'Personalized feed covering Governments at Union, State and Local levels.',
+    description: '',
     icon: IconBuildingBank,
   },
   {
-    title: 'Past, Present and Future',
-    description:
-      'Know performance on different policy subjects as per availability of public data. Timelines to track progress, current status and trends for the future.',
+    title:
+      'Timelined information on Subjects, Administrative Regions, Public Insitutions and Government Officials.',
+    description: '',
     icon: IconTimeline,
   },
 ];
@@ -90,9 +87,11 @@ export function About() {
 
         <Text className={classes.description}>
           Delivers apolitical, institutional and verifiable information on civic subjects. Provides
-          tools for meaningful and impact oriented collaboration among citizens. Aims for being
-          instrumental in bringing greater accountibility, transparency and citizen participation in
-          democratic governance.
+          tools for meaningful and impact oriented networking and collaboration among citizens. Aims
+          for being instrumental in bringing greater accountibility, transparency and citizen
+          participation in democratic governance.
+          {/* Follow civic subjects like health, defence or finance etc., regions where you vote or care
+          about, officials, organisations. Get informed beyond the traditional news headlines. */}
         </Text>
 
         <Group className={classes.controls}>
@@ -101,10 +100,11 @@ export function About() {
           </Button>
         </Group>
       </Container>
-      <Container>
+      <Container fluid mt={20}>
+        <Title ta="center">Our Objectives</Title>
         <SimpleGrid
-          cols={{ base: 1, sm: 2 }}
-          spacing={{ base: 'sm', md: 'xl' }}
+          cols={{ base: 1, sm: 2, md: 4 }}
+          spacing={{ base: 'sm' }}
           mt={{ base: 30, md: 50 }}
         >
           {features}
