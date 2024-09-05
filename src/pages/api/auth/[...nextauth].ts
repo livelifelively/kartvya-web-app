@@ -8,6 +8,10 @@ import { DgraphAdapter } from '@/be-components/dgraph-next-auth-adapter';
 
 const jwt = require('jsonwebtoken');
 
+// #TODO: Read documentation
+// https://authjs.dev/concepts/session-strategies
+// https://datatracker.ietf.org/meeting/105/materials/slides-105-oauth-sessa-json-web-token-jwt-profile-for-oauth-20-access-tokens-02-00
+
 export default NextAuth({
   providers: [
     LinkedInProvider({

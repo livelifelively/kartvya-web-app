@@ -16,7 +16,8 @@ import classes from './about.module.css';
 
 const featuresData = [
   {
-    title: 'Provide Non-Partisan, Institutional Information',
+    title:
+      'Provide Non-Partisan, Institutional Information covering Governments at Union, State and Local levels.',
     description: '',
     // 'Institutional information beyond the news headlines. Enables citizens to know about policy domains, their governance status and performance metrics.',
     icon: IconScale,
@@ -27,7 +28,8 @@ const featuresData = [
     icon: IconUsers,
   },
   {
-    title: 'Personalized feed covering Governments at Union, State and Local levels.',
+    title:
+      'Personalized feed based on your followed subjects, regions, citizens, organisations and officials',
     description: '',
     icon: IconBuildingBank,
   },
@@ -84,6 +86,10 @@ export function About() {
             </Anchor>
           </List.Item>
         </List> */}
+
+        {/* Ladder of citizen participation */}
+        {/* https://www.coventry.gov.uk/downloads/file/36484/arnstein_ladder_of_participation */}
+        {/* https://historyofsocialwork.org/1969_ENG_Ladderofparticipation/1969,%20Arnstein,%20ladder%20of%20participation,%20original%20text%20OCR%20C.pdf */}
 
         <Text className={classes.description}>
           Delivers apolitical, institutional and verifiable information on civic subjects. Provides
