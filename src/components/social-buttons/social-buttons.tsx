@@ -63,7 +63,7 @@ export function GithubButton(props: any) {
 }
 
 export function LinkedinButton(props: any) {
-  const { text = 'Continue with Linkedin', otherProps } = props;
+  const { text = 'Continue with Linkedin' } = props;
 
   return (
     <Button
@@ -77,7 +77,7 @@ export function LinkedinButton(props: any) {
         },
       }}
       fullWidth
-      {...otherProps}
+      {...props}
       c="#fff"
     >
       {text}
