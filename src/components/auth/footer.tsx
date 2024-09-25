@@ -12,7 +12,7 @@ export const AuthFooter = () => {
         onClick={() => {
           router.push('/about');
         }}
-        size="xs"
+        size="sm"
       >
         About Us
       </Anchor>

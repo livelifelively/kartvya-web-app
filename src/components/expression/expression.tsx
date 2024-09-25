@@ -1,9 +1,11 @@
-import { Text, Avatar, Group, Paper, Box, ActionIcon, Flex } from '@mantine/core';
+import { Text, Avatar, Group, Paper, Box, ActionIcon, Flex, useMantineTheme } from '@mantine/core';
 import { IconBookmark, IconMessageDots, IconShare3 } from '@tabler/icons-react';
 import classes from './expression.module.css';
 import SupportOpposeButtons from '../support-oppose/support-oppose';
 
 export function Expression() {
+  const theme = useMantineTheme();
+
   return (
     <Paper withBorder className={classes.expression}>
       <Group gap="xs">
@@ -37,7 +39,7 @@ export function Expression() {
           <SupportOpposeButtons initialSupportCount={34949} initialOpposeCount={896} />
 
           <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-            <ActionIcon variant="transparent" radius="md" size={32}>
+            <ActionIcon variant="transparent" radius="md" size={32} c={theme.primaryColor}>
               <IconMessageDots className={classes.like} stroke={1.2} />
             </ActionIcon>
             <Text ta="center" fz="xs">
@@ -46,7 +48,7 @@ export function Expression() {
           </Flex>
 
           <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-            <ActionIcon variant="transparent" radius="md" size={32}>
+            <ActionIcon variant="transparent" radius="md" size={32} c={theme.primaryColor}>
               <IconShare3 className={classes.like} stroke={1.2} />
             </ActionIcon>
             <Text ta="center" fz="xs">
@@ -55,7 +57,7 @@ export function Expression() {
           </Flex>
 
           <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-            <ActionIcon variant="transparent" radius="md" size={32}>
+            <ActionIcon variant="transparent" radius="md" size={32} c={theme.primaryColor}>
               <IconBookmark className={classes.like} stroke={1.2} />
             </ActionIcon>
             <Text ta="center" fz="xs">

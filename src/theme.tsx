@@ -116,6 +116,9 @@ const darkTheme: KartvyaTheme = {
     light: {},
     dark: {
       '--mantine-color-anchor': theme.colors.brandYellow[6],
+      '--mantine-color-brandYellow-outline': theme.colors.brandYellow[6],
+      '--text-color': theme.white,
+      '--mantine-color-dimmed': theme.colors.gray[5],
     },
   }),
   theme: createTheme({

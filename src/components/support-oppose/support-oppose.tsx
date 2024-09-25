@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, ActionIcon, Text } from '@mantine/core';
+import { Flex, ActionIcon, Text, useMantineTheme } from '@mantine/core';
 import {
   IconArrowBigUpLine,
   IconArrowBigDownLine,
@@ -31,6 +31,7 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
   const [supportCount, setSupportCount] = useState<number>(initialSupportCount);
   const [opposeCount, setOpposeCount] = useState<number>(initialOpposeCount);
   const [userAction, setUserAction] = useState<'support' | 'oppose' | null>(null);
+  const theme = useMantineTheme();
 
   const handleSupportClick = () => {
     if (userAction === 'support') {
@@ -61,7 +62,13 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
   return (
     <Flex>
       <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-        <ActionIcon variant="transparent" radius="md" size={32} onClick={handleSupportClick}>
+        <ActionIcon
+          variant="transparent"
+          radius="md"
+          size={32}
+          onClick={handleSupportClick}
+          c={theme.primaryColor}
+        >
           {userAction === 'support' ? (
             <IconArrowBigUpLineFilled className={classes.like} stroke={1.2} />
           ) : (
@@ -74,7 +81,13 @@ const SupportOpposeButtons: React.FC<SupportOpposeProps> = ({
       </Flex>
 
       <Flex gap={0} justify="center" align="center" direction="row" wrap="nowrap">
-        <ActionIcon variant="transparent" radius="md" size={32} onClick={handleOpposeClick}>
+        <ActionIcon
+          variant="transparent"
+          radius="md"
+          size={32}
+          onClick={handleOpposeClick}
+          c={theme.primaryColor}
+        >
           {userAction === 'oppose' ? (
             <IconArrowBigDownLineFilled className={classes.like} stroke={1.2} />
           ) : (

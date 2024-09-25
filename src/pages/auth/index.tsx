@@ -63,7 +63,7 @@ function Login({ csrfToken, providers }: InferGetServerSidePropsType<typeof getS
               onClick={() => {
                 router.push('/about');
               }}
-              size="xs"
+              size="sm"
               // c={colorScheme === 'dark' ? 'brandYellow.6' : 'brandBlue.6'}
             >
               {`About Us`}

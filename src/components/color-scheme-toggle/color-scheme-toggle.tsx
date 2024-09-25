@@ -9,7 +9,7 @@ export function ColorSchemeToggle() {
 
   return (
     <ActionIcon
-      variant="filled"
+      variant="outline"
       onClick={() => {
         if (theme.name === 'light-default') {
           toggleTheme('dark-default');
@@ -22,7 +22,7 @@ export function ColorSchemeToggle() {
         }
       }}
       size={30}
-      color={colorScheme === 'dark' ? 'brandYellow.6' : 'brandBlue.6'}
+      color={theme.theme.primaryColor}
     >
       {colorScheme === 'dark' ? <IconSun size="1rem" /> : <IconMoonStars size="1rem" />}
     </ActionIcon>
