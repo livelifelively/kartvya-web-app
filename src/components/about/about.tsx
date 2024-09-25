@@ -47,7 +47,7 @@ export function About() {
   const features = featuresData.map((feature: any) => (
     <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
       <ActionIcon size={rem(50)} variant="transparent" aria-label="Danger variant">
-        <feature.icon size="sm" stroke={2} className={classes.cardIcon} />
+        <feature.icon size={60} stroke={2} className={classes.cardIcon} />
       </ActionIcon>
       {/* <IconTimeline stroke={2} size={rem('20px')} className={classes.cardIcon} /> */}
       {/* <feature.icon size="sm" stroke={2} className={classes.cardIcon} /> */}
