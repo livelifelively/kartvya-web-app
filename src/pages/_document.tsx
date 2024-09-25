@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import { ColorSchemeScript } from '@mantine/core';
 import Script from 'next/script';
 
 export default function Document() {
@@ -33,7 +32,6 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&family=Poppins&display=swap"
           rel="stylesheet"
         />
-        <ColorSchemeScript />
       </Head>
       <body>
         <Main />

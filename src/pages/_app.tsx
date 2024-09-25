@@ -1,41 +1,32 @@
 import '@mantine/core/styles.css';
 import './global.css';
 import Head from 'next/head';
-import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { SessionProvider } from 'next-auth/react';
-import { useTheme } from '../theme';
+import { ThemeProvider } from '../theme';
 import AuthPageWrapper from '@/components/auth/auth-page-wrapper';
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-} from '@/components/color-scheme-context/color-scheme-context';
-import NextApp, { AppContext, AppProps } from 'next/app';
-import { useState } from 'react';
+import NextApp, { AppContext } from 'next/app';
 import { getCookie } from 'cookies-next';
 
 // Extend NextComponentType to include the auth property
-import { NextComponentType, NextPageContext } from 'next';
-
-type CustomAppProps = AppProps & {
-  colorScheme: ColorScheme;
-};
-
-type AuthComponentType = NextComponentType<NextPageContext, any, any> & {
-  auth?: boolean;
-};
+import CustomMantineProvider, {
+  AuthComponentType,
+  CustomAppProps,
+} from '@/components/mantine-provider/mantine-provider';
 
 function CustomApp(props: CustomAppProps) {
   const {
     Component,
+    themeName,
     pageProps: { session, ...pageProps },
   } = props;
-  const theme = useTheme();
+  // const { theme, toggleTheme } = useThemeContext();
+  // const mantineTheme = useTheme(theme);
 
   return (
     <SessionProvider session={session}>
-      <ColorSchemeProvider defaultColorScheme={props.colorScheme}>
-        <MantineProvider theme={theme} defaultColorScheme="auto">
+      <ThemeProvider themeType={themeName}>
+        <CustomMantineProvider>
           <Notifications position="top-right" />
           <Head>
             <title>kartvya</title>
@@ -52,17 +43,18 @@ function CustomApp(props: CustomAppProps) {
           ) : (
             <Component {...pageProps} />
           )}
-        </MantineProvider>
-      </ColorSchemeProvider>
+        </CustomMantineProvider>
+      </ThemeProvider>
     </SessionProvider>
   );
 }
 
 CustomApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await NextApp.getInitialProps(appContext);
+  const themeName = getCookie('app-theme-name', appContext.ctx);
   return {
     ...appProps,
-    colorScheme: getCookie('kartvya-color-scheme', appContext.ctx) || 'dark',
+    themeName,
   };
 };
 
