@@ -23,7 +23,11 @@ export default function CustomMantineProvider({ children }: any) {
   const { theme, colorScheme } = useThemeContext();
 
   return (
-    <MantineProvider theme={theme.theme} defaultColorScheme={colorScheme}>
+    <MantineProvider
+      theme={theme.theme}
+      defaultColorScheme={colorScheme}
+      cssVariablesResolver={theme.resolver}
+    >
       {children}
       <ColorSchemeScript forceColorScheme={colorScheme} />
     </MantineProvider>

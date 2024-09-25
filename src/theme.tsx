@@ -8,6 +8,9 @@ import {
   MantineColorScheme,
   useMantineColorScheme,
   useComputedColorScheme,
+  Button,
+  MantineTheme,
+  CSSVariablesResolver,
 } from '@mantine/core';
 
 const brandBlue: MantineColorsTuple = [
@@ -53,11 +56,20 @@ type KartvyaTheme = {
   colorScheme: 'light' | 'dark';
   name: String;
   theme: MantineThemeOverride;
+  resolver: CSSVariablesResolver;
 };
 
 const lightTheme: KartvyaTheme = {
   colorScheme: 'light',
   name: 'light-default',
+  // https://mantine.dev/styles/css-variables/#css-variables-resolver
+  resolver: (theme: MantineTheme) => ({
+    variables: {},
+    light: {
+      '--mantine-color-anchor': theme.colors.brandBlue[6],
+    },
+    dark: {},
+  }),
   theme: createTheme({
     colors: {
       brandBlue,
@@ -68,12 +80,44 @@ const lightTheme: KartvyaTheme = {
     fontFamily:
       'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
     other: {},
+    components: {
+      Button: {
+        // can have a css module to apply classes here
+        // classNames: darkDefaultClasses,
+        styles: (theme: any, params: any) => ({
+          root: {
+            // ...(params.variant === 'danger' && {
+            //   backgroundColor: theme.colors.red[9],
+            //   color: theme.colors.red[0],
+            // }),
+          },
+        }),
+        vars: (theme: any, props: any) => {
+          return {
+            // https://mantine.dev/styles/styles-api/
+            root: {
+              ...(props.variant === 'outline' && {
+                '--mantine-color-brandBlue-outline': theme.colors.brandBlue[6],
+              }),
+            },
+          };
+        },
+      },
+    },
   }),
 };
 
 const darkTheme: KartvyaTheme = {
   colorScheme: 'dark',
   name: 'dark-default',
+  // https://mantine.dev/styles/css-variables/#css-variables-resolver
+  resolver: (theme: MantineTheme) => ({
+    variables: {},
+    light: {},
+    dark: {
+      '--mantine-color-anchor': theme.colors.brandYellow[6],
+    },
+  }),
   theme: createTheme({
     colors: {
       brandYellow,
@@ -84,6 +128,20 @@ const darkTheme: KartvyaTheme = {
     fontFamily:
       'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji',
     other: {},
+    components: {
+      Button: {
+        // https://mantine.dev/styles/styles-api/
+        vars: (theme: any, props: any) => {
+          return {
+            root: {
+              ...(props.variant === 'outline' && {
+                '--mantine-color-brandYellow-outline': theme.colors.brandYellow[6],
+              }),
+            },
+          };
+        },
+      },
+    },
   }),
 };
 
