@@ -29,6 +29,7 @@
     "aws-sdk": "2.1687.0",
     "axios": "1.7.7",
     "cookies-next": "4.2.1",
+    "date-fns": "^4.1.0",
     "next": "14.2.4",
     "next-auth": "4.24.7",
     "react": "18.3.1",
