@@ -5,13 +5,14 @@ import {
   createTheme,
   MantineColorsTuple,
   MantineThemeOverride,
-  MantineColorScheme,
-  useMantineColorScheme,
-  useComputedColorScheme,
-  Button,
   MantineTheme,
   CSSVariablesResolver,
 } from '@mantine/core';
+
+// we are implementing dark and light as separate themes.
+// it suits our overall objective of having multiple themes from which user may choose from.
+// but in case this gives issues and we want only 2 themes, one for dark, one for light, in that case do check "virtual color" in mantine
+// virtual colors allow for themes
 
 const brandBlue: MantineColorsTuple = [
   '#eaeaff',
@@ -117,7 +118,7 @@ const darkTheme: KartvyaTheme = {
     dark: {
       '--mantine-color-anchor': theme.colors.brandYellow[6],
       '--mantine-color-brandYellow-outline': theme.colors.brandYellow[6],
-      '--text-color': theme.white,
+      '--mantine-color-text': theme.white,
       '--mantine-color-dimmed': theme.colors.gray[5],
     },
   }),
