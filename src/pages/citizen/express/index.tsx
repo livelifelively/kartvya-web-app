@@ -1,12 +1,13 @@
 import { ResponsiveAppShell } from '@/components/app-shell';
-import { ExpressionListing } from '@/components/expression-listing/expression-listing';
-// import { SubjectBadges } from '@/components/subject-badges/subject-badges';
+import ExpressionList from '@/components/expression/expression-listing';
+
+import { mockExpressions } from '@/components/expression/mock-expressions';
 
 function ExpressPage() {
   return (
     <ResponsiveAppShell>
       {/* <SubjectBadges /> */}
-      <ExpressionListing />
+      <ExpressionList expressions={mockExpressions} />
     </ResponsiveAppShell>
   );
 }
