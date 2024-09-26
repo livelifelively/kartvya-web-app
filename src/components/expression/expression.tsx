@@ -24,11 +24,16 @@ export interface Expression {
   bookmarkCount: number;
   childExpressions?: Expression[];
   quote?: {
-    type: 'link' | 'expression' | 'news'; // Type of the quoted content
+    type: 'url' | 'expression' | 'news'; // Type of the quoted content
     content: string | Expression; // The actual content of the quote
+    urlPreview?: {
+      title: string; // Title of the url
+      description: string; // Description of the url
+      imageUrl?: string; // Optional image URL for the url preview
+      url: string; // The URL of the url
+    };
   };
 }
-
 interface ExpressionItemProps {
   expression: Expression;
 }
@@ -76,17 +81,41 @@ const ExpressionItem: React.FC<ExpressionItemProps> = ({ expression }) => {
             ))}
           </Flex>
         )}
+        // Inside the ExpressionItem component's return statement
         {expression.quote && (
           <Box mt="md" className={classes.quote}>
-            {expression.quote.type === 'link' && (
-              <Text
-                component="a"
-                href={expression.quote.content as string}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {expression.quote.content as String}
-              </Text>
+            {expression.quote.type === 'url' && (
+              <Box className={classes.urlPreview}>
+                <Text
+                  component="a"
+                  href={expression.quote.content as string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {expression.text}
+                </Text>
+                {expression.quote.urlPreview && (
+                  <Box mt="sm" className={classes.preview}>
+                    {expression.quote.urlPreview.imageUrl && (
+                      <img
+                        src={expression.quote.urlPreview.imageUrl}
+                        alt={expression.quote.urlPreview.title}
+                        style={{ maxWidth: '100%', borderRadius: '8px' }}
+                      />
+                    )}
+                    <Text fw="bold">{expression.quote.urlPreview.title}</Text>
+                    <Text>{expression.quote.urlPreview.description}</Text>
+                    <Text
+                      component="a"
+                      href={expression.quote.urlPreview.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {expression.quote.urlPreview.url}
+                    </Text>
+                  </Box>
+                )}
+              </Box>
             )}
             {expression.quote.type === 'expression' && (
               <ExpressionItem expression={expression.quote.content as Expression} />
