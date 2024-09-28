@@ -4,6 +4,8 @@ import { IconBookmark, IconMessageDots, IconShare3 } from '@tabler/icons-react';
 import SupportOpposeButtons from '../support-oppose/support-oppose'; // Assuming this component is implemented
 import { formatDistanceToNow, format } from 'date-fns';
 import classes from './expression.module.css'; // Use your CSS module for styling
+import LinkPreviewFallback from './link-preview-fallback';
+import LinkPreview from './link-preview';
 
 export interface Expression {
   id: string;
@@ -25,18 +27,18 @@ export interface Expression {
   childExpressions?: Expression[];
   quote?: {
     type: 'url' | 'expression' | 'news'; // Type of the quoted content
-    content: string | Expression; // The actual content of the quote
-    urlPreview?: {
-      title: string; // Title of the url
-      description: string; // Description of the url
-      imageUrl?: string; // Optional image URL for the url preview
-      url: string; // The URL of the url
-    };
+    content: string | Expression;
   };
 }
 interface ExpressionItemProps {
   expression: Expression;
 }
+
+const linkPreviewFetcher = async (url: string) => {
+  const response = await fetch(`/api/url-preview?url=${url}`);
+  const data = await response.json();
+  return data;
+};
 
 const ExpressionItem: React.FC<ExpressionItemProps> = ({ expression }) => {
   const theme = useMantineTheme();
@@ -81,7 +83,6 @@ const ExpressionItem: React.FC<ExpressionItemProps> = ({ expression }) => {
             ))}
           </Flex>
         )}
-        // Inside the ExpressionItem component's return statement
         {expression.quote && (
           <Box mt="md" className={classes.quote}>
             {expression.quote.type === 'url' && (
@@ -94,34 +95,18 @@ const ExpressionItem: React.FC<ExpressionItemProps> = ({ expression }) => {
                 >
                   {expression.text}
                 </Text>
-                {expression.quote.urlPreview && (
-                  <Box mt="sm" className={classes.preview}>
-                    {expression.quote.urlPreview.imageUrl && (
-                      <img
-                        src={expression.quote.urlPreview.imageUrl}
-                        alt={expression.quote.urlPreview.title}
-                        style={{ maxWidth: '100%', borderRadius: '8px' }}
-                      />
-                    )}
-                    <Text fw="bold">{expression.quote.urlPreview.title}</Text>
-                    <Text>{expression.quote.urlPreview.description}</Text>
-                    <Text
-                      component="a"
-                      href={expression.quote.urlPreview.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {expression.quote.urlPreview.url}
-                    </Text>
-                  </Box>
-                )}
+                <LinkPreview
+                  url={expression.quote.content as string}
+                  fetcher={linkPreviewFetcher}
+                  fallback={<LinkPreviewFallback url={expression.quote.content as string} />}
+                />
               </Box>
             )}
             {expression.quote.type === 'expression' && (
               <ExpressionItem expression={expression.quote.content as Expression} />
             )}
             {expression.quote.type === 'news' && (
-              <Text>{expression.quote.content as String}</Text> // Assuming content is a string for news
+              <Text>{expression.quote.content as string}</Text> // Assuming content is a string for news
             )}
           </Box>
         )}
