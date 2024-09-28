@@ -1,0 +1,33 @@
+.linkPreview {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid transparent; /* Will be overridden by the theme */
+  backdrop-filter: blur(10px);
+  background-color: light-dark(rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.8));
+  border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+.linkPreviewImage {
+  max-width: 100%;
+
+  max-height: rem(200px);
+  border-radius: 8px;
+  border: 1px solid transparent; /* Will be overridden by the theme */
+  border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+}
+
+.linkPreviewTitle {
+  font-weight: bold;
+}
+
+.linkPreviewSiteName {
+  font-size: 0.875rem; /* Equivalent to size="sm" */
+  color: rgba(0, 0, 0, 0.6); /* Dimmed color */
+}
+
+.linkPreviewLink {
+  color: inherit; /* Use the inherited color */
+}
