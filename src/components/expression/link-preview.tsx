@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, Loader, Alert, Skeleton, Grid, useMantineTheme } from '@mantine/core';
+import { Box, Text, Alert, Skeleton, Grid, useMantineTheme } from '@mantine/core';
 import classes from './link-preview.module.css'; // Import the CSS module
 
 export interface LinkPreviewData {
@@ -58,31 +58,31 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
   }
 
   return (
-    <Box mt="sm" className={classes.linkPreview}>
+    <Box
+      mt="sm"
+      component="a"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={classes.linkPreview}
+    >
       {preview.image ? (
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col span={3}>
             <img
               src={preview.image}
               alt={preview.title || 'Link Preview'}
               className={classes.linkPreviewImage} // Use CSS module for styling
             />
           </Grid.Col>
-          <Grid.Col span={8}>
+          <Grid.Col span={9}>
             {preview.title && <Text className={classes.linkPreviewTitle}>{preview.title}</Text>}
             {preview.description && <Text>{preview.description}</Text>}
             {preview.siteName && (
               <Text className={classes.linkPreviewSiteName}>{preview.siteName}</Text>
             )}
             {preview.hostname && (
-              <Text
-                component="a"
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.linkPreviewLink}
-                style={{ color: theme.primaryColor }} // Keep this inline for color
-              >
+              <Text className={classes.linkPreviewLink} style={{ color: theme.primaryColor }}>
                 {preview.hostname}
               </Text>
             )}
@@ -97,10 +97,10 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
           )}
           {preview.hostname && (
             <Text
-              component="a"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
+              // component="a"
+              // href={url}
+              // target="_blank"
+              // rel="noopener noreferrer"
               className={classes.linkPreviewLink}
             >
               {preview.hostname}
