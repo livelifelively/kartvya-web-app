@@ -1,9 +1,10 @@
-import { AppShell, Container, MantineSize, Skeleton } from '@mantine/core';
+import { AppShell, Container, MantineSize } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ReactNode } from 'react';
 
 import { BottomMobileTabs } from '../bottom-mobile-tabs/bottom-mobile-tabs';
 import { Header } from '../header/header';
+import { NavbarNested } from './navbar-nested';
 
 interface ResponsiveAppShellProps {
   children: ReactNode;
@@ -33,13 +34,13 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
       <AppShell.Header>
         <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
       </AppShell.Header>
-      <AppShell.Navbar p="sm" withBorder={false}>
-        Navbar
-        {Array(15)
+      <AppShell.Navbar py="sm" withBorder={false}>
+        {/* {Array(15)
           .fill(0)
           .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
+            <Skeleton key={index} h={28} mt="sm" animate={true} />
+          ))} */}
+        <NavbarNested />
       </AppShell.Navbar>
       <AppShell.Main
         ps={{
