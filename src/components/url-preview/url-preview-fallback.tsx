@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, Anchor, Center } from '@mantine/core';
 
-interface LinkPreviewFallbackProps {
+interface URLPreviewFallbackProps {
   url: string;
 }
 
-const LinkPreviewFallback: React.FC<LinkPreviewFallbackProps> = ({ url }) => {
+const URLPreviewFallback: React.FC<URLPreviewFallbackProps> = ({ url }) => {
   return (
     <Center>
       <Text size="sm">
@@ -18,4 +18,4 @@ const LinkPreviewFallback: React.FC<LinkPreviewFallbackProps> = ({ url }) => {
   );
 };
 
-export default LinkPreviewFallback;
+export default URLPreviewFallback;

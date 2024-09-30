@@ -4,8 +4,8 @@ import { IconBookmark, IconMessageDots, IconShare3 } from '@tabler/icons-react';
 import SupportOpposeButtons from '../support-oppose/support-oppose'; // Assuming this component is implemented
 import { formatDistanceToNow, format } from 'date-fns';
 import classes from './expression.module.css'; // Use your CSS module for styling
-import LinkPreviewFallback from './link-preview-fallback';
-import LinkPreview from './link-preview';
+import URLPreviewFallback from '../url-preview/url-preview-fallback';
+import URLPreview from '../url-preview/url-preview';
 
 export interface Expression {
   id: string;
@@ -34,7 +34,7 @@ interface ExpressionItemProps {
   expression: Expression;
 }
 
-const linkPreviewFetcher = async (url: string) => {
+const urlPreviewFetcher = async (url: string) => {
   const response = await fetch(`/api/url-preview?url=${url}`);
   const data = await response.json();
   return data;
@@ -95,10 +95,10 @@ const ExpressionItem: React.FC<ExpressionItemProps> = ({ expression }) => {
                 >
                   {expression.text}
                 </Text>
-                <LinkPreview
+                <URLPreview
                   url={expression.quote.content as string}
-                  fetcher={linkPreviewFetcher}
-                  fallback={<LinkPreviewFallback url={expression.quote.content as string} />}
+                  fetcher={urlPreviewFetcher}
+                  fallback={<URLPreviewFallback url={expression.quote.content as string} />}
                 />
               </Box>
             )}

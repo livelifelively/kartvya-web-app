@@ -4,9 +4,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 const cheerio = require('cheerio');
 import { URL } from 'url';
-import { LinkPreviewData } from '@/components/expression/link-preview';
+import { URLPreviewData } from '@/components/url-preview/url-preview';
 
-const getLinkPreview = async (url: string): Promise<LinkPreviewData> => {
+const getURLPreview = async (url: string): Promise<URLPreviewData> => {
   try {
     const response = await axios.get(url);
 
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const decodedUrl = decodeURIComponent(url);
-    const preview = await getLinkPreview(decodedUrl);
+    const preview = await getURLPreview(decodedUrl);
     res.status(200).json(preview);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch link preview', error });

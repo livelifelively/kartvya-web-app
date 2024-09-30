@@ -1,4 +1,4 @@
-.linkPreview {
+.urlPreview {
   padding: 12px 12px;
   border-radius: 8px;
   border: 1px solid transparent; /* Will be overridden by the theme */
@@ -11,7 +11,7 @@
     border-color 0.3s;
 }
 
-.linkPreviewImage {
+.urlPreviewImage {
   max-width: 100%;
 
   /* max-height: rem(200px); */
@@ -20,15 +20,15 @@
   border-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 }
 
-.linkPreviewTitle {
+.urlPreviewTitle {
   font-weight: bold;
 }
 
-.linkPreviewSiteName {
+.urlPreviewSiteName {
   font-size: 0.875rem; /* Equivalent to size="sm" */
   color: rgba(0, 0, 0, 0.6); /* Dimmed color */
 }
 
-.linkPreviewLink {
+.urlPreviewLink {
   color: inherit; /* Use the inherited color */
 }

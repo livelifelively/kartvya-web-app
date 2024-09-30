@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Alert, Skeleton, Grid, useMantineTheme } from '@mantine/core';
-import classes from './link-preview.module.css'; // Import the CSS module
+import classes from './url-preview.module.css'; // Import the CSS module
 
-export interface LinkPreviewData {
+export interface URLPreviewData {
   title: string | null;
   description: string | null;
   image: string | null;
@@ -10,14 +10,14 @@ export interface LinkPreviewData {
   hostname: string | null;
 }
 
-interface LinkPreviewProps {
+interface URLPreviewProps {
   url: string;
-  fetcher: (url: string) => Promise<LinkPreviewData>;
+  fetcher: (url: string) => Promise<URLPreviewData>;
   fallback: React.ReactNode;
 }
 
-const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => {
-  const [preview, setPreview] = useState<LinkPreviewData | null>(null);
+const URLPreview: React.FC<URLPreviewProps> = ({ url, fetcher, fallback }) => {
+  const [preview, setPreview] = useState<URLPreviewData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -69,7 +69,7 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className={classes.linkPreview}
+      className={classes.urlPreview}
     >
       {preview.image ? (
         <Grid>
@@ -77,17 +77,17 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
             <img
               src={preview.image}
               alt={preview.title || 'Link Preview'}
-              className={classes.linkPreviewImage} // Use CSS module for styling
+              className={classes.urlPreviewImage} // Use CSS module for styling
             />
           </Grid.Col>
           <Grid.Col span={9}>
-            {preview.title && <Text className={classes.linkPreviewTitle}>{preview.title}</Text>}
+            {preview.title && <Text className={classes.urlPreviewTitle}>{preview.title}</Text>}
             {preview.description && <Text>{preview.description}</Text>}
             {preview.siteName && (
-              <Text className={classes.linkPreviewSiteName}>{preview.siteName}</Text>
+              <Text className={classes.urlPreviewSiteName}>{preview.siteName}</Text>
             )}
             {preview.hostname && (
-              <Text className={classes.linkPreviewLink} style={{ color: theme.primaryColor }}>
+              <Text className={classes.urlPreviewLink} style={{ color: theme.primaryColor }}>
                 {preview.hostname}
               </Text>
             )}
@@ -95,10 +95,10 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
         </Grid>
       ) : (
         <Box>
-          {preview.title && <Text className={classes.linkPreviewTitle}>{preview.title}</Text>}
+          {preview.title && <Text className={classes.urlPreviewTitle}>{preview.title}</Text>}
           {preview.description && <Text>{preview.description}</Text>}
           {preview.siteName && (
-            <Text className={classes.linkPreviewSiteName}>{preview.siteName}</Text>
+            <Text className={classes.urlPreviewSiteName}>{preview.siteName}</Text>
           )}
           {preview.hostname && (
             <Text
@@ -106,7 +106,7 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
               // href={url}
               // target="_blank"
               // rel="noopener noreferrer"
-              className={classes.linkPreviewLink}
+              className={classes.urlPreviewLink}
             >
               {preview.hostname}
             </Text>
@@ -117,4 +117,4 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
   );
 };
 
-export default LinkPreview;
+export default URLPreview;
