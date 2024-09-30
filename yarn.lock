@@ -5433,6 +5433,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.9
+  resolution: "@types/lodash@npm:4.17.9"
+  checksum: 10c0/54de935e835508b5f835a5dfaedd2b9a299685a21d11e9c5cd2dde57331d03bc2f98b71d2424ca8460f447ecd55a673e45ccdb70e58f9f72745710f6b91abc60
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.167":
   version: 4.14.200
   resolution: "@types/lodash@npm:4.14.200"
@@ -12373,6 +12380,7 @@ __metadata:
     "@testing-library/user-event": "npm:14.5.2"
     "@types/jest": "npm:29.5.12"
     "@types/jsonwebtoken": "npm:9.0.6"
+    "@types/lodash": "npm:^4"
     "@types/node": "npm:20.14.8"
     "@types/react": "npm:18.3.3"
     "@typescript-eslint/eslint-plugin": "npm:7.13.1"
@@ -12395,6 +12403,7 @@ __metadata:
     eslint-plugin-testing-library: "npm:6.2.2"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
+    lodash: "npm:^4.17.21"
     next: "npm:14.2.4"
     next-auth: "npm:4.24.7"
     postcss: "npm:8.4.38"
