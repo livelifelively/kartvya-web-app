@@ -40,12 +40,17 @@ const LinkPreview: React.FC<LinkPreviewProps> = ({ url, fetcher, fallback }) => 
 
   if (loading) {
     return (
-      <Box mt="sm">
-        <Skeleton height={200} radius="md" />
-        <Skeleton height={20} mt="xs" />
-        <Skeleton height={20} mt="xs" />
-        <Skeleton height={20} mt="xs" />
-      </Box>
+      <Grid>
+        <Grid.Col span={3}>
+          <Skeleton height={200} radius="md" />
+        </Grid.Col>
+        <Grid.Col span={9}>
+          <Skeleton height={20} mt="xs" />
+          <Skeleton height={20} mt="xs" />
+          <Skeleton height={20} mt="xs" />
+          <Skeleton height={20} mt="xs" />
+        </Grid.Col>
+      </Grid>
     );
   }
 
