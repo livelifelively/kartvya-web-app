@@ -65,7 +65,9 @@ const lightTheme: KartvyaTheme = {
   name: 'light-default',
   // https://mantine.dev/styles/css-variables/#css-variables-resolver
   resolver: (theme: MantineTheme) => ({
-    variables: {},
+    variables: {
+      '--mantine-color-hover-background': theme.colors.gray[0],
+    },
     light: {
       '--mantine-color-anchor': theme.colors.brandBlue[6],
     },
@@ -113,7 +115,9 @@ const darkTheme: KartvyaTheme = {
   name: 'dark-default',
   // https://mantine.dev/styles/css-variables/#css-variables-resolver
   resolver: (theme: MantineTheme) => ({
-    variables: {},
+    variables: {
+      '--mantine-color-hover-background': theme.colors.dark[6],
+    },
     light: {},
     dark: {
       '--mantine-color-anchor': theme.colors.brandYellow[6],
