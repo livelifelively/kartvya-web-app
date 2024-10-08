@@ -49,7 +49,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
           md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
         }}
       >
-        <Container size="sm" px={0} mt="lg">
+        <Container size="sm" px={0} my="lg">
           {children}
         </Container>
       </AppShell.Main>
