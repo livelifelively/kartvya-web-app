@@ -12,7 +12,7 @@ export function Header({ navbarControls }: HeaderProps) {
   const { data: session } = useSession();
 
   return (
-    <Group h="100%" px="sm" gap="xs" justify="space-between">
+    <Group h="100%" gap="xs" justify="space-between">
       <Group>
         {navbarControls && (
           <Burger

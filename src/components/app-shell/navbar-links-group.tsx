@@ -45,6 +45,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links, link }: 
             setOpened((o) => !o);
           }
         }}
+        pl="xl"
       >
         <Group justify="space-between" gap={0}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>

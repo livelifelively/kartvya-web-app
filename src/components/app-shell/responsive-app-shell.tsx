@@ -23,15 +23,8 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
         collapsed: { mobile: !opened },
       }}
       footer={{ height: { base: 60, md: 0 } }}
-      padding="md"
     >
-      {/* <AppShell.Header>
-        <Group h="100%" px="sm" gap="xs">
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <Logo size={25} />
-        </Group>
-      </AppShell.Header> */}
-      <AppShell.Header>
+      <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
         <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
       </AppShell.Header>
       <AppShell.Navbar py="sm" withBorder={false}>
@@ -56,7 +49,7 @@ export function ResponsiveAppShell({ children }: ResponsiveAppShellProps) {
           md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
         }}
       >
-        <Container size="sm" px={0}>
+        <Container size="sm" px={0} mt="lg">
           {children}
         </Container>
       </AppShell.Main>
