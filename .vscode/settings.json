@@ -5,7 +5,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "svg.preview.background": "transparent",
   "editor.formatOnSave": true
