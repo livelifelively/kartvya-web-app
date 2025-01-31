@@ -1,18 +1,16 @@
 import '@mantine/core/styles.css';
-import './global.css';
-import Head from 'next/head';
-import { Notifications } from '@mantine/notifications';
-import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from '../theme';
-import AuthPageWrapper from '@/components/auth/auth-page-wrapper';
-import NextApp, { AppContext } from 'next/app';
-import { getCookie } from 'cookies-next';
 
-// Extend NextComponentType to include the auth property
-import CustomMantineProvider, {
-  AuthComponentType,
-  CustomAppProps,
-} from '@/components/mantine-provider/mantine-provider';
+import './global.css';
+
+import Head from 'next/head';
+import NextApp, { AppContext } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+
+// import { getCookie } from 'cookies-next';
+
+import { ThemeProvider } from '../theme';
+import CustomMantineProvider, { AuthComponentType, CustomAppProps } from '@/components/mantine-provider/mantine-provider';
+import AuthPageWrapper from '@/components/auth/auth-page-wrapper';
 
 function CustomApp(props: CustomAppProps) {
   const {
@@ -20,14 +18,11 @@ function CustomApp(props: CustomAppProps) {
     themeName,
     pageProps: { session, ...pageProps },
   } = props;
-  // const { theme, toggleTheme } = useThemeContext();
-  // const mantineTheme = useTheme(theme);
 
   return (
     <SessionProvider session={session}>
       <ThemeProvider themeType={themeName}>
         <CustomMantineProvider>
-          <Notifications position="top-right" />
           <Head>
             <title>kartvya</title>
             <meta
@@ -51,7 +46,11 @@ function CustomApp(props: CustomAppProps) {
 
 CustomApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await NextApp.getInitialProps(appContext);
-  const themeName = getCookie('app-theme-name', appContext.ctx);
+  
+  // FIXME causing a bug. need to fix to enable theme switching
+  // const themeName = getCookie('app-theme-name', appContext.ctx);
+  const themeName = 'dark-default';
+
   return {
     ...appProps,
     themeName,

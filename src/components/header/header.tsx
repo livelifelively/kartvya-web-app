@@ -2,7 +2,7 @@ import { Burger, Button, Group, MantineSize } from '@mantine/core';
 import { useSession, signOut, signIn } from 'next-auth/react';
 
 import { Logo } from '../logo/logo';
-import { ColorSchemeToggle } from '../color-scheme-toggle/color-scheme-toggle';
+// import { ColorSchemeToggle } from '../color-scheme-toggle/color-scheme-toggle';
 
 interface HeaderProps {
   navbarControls?: { opened: boolean; toggle: any; hiddenFrom: MantineSize };
@@ -25,7 +25,7 @@ export function Header({ navbarControls }: HeaderProps) {
         <Logo size={25} />
       </Group>
       <Group>
-        <ColorSchemeToggle />
+        {/* <ColorSchemeToggle /> */}
         {session && (
           <Button variant="filled" size="xs" onClick={() => signOut()}>
             Logout
