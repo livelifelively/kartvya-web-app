@@ -4,25 +4,21 @@ import { IconMoonStars, IconSun } from '@tabler/icons-react';
 // import { useColorScheme } from '../color-scheme-context/color-scheme-context';
 
 export function ColorSchemeToggle() {
-  const { setColorScheme } = useMantineColorScheme();
-  const { theme, colorScheme, toggleTheme } = useThemeContext();
+  const { setColorScheme, colorScheme } = useMantineColorScheme();
+  // const { theme, colorScheme, toggleTheme } = useThemeContext();
 
   return (
     <ActionIcon
       variant="outline"
       onClick={() => {
-        if (theme.name === 'light-default') {
-          toggleTheme('dark-default');
-          const newTheme = themes['dark-default'];
-          setColorScheme(newTheme.colorScheme);
-        } else if (theme.name === 'dark-default') {
-          toggleTheme('light-default');
-          const newTheme = themes['light-default'];
-          setColorScheme(newTheme.colorScheme);
+        if (colorScheme === 'light') {
+          setColorScheme('dark')
+        } else if (colorScheme === 'dark') {
+          setColorScheme('light')
         }
       }}
       size={30}
-      color={theme.theme.primaryColor}
+      // color={theme.theme.primaryColor}
     >
       {colorScheme === 'dark' ? <IconSun size="1rem" /> : <IconMoonStars size="1rem" />}
     </ActionIcon>

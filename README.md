@@ -1,6 +1,11 @@
-# Kartvya Web Application
+# Mantine Next.js template
 
-Application uses the [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/) from [next-app-template](https://github.com/mantinedev/next-app-template). It makes use of following techs
+This is a template for [Next.js](https://nextjs.org/) pages router + [Mantine](https://mantine.dev/).
+If you want to use app router instead, see [next-app-template](https://github.com/mantinedev/next-app-template).
+
+## Features
+
+This template comes with the following features:
 
 - [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
 - [TypeScript](https://www.typescriptlang.org/)

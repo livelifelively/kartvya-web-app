@@ -133,3 +133,6 @@ dist
 
 .env*
 .DS_Storevenv/
+
+.swc
+.yarn
