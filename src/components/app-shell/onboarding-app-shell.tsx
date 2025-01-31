@@ -9,8 +9,8 @@ import { NavbarNested } from './navbar-nested';
 interface ResponsiveAppShellProps {
   children: ReactNode;
   containerSize?: MantineSize;
-  asideContent: ReactNode;
-  navbarContent: ReactNode;
+  asideContent?: ReactNode;
+  navbarContent?: ReactNode;
 }
 
 export function OnboardingAppShell({
@@ -21,24 +21,31 @@ export function OnboardingAppShell({
 }: ResponsiveAppShellProps) {
   const [opened, { toggle }] = useDisclosure();
   const navbarHiddenFrom: MantineSize = 'md';
+  const asideHiddenFrom: MantineSize = 'md';
 
   return (
     <AppShell
       header={{ height: { base: 50, md: 60, lg: 70 } }}
       aside={{
         width: { base: 200, md: 250, lg: 300 },
-        breakpoint: navbarHiddenFrom,
+        breakpoint: asideHiddenFrom,
         collapsed: { mobile: !opened },
+      }}
+      navbar={{
+        width: { base: 200, md: 250, lg: 300 },
+        breakpoint: navbarHiddenFrom,
       }}
       footer={{ height: { base: 60, md: 0 } }}
     >
-      <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
+      {/* <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
         <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
-      </AppShell.Header>
-      <AppShell.Navbar py="sm" withBorder={true}>
-        {navbarContent}
-      </AppShell.Navbar>
-      <AppShell.Aside p="md">{asideContent}</AppShell.Aside>
+      </AppShell.Header> */}
+      {navbarContent && (
+        <AppShell.Navbar py="sm" withBorder={true}>
+          {navbarContent}
+        </AppShell.Navbar>
+      )}
+      {asideContent && <AppShell.Aside p="md">{asideContent}</AppShell.Aside>}
       <AppShell.Main
         ps={{
           base: '0rem',
