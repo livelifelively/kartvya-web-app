@@ -30,7 +30,7 @@ export function NoSideBarsAppShell({
           header={{ height: { base: 50, md: 60, lg: 70 }, offset: true }}
           footer={{ height: { base: 60 }, offset: true }}
         >
-          <AppShell.Header>
+          <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
             <Header />
           </AppShell.Header>
           <AppShell.Main
@@ -47,7 +47,11 @@ export function NoSideBarsAppShell({
               md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
             }}
           >
-            <Container fluid px={0} pt={rem('20px')} pb={rem(30)}>
+            {/* <Container fluid px={0} pt={rem('20px')} pb={rem(30)}>
+              {children}
+            </Container> */}
+
+            <Container size="md" px={0} my="lg">
               {children}
             </Container>
           </AppShell.Main>

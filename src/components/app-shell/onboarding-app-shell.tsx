@@ -9,16 +9,23 @@ import { NavbarNested } from './navbar-nested';
 interface ResponsiveAppShellProps {
   children: ReactNode;
   containerSize?: MantineSize;
+  asideContent: ReactNode;
+  navbarContent: ReactNode;
 }
 
-export function ResponsiveAppShell({ children, containerSize = 'sm' }: ResponsiveAppShellProps) {
+export function OnboardingAppShell({
+  children,
+  containerSize = 'sm',
+  asideContent,
+  navbarContent,
+}: ResponsiveAppShellProps) {
   const [opened, { toggle }] = useDisclosure();
   const navbarHiddenFrom: MantineSize = 'md';
 
   return (
     <AppShell
       header={{ height: { base: 50, md: 60, lg: 70 } }}
-      navbar={{
+      aside={{
         width: { base: 200, md: 250, lg: 300 },
         breakpoint: navbarHiddenFrom,
         collapsed: { mobile: !opened },
@@ -29,8 +36,9 @@ export function ResponsiveAppShell({ children, containerSize = 'sm' }: Responsiv
         <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
       </AppShell.Header>
       <AppShell.Navbar py="sm" withBorder={true}>
-        <NavbarNested />
+        {navbarContent}
       </AppShell.Navbar>
+      <AppShell.Aside p="md">{asideContent}</AppShell.Aside>
       <AppShell.Main
         ps={{
           base: '0rem',
