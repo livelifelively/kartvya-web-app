@@ -156,14 +156,19 @@ export function SelectSubjects() {
     >
       {data.map((item) => (
         <Box mb={32}>
-          <Title mb={16} size={'h3'}>
+          <Title mb={16} size={'h4'} style={{ textTransform: 'uppercase' }}>
             {item.name}
           </Title>
           <Grid>
             {item.linked_domains.map((domain) => (
-              <Grid.Col span={{ md: 4, sm: 6 }}>
+              <Grid.Col span={{ lg: 3, md: 4, sm: 6 }}>
                 <Checkbox.Card className={classes.root} radius="md" value={domain} key={domain}>
-                  <Group wrap="nowrap" align="flex-start" justify="stretch">
+                  <Group
+                    wrap="nowrap"
+                    align="flex-start"
+                    justify="stretch"
+                    style={{ alignItems: 'center' }}
+                  >
                     <Checkbox.Indicator />
                     <Box>
                       <Text className={classes.label}>{domain}</Text>
