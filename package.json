@@ -21,6 +21,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@auth/core": "0.34.2",
     "@mantine/core": "7.16.2",
     "@mantine/hooks": "7.16.2",
     "@next/bundle-analyzer": "^15.1.5",
@@ -31,7 +32,7 @@
     "date-fns": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.5",
-    "next-auth": "^4.24.11",
+    "next-auth": "4.24.7",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
@@ -48,6 +49,7 @@
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9",
+    "@types/lodash": "^4.17.15",
     "@types/node": "^22.10.7",
     "@types/react": "19.0.7",
     "babel-loader": "^9.2.1",
