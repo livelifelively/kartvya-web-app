@@ -37,9 +37,6 @@ export function OnboardingAppShell({
       }}
       footer={{ height: { base: 60, md: 0 } }}
     >
-      {/* <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
-        <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
-      </AppShell.Header> */}
       {navbarContent && (
         <AppShell.Navbar py="sm" withBorder={true}>
           {navbarContent}
@@ -51,16 +48,17 @@ export function OnboardingAppShell({
           base: '0rem',
           xs: '0rem',
           sm: '0rem',
-          md: 'calc(var(--app-shell-navbar-offset, 0rem) + var(--app-shell-padding))',
+          md: 'calc(var(--app-shell-padding))',
         }}
         pe={{
           base: '0rem',
           xs: '0rem',
-          sm: '0rem',
-          md: 'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
+          sm: 'sm',
+          md: 'calc(var(--app-shell-padding))',
         }}
+        pt="0rem"
       >
-        <Container size={containerSize} px={0} my="lg">
+        <Container size={containerSize} px={20} h={'100vh'}>
           {children}
         </Container>
       </AppShell.Main>
