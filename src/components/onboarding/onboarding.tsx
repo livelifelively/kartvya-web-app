@@ -1,78 +1,39 @@
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  Group,
-  ScrollArea,
-  Stack,
-  Text,
-  Title,
-  Stepper,
-} from '@mantine/core';
-import classes from './onboarding.module.css';
-import { OnboardingAppShell } from '../app-shell/onboarding-app-shell';
-import { NavbarNested } from '../app-shell/navbar-nested';
-import { SelectSubjects } from './select-subjects';
-import Logo from '../logo/logo';
-import { SelectRegions } from './select-region';
+import React from 'react';
+import { Button, Group, Stepper } from '@mantine/core';
+import { useMachine } from '@xstate/react';
+import stepperMachine from './state/onboarding'; // Adjust the path as needed
 
 export function Onboarding() {
-  const [active, setActive] = useState(0);
-  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
-  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+  const [current, send] = useMachine(stepperMachine);
+
+  const handleNext = () => {
+    if (current.value !== 'done') {
+      send({ type: 'E_NEXT' });
+    }
+  };
+
+  const handlePrevious = () => {
+    send({ type: 'E_PREVIOUS' });
+  };
+
+  const steps = Array.from({ length: current.context.steps }, (_, i) => (
+    <Stepper.Step key={i + 1} label={`Step ${i + 1}`} description={`Description of step ${i + 1}`}>
+      <>this is step {i + 1}</>
+    </Stepper.Step>
+  ));
 
   return (
-    <OnboardingAppShell containerSize="xl">
-      <Box h={'100vh'} style={{ boxSizing: 'border-box' }}>
-        <Title ta="center" size="h5" mb={10} mt={10}>
-          Welcome to <Logo size="h1" linksToHome={false} />
-        </Title>
-        <Stepper active={active} onStepClick={setActive} allowNextStepsSelect={false}>
-          <Stepper.Step label="First step" description="Create an account">
-            <Title ta="center" size="h2" c="brandYellow" mt={20} pb={20}>
-              Select Public Policy Subjects
-            </Title>
-            <ScrollArea h={'70vh'} scrollbars="y">
-              <Box pr={20} pt={32}>
-                <SelectSubjects />
-              </Box>
-            </ScrollArea>
-            <Group justify="center" mt="sm">
-              <Button variant="default" onClick={prevStep}>
-                Back
-              </Button>
-              <Button onClick={nextStep}>Next step</Button>
-            </Group>
-          </Stepper.Step>
-          <Stepper.Step label="Second step" description="Verify email">
-            <Group justify="center" mt="sm">
-              <Button variant="default" onClick={prevStep}>
-                Back
-              </Button>
-              <Button onClick={nextStep}>Next step</Button>
-            </Group>
-            <Box pr={20} pt={32}>
-              <SelectRegions />
-            </Box>
-          </Stepper.Step>
-          <Stepper.Step label="Final step" description="Get full access">
-            <Group justify="center" mt="sm">
-              <Button variant="default" onClick={prevStep}>
-                Back
-              </Button>
-              <Button onClick={nextStep}>Next step</Button>
-            </Group>
-            <Box pr={20} pt={32}>
-              <SelectSubjects />
-            </Box>
-          </Stepper.Step>
-          <Stepper.Completed>
-            Completed, click back button to get to previous step
-          </Stepper.Completed>
-        </Stepper>
-      </Box>
-    </OnboardingAppShell>
+    <div>
+      <Stepper active={current.context.currentStep - 1} allowNextStepsSelect={false}>
+        {steps}
+      </Stepper>
+
+      <Group justify="center" mt="xl">
+        <Button variant="default" onClick={handlePrevious}>
+          Back
+        </Button>
+        <Button onClick={handleNext}>Next step</Button>
+      </Group>
+    </div>
   );
 }
