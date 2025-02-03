@@ -1,8 +1,10 @@
-import { assign, setup } from 'xstate';
+import { setup } from 'xstate';
 
 interface StepperContext {
-  steps: number;
-  currentStep: number;
+  selectSubjects: {
+    allSubjects: string[];
+    selectedSubjects: string[];
+  };
 }
 
 type StepperEvents = { type: 'E_NEXT' } | { type: 'E_PREVIOUS' };
@@ -13,80 +15,31 @@ const stepperMachine = setup({
     events: {} as StepperEvents,
   },
 
-  actions: {
-    A_GO_TO_NEXT_STEP: assign(({ context }) => {
-      return {
-        currentStep: context.currentStep + 1,
-      };
-    }),
-
-    A_GO_TO_PREVIOUS_STEP: assign(({ context }) => {
-      return {
-        currentStep: context.currentStep - 1,
-      };
-    }),
-  },
+  actions: {},
 }).createMachine({
   id: 'stepper',
-  initial: 'step1',
+  initial: 'S_SELECT_SUBJECTS',
   context: {
-    steps: 5, // Hardcoding for now, will make dynamic later
-    currentStep: 1, // keep track of the numeric value of current step
+    selectSubjects: {
+      allSubjects: [],
+      selectedSubjects: [],
+    },
   },
   states: {
-    step1: {
+    S_SELECT_SUBJECTS: {
       on: {
         E_NEXT: {
-          actions: [{ type: 'A_GO_TO_NEXT_STEP' }],
-          target: 'step2',
+          target: 'S_SELECT_REGION',
         },
       },
     },
-    step2: {
+    S_SELECT_REGION: {
       on: {
         E_NEXT: {
-          actions: [{ type: 'A_GO_TO_NEXT_STEP' }],
-          target: 'step3',
-        },
-        E_PREVIOUS: {
-          actions: [{ type: 'A_GO_TO_PREVIOUS_STEP' }],
-          target: 'step1',
-        },
-      },
-    },
-    step3: {
-      on: {
-        E_NEXT: {
-          actions: [{ type: 'A_GO_TO_NEXT_STEP' }],
-          target: 'step4',
-        },
-        E_PREVIOUS: {
-          actions: [{ type: 'A_GO_TO_PREVIOUS_STEP' }],
-          target: 'step2',
-        },
-      },
-    },
-    step4: {
-      on: {
-        E_NEXT: {
-          actions: [{ type: 'A_GO_TO_NEXT_STEP' }],
-          target: 'step5',
-        },
-        E_PREVIOUS: {
-          actions: [{ type: 'A_GO_TO_PREVIOUS_STEP' }],
-          target: 'step3',
-        },
-      },
-    },
-    step5: {
-      on: {
-        E_NEXT: {
-          actions: [{ type: 'A_GO_TO_NEXT_STEP' }],
           target: 'done',
         },
         E_PREVIOUS: {
-          actions: [{ type: 'A_GO_TO_PREVIOUS_STEP' }],
-          target: 'step4',
+          target: 'S_SELECT_SUBJECTS',
         },
       },
     },
