@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Group, Stepper } from '@mantine/core';
 import { useMachine } from '@xstate/react';
-import stepperMachine from './state/onboarding'; // Adjust the path as needed
+import stepperMachine from './state/onboarding.state'; // Adjust the path as needed
 
 export function Onboarding() {
   const [current, send] = useMachine(stepperMachine);

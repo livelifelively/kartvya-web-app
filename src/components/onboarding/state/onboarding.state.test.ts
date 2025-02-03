@@ -1,5 +1,5 @@
 import { createActor, ActorRefFrom } from 'xstate';
-import stepperMachine from './onboarding'; // Adjust the path as needed
+import stepperMachine from './onboarding.state'; // Adjust the path as needed
 
 // Derive the actor type from the machine
 type StepperActor = ActorRefFrom<typeof stepperMachine>;
