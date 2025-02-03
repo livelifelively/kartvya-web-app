@@ -11,6 +11,8 @@ const customJestConfig = {
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
+  verbose: true, // Add verbose option
+  testLocationInResults: true, // Add testLocationInResults option
 };
 
 module.exports = createJestConfig(customJestConfig);
