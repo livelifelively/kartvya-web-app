@@ -148,15 +148,10 @@ export function SelectSubjects() {
   const [value, setValue] = useState<string[]>([]);
 
   return (
-    <Checkbox.Group
-      value={value}
-      onChange={setValue}
-      // label="Pick packages to install"
-      // description="Choose all packages that you will need in your application"
-    >
+    <Checkbox.Group value={value} onChange={setValue}>
       {data.map((item) => (
         <Box mb={32}>
-          <Title mb={16} size={'h4'} style={{ textTransform: 'uppercase' }}>
+          <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
             {item.name}
           </Title>
           <Grid>
@@ -172,7 +167,6 @@ export function SelectSubjects() {
                     <Checkbox.Indicator />
                     <Box>
                       <Text className={classes.label}>{domain.split('-').join(' ')}</Text>
-                      {/* <Text className={classes.description}>{item.description}</Text> */}
                     </Box>
                   </Group>
                 </Checkbox.Card>

@@ -1,4 +1,3 @@
-import { keyBy } from 'lodash';
 import { assign, setup } from 'xstate';
 
 interface StepperContext {
@@ -15,13 +14,13 @@ const stepperMachine = setup({
   },
 
   actions: {
-    A_GO_TO_NEXT_STEP: assign(({ context, event }) => {
+    A_GO_TO_NEXT_STEP: assign(({ context }) => {
       return {
         currentStep: context.currentStep + 1,
       };
     }),
 
-    A_GO_TO_PREVIOUS_STEP: assign(({ context, event }) => {
+    A_GO_TO_PREVIOUS_STEP: assign(({ context }) => {
       return {
         currentStep: context.currentStep - 1,
       };
