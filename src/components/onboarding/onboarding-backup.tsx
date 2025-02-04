@@ -2,18 +2,12 @@ import { useState } from 'react';
 import {
   Box,
   Button,
-  Checkbox,
-  Grid,
   Group,
   ScrollArea,
-  Stack,
-  Text,
   Title,
   Stepper,
 } from '@mantine/core';
-import classes from './onboarding.module.css';
 import { OnboardingAppShell } from '../app-shell/onboarding-app-shell';
-import { NavbarNested } from '../app-shell/navbar-nested';
 import { SelectSubjects } from './select-subjects';
 import Logo from '../logo/logo';
 import { SelectRegions } from './select-region';
@@ -25,7 +19,7 @@ export function Onboarding() {
 
   return (
     <OnboardingAppShell containerSize="xl">
-      <Box h={'100vh'} style={{ boxSizing: 'border-box' }}>
+      <Box h="100vh" style={{ boxSizing: 'border-box' }}>
         <Title ta="center" size="h5" mb={10} mt={10}>
           Welcome to <Logo size="h1" linksToHome={false} />
         </Title>
@@ -34,7 +28,7 @@ export function Onboarding() {
             <Title ta="center" size="h2" c="brandYellow" mt={20} pb={20}>
               Select Public Policy Subjects
             </Title>
-            <ScrollArea h={'70vh'} scrollbars="y">
+            <ScrollArea h="70vh" scrollbars="y">
               <Box pr={20} pt={32}>
                 <SelectSubjects />
               </Box>
