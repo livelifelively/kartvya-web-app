@@ -1,39 +1,45 @@
 import React from 'react';
-import { Button, Group, Stepper } from '@mantine/core';
+import { Box, Button, Group, Stepper } from '@mantine/core';
 import { useMachine } from '@xstate/react';
-import stepperMachine from './state/onboarding.state'; // Adjust the path as needed
+import stepperMachine, { onboardingStepperStates } from './state/onboarding.state'; // Adjust the path as needed
+// import { keyBy } from 'lodash';
 
 export function Onboarding() {
   const [current, send] = useMachine(stepperMachine);
 
+  // const onboardingStepperStatesKeyedByName = keyBy(onboardingStepperStates, 'name');
+
   const handleNext = () => {
-    if (current.value !== 'done') {
-      send({ type: 'E_NEXT' });
-    }
+    send({ type: 'E_NEXT' });
   };
 
   const handlePrevious = () => {
     send({ type: 'E_PREVIOUS' });
   };
 
-  const steps = Array.from({ length: current.context.steps }, (_, i) => (
-    <Stepper.Step key={i + 1} label={`Step ${i + 1}`} description={`Description of step ${i + 1}`}>
-      <>this is step {i + 1}</>
-    </Stepper.Step>
-  ));
+  const stepperSteps = onboardingStepperStates.map((state: any) => {
+    return (
+      <Stepper.Step key={state.name} label={state.label} description={state.description}>
+        <>
+          <p>This is the {state.name} step</p>
+        </>
+      </Stepper.Step>
+    );
+  });
 
   return (
-    <div>
-      <Stepper active={current.context.currentStep - 1} allowNextStepsSelect={false}>
-        {steps}
+    <Box>
+      <Stepper active={current.context.currentStepIndex} allowNextStepsSelect={false}>
+        {stepperSteps}
       </Stepper>
-
       <Group justify="center" mt="xl">
-        <Button variant="default" onClick={handlePrevious}>
+        <Button variant="default" onClick={handlePrevious} disabled={!current.can({ type: 'E_PREVIOUS' })}>
           Back
         </Button>
-        <Button onClick={handleNext}>Next step</Button>
+        <Button onClick={handleNext} disabled={!current.can({ type: 'E_NEXT' })}>
+          Next step
+        </Button>
       </Group>
-    </div>
+    </Box>
   );
 }

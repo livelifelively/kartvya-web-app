@@ -1,31 +1,56 @@
+import { size } from 'lodash';
 import { assign, setup } from 'xstate';
 
-interface StepperContext {
+interface OnboardingStepperContext {
   currentStepIndex: number;
   selectSubjects: {
     allSubjects: string[];
     selectedSubjects: string[];
+    minimumSubjectsCount: number;
   };
 }
 
-type StepperEvents = { type: 'E_NEXT' } | { type: 'E_PREVIOUS' };
+const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
+const S_SELECT_REGION = 'S_SELECT_REGION';
+const S_DONE = 'S_DONE';
+const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
 
-const statesMap = [
+type OnboardingStepperEvents = { type: 'E_NEXT' } | { type: 'E_PREVIOUS' };
+
+export const onboardingStepperStates = [
   {
     index: 0,
-    name: 'S_SELECT_SUBJECTS',
-    next: 'S_SELECT_REGION',
+    name: S_SELECT_SUBJECTS,
+    label: 'Select Subjects',
+    description: 'Choose your subjects',
+    next: S_SELECT_REGION,
+    next_guard: {
+      name: G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED,
+      function: ({ context }: any) => {
+        const {
+          selectSubjects: { selectedSubjects, minimumSubjectsCount },
+        } = context;
+
+        if (size(selectedSubjects) >= minimumSubjectsCount) {
+          return true;
+        }
+
+        return false;
+      },
+    },
   },
   {
     index: 1,
-    name: 'S_SELECT_REGION',
-    previous: 'S_SELECT_SUBJECTS',
-    next: 'S_DONE',
+    name: S_SELECT_REGION,
+    previous: S_SELECT_SUBJECTS,
+    next: S_DONE,
+    label: 'Select Region',
+    description: 'Choose your region',
   },
-  { index: 2, name: 'S_DONE' },
+  { index: 2, name: S_DONE, label: 'Done', description: 'Done' },
 ];
 
-const initialState = statesMap[0].name;
+const initialState = onboardingStepperStates[0].name;
 const updateStepActionCall = (step: any) => {
   return {
     type: 'A_UPDATE_STEP_INDEX',
@@ -35,19 +60,18 @@ const updateStepActionCall = (step: any) => {
   };
 };
 
-// first step can move forward, middle steps can move either way.
-// last step is final, it cannot move anywhere.
-const stepperMachineStates = statesMap.reduce((agg: any, val: any, index: number) => {
+const stepperMachineStates = onboardingStepperStates.reduce((agg: any, val: any, index: number) => {
   if (index === 0) {
     agg[val.name] = {
       entry: [updateStepActionCall(val)],
       on: {
         E_NEXT: {
           target: val.next,
+          guard: val.next_guard.function,
         },
       },
     };
-  } else if (index === statesMap.length - 1) {
+  } else if (index === onboardingStepperStates.length - 1) {
     agg[val.name] = {
       entry: [updateStepActionCall(val)],
       type: 'final',
@@ -58,6 +82,7 @@ const stepperMachineStates = statesMap.reduce((agg: any, val: any, index: number
       on: {
         E_NEXT: {
           target: val.next,
+          guard: val.next_guard?.function,
         },
         E_PREVIOUS: {
           target: val.previous,
@@ -71,8 +96,8 @@ const stepperMachineStates = statesMap.reduce((agg: any, val: any, index: number
 
 const stepperMachine = setup({
   types: {
-    context: {} as StepperContext,
-    events: {} as StepperEvents,
+    context: {} as OnboardingStepperContext,
+    events: {} as OnboardingStepperEvents,
   },
   actions: {
     A_UPDATE_STEP_INDEX: assign((_, params: { currentStepIndex: number }) => {
@@ -86,10 +111,11 @@ const stepperMachine = setup({
   id: 'stepper',
   initial: initialState,
   context: {
-    currentStepIndex: 0, // initial index
+    currentStepIndex: 0,
     selectSubjects: {
       allSubjects: [],
       selectedSubjects: [],
+      minimumSubjectsCount: 0,
     },
   },
   states: stepperMachineStates,
