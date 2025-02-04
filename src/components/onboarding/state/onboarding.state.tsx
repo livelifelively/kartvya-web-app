@@ -1,10 +1,11 @@
 import { size } from 'lodash';
 import { assign, setup } from 'xstate';
+import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
   selectSubjects: {
-    allSubjects: string[];
+    allSubjectsGroups: SubjectGroup[];
     selectedSubjects: string[];
     minimumSubjectsCount: number;
   };
@@ -113,9 +114,9 @@ const stepperMachine = setup({
   context: {
     currentStepIndex: 0,
     selectSubjects: {
-      allSubjects: [],
+      allSubjectsGroups,
       selectedSubjects: [],
-      minimumSubjectsCount: 0,
+      minimumSubjectsCount: 5,
     },
   },
   states: stepperMachineStates,
