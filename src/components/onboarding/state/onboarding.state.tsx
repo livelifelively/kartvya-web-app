@@ -1,6 +1,7 @@
 import { size } from 'lodash';
 import { assign, setup } from 'xstate';
 import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
+import { SelectSubjects } from '../select-subjects';
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
@@ -11,20 +12,36 @@ interface OnboardingStepperContext {
   };
 }
 
-const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
-const S_SELECT_REGION = 'S_SELECT_REGION';
-const S_DONE = 'S_DONE';
-const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
+export const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
+export const S_SELECT_REGION = 'S_SELECT_REGION';
+export const S_DONE = 'S_DONE';
+export const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
 
-type OnboardingStepperEvents = { type: 'E_NEXT' } | { type: 'E_PREVIOUS' };
+type OnboardingStepperEvents =
+  | { type: 'E_NEXT' }
+  | { type: 'E_PREVIOUS' }
+  | { type: 'E_SELECTED_SUBJECTS_CHANGED'; selectedSubjects: string[] };
 
 export const onboardingStepperStates = [
   {
     index: 0,
     name: S_SELECT_SUBJECTS,
     label: 'Select Subjects',
+    subText: '',
     description: 'Choose your subjects',
     next: S_SELECT_REGION,
+    on: {
+      E_SELECTED_SUBJECTS_CHANGED: {
+        actions: assign(({ event, context }) => {
+          return {
+            selectSubjects: {
+              ...context.selectSubjects,
+              selectedSubjects: event.selectedSubjects,
+            },
+          };
+        }),
+      },
+    },
     next_guard: {
       name: G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED,
       function: ({ context }: any) => {
@@ -70,6 +87,7 @@ const stepperMachineStates = onboardingStepperStates.reduce((agg: any, val: any,
           target: val.next,
           guard: val.next_guard.function,
         },
+        ...val.on,
       },
     };
   } else if (index === onboardingStepperStates.length - 1) {
