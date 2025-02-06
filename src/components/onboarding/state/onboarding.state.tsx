@@ -35,10 +35,21 @@ interface OnboardingStepperContext {
     minimumRegionsCount: number;
     error?: string;
   };
+  confirmation: {
+    label: string;
+    description: string;
+    subText?: string;
+  };
+  done: {
+    label: string;
+    description: string;
+    subText?: string;
+  };
 }
 
 export const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
 export const S_SELECT_REGIONS = 'S_SELECT_REGIONS';
+export const S_CONFIRMATION = 'S_CONFIRMATION';
 export const S_DONE = 'S_DONE';
 export const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
 export const G_MINIMUM_NUMBER_OF_REGIONS_SELECTED = 'G_MINIMUM_NUMBER_OF_REGIONS_SELECTED';
@@ -48,124 +59,6 @@ type OnboardingStepperEvents =
   | { type: 'E_PREVIOUS' }
   | { type: 'E_SELECTED_SUBJECTS_CHANGED'; selectedSubjects: string[] }
   | { type: 'E_SELECTED_REGIONS_CHANGED'; selectedRegion: SelectedRegion };
-
-export const onboardingStepperStates = [
-  {
-    index: 0,
-    name: S_SELECT_SUBJECTS,
-    label: 'Select Subjects',
-    subText: '',
-    description: 'Choose your subjects',
-    next: S_SELECT_REGIONS,
-    on: {
-      E_SELECTED_SUBJECTS_CHANGED: {
-        actions: assign(({ event, context }) => {
-          return {
-            selectSubjects: {
-              ...context.selectSubjects,
-              selectedSubjects: event.selectedSubjects,
-            },
-          };
-        }),
-      },
-    },
-    next_guard: {
-      name: G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED,
-      function: ({ context }: any) => {
-        const {
-          selectSubjects: { selectedSubjects, minimumSubjectsCount },
-        } = context;
-
-        if (size(selectedSubjects) >= minimumSubjectsCount) {
-          return true;
-        }
-
-        return false;
-      },
-    },
-  },
-  {
-    index: 1,
-    name: S_SELECT_REGIONS,
-    previous: S_SELECT_SUBJECTS,
-    next: S_DONE,
-    label: 'Select Region',
-    description: 'Choose your region',
-    on: {
-      E_SELECTED_REGIONS_CHANGED: {
-        actions: assign(({ event, context }) => {
-          return {
-            selectRegions: {
-              ...context.selectRegions,
-              selectedRegions: event.selectedRegion,
-            },
-          };
-        }),
-      },
-    },
-    next_guard: {
-      name: G_MINIMUM_NUMBER_OF_REGIONS_SELECTED,
-      function: ({ context }: any) => {
-        const {
-          selectRegions: { selectedRegions, minimumRegionsCount },
-        } = context;
-
-        if (size(selectedRegions) >= minimumRegionsCount) {
-          return true;
-        }
-
-        return false;
-      },
-    },
-  },
-  { index: 2, name: S_DONE, label: 'Done', description: 'Done' },
-];
-
-const initialState = onboardingStepperStates[0].name;
-const updateStepActionCall = (step: any) => {
-  return {
-    type: 'A_UPDATE_STEP_INDEX',
-    params: () => {
-      return { currentStepIndex: step.index };
-    },
-  };
-};
-
-const stepperMachineStates = onboardingStepperStates.reduce((agg: any, val: any, index: number) => {
-  if (index === 0) {
-    agg[val.name] = {
-      entry: [updateStepActionCall(val)],
-      on: {
-        E_NEXT: {
-          target: val.next,
-          guard: val.next_guard.function,
-        },
-        ...val.on,
-      },
-    };
-  } else if (index === onboardingStepperStates.length - 1) {
-    agg[val.name] = {
-      entry: [updateStepActionCall(val)],
-      type: 'final',
-    };
-  } else {
-    agg[val.name] = {
-      entry: [updateStepActionCall(val)],
-      on: {
-        E_NEXT: {
-          target: val.next,
-          guard: val.next_guard?.function,
-        },
-        E_PREVIOUS: {
-          target: val.previous,
-        },
-        ...val.on,
-      },
-    };
-  }
-
-  return agg;
-}, {});
 
 const stepperMachine = setup({
   types: {
@@ -177,9 +70,28 @@ const stepperMachine = setup({
       currentStepIndex: params.currentStepIndex,
     })),
   },
+  guards: {
+    G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED: ({ context }) => {
+      const {
+        selectSubjects: { selectedSubjects, minimumSubjectsCount },
+      } = context;
+      return size(selectedSubjects) >= minimumSubjectsCount;
+    },
+    G_MINIMUM_NUMBER_OF_REGIONS_SELECTED: ({ context }): boolean => {
+      const {
+        selectRegions: { selectedRegions },
+      } = context;
+      return Boolean(
+        selectedRegions.state &&
+          selectedRegions.district &&
+          selectedRegions.loksabhaConstituency &&
+          selectedRegions.vidhansabhaConstituency
+      );
+    },
+  },
 }).createMachine({
   id: 'stepper',
-  initial: initialState,
+  initial: S_SELECT_SUBJECTS,
   context: {
     currentStepIndex: 0,
     selectSubjects: {
@@ -203,8 +115,69 @@ const stepperMachine = setup({
       description: 'Choose your region',
       error: undefined,
     },
+    confirmation: {
+      label: 'Confirmation',
+      description: 'Confirm your selections',
+    },
+    done: {
+      label: 'Done',
+      description: 'Thank you for your selections',
+    },
   },
-  states: stepperMachineStates,
+  states: {
+    [S_SELECT_SUBJECTS]: {
+      entry: assign({ currentStepIndex: 0 }),
+      on: {
+        E_NEXT: {
+          target: S_SELECT_REGIONS,
+          guard: 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED',
+        },
+        E_SELECTED_SUBJECTS_CHANGED: {
+          actions: assign(({ event, context }) => ({
+            selectSubjects: {
+              ...context.selectSubjects,
+              selectedSubjects: event.selectedSubjects,
+            },
+          })),
+        },
+      },
+    },
+    [S_SELECT_REGIONS]: {
+      entry: assign({ currentStepIndex: 1 }),
+      on: {
+        E_NEXT: {
+          target: S_CONFIRMATION,
+          guard: 'G_MINIMUM_NUMBER_OF_REGIONS_SELECTED',
+        },
+        E_PREVIOUS: {
+          target: S_SELECT_SUBJECTS,
+        },
+        E_SELECTED_REGIONS_CHANGED: {
+          actions: assign(({ event, context }) => ({
+            selectRegions: {
+              ...context.selectRegions,
+              selectedRegions: event.selectedRegion,
+            },
+          })),
+        },
+      },
+    },
+    [S_CONFIRMATION]: {
+      entry: assign({ currentStepIndex: 2 }),
+      on: {
+        E_NEXT: {
+          target: S_DONE,
+        },
+        E_PREVIOUS: {
+          target: S_SELECT_REGIONS,
+        },
+      },
+    },
+    [S_DONE]: {
+      entry: assign({ currentStepIndex: 3 }),
+      type: 'final',
+    },
+  },
 });
 
 export default stepperMachine;
