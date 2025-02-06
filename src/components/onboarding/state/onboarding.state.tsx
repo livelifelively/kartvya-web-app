@@ -1,7 +1,15 @@
 import { size } from 'lodash';
 import { assign, setup } from 'xstate';
 import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
-import { SelectSubjects } from '../select-subjects';
+import { statesData } from './select-regions.data';
+
+interface SelectedRegion {
+  country: string;
+  state: string;
+  district: string;
+  lokSabhaConstituency: string;
+  vidhanSabhaConstituency: string;
+}
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
@@ -10,17 +18,24 @@ interface OnboardingStepperContext {
     selectedSubjects: string[];
     minimumSubjectsCount: number;
   };
+  selectRegions: {
+    allRegions: any[];
+    selectedRegions: SelectedRegion[];
+    minimumRegionsCount: number;
+  };
 }
 
 export const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
 export const S_SELECT_REGION = 'S_SELECT_REGION';
 export const S_DONE = 'S_DONE';
 export const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
+export const G_MINIMUM_NUMBER_OF_REGIONS_SELECTED = 'G_MINIMUM_NUMBER_OF_REGIONS_SELECTED';
 
 type OnboardingStepperEvents =
   | { type: 'E_NEXT' }
   | { type: 'E_PREVIOUS' }
-  | { type: 'E_SELECTED_SUBJECTS_CHANGED'; selectedSubjects: string[] };
+  | { type: 'E_SELECTED_SUBJECTS_CHANGED'; selectedSubjects: string[] }
+  | { type: 'E_SELECTED_REGIONS_CHANGED'; selectedRegions: SelectedRegion[] };
 
 export const onboardingStepperStates = [
   {
@@ -64,6 +79,20 @@ export const onboardingStepperStates = [
     next: S_DONE,
     label: 'Select Region',
     description: 'Choose your region',
+    next_guard: {
+      name: G_MINIMUM_NUMBER_OF_REGIONS_SELECTED,
+      function: ({ context }: any) => {
+        const {
+          selectRegions: { selectedRegions, minimumRegionsCount },
+        } = context;
+
+        if (size(selectedRegions) >= minimumRegionsCount) {
+          return true;
+        }
+
+        return false;
+      },
+    },
   },
   { index: 2, name: S_DONE, label: 'Done', description: 'Done' },
 ];
@@ -135,6 +164,11 @@ const stepperMachine = setup({
       allSubjectsGroups,
       selectedSubjects: [],
       minimumSubjectsCount: 5,
+    },
+    selectRegions: {
+      allRegions: statesData,
+      selectedRegions: [],
+      minimumRegionsCount: 1,
     },
   },
   states: stepperMachineStates,
