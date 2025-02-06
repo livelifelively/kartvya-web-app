@@ -11,6 +11,7 @@ import { SelectSubjects } from './select-subjects';
 import { OnboardingAppShell } from '../app-shell/onboarding-app-shell';
 import Logo from '../logo/logo';
 import { SelectRegions } from './select-region';
+import { AppErrorBoundary } from '@/components/common/error-boundary';
 
 export function Onboarding() {
   const [current, send] = useMachine(stepperMachine);
@@ -63,23 +64,29 @@ export function Onboarding() {
   });
 
   return (
-    <OnboardingAppShell containerSize="xl">
-      <Box h="100vh" style={{ boxSizing: 'border-box' }}>
-        <Title ta="center" size="h5" mb={10} mt={10}>
-          Welcome to <Logo size="h1" linksToHome={false} />
-        </Title>
-        <Stepper active={current.context.currentStepIndex} allowNextStepsSelect={false}>
-          {stepperSteps}
-        </Stepper>
-        <Group justify="center" mt="xl">
-          <Button variant="default" onClick={handlePrevious} disabled={!current.can({ type: 'E_PREVIOUS' })}>
-            Back
-          </Button>
-          <Button onClick={handleNext} disabled={!current.can({ type: 'E_NEXT' })}>
-            Next step
-          </Button>
-        </Group>
-      </Box>
-    </OnboardingAppShell>
+    <AppErrorBoundary
+      title="Onboarding Error"
+      description="An error occurred during the onboarding process"
+      actionLabel="Restart Onboarding"
+    >
+      <OnboardingAppShell containerSize="xl">
+        <Box h="100vh" style={{ boxSizing: 'border-box' }}>
+          <Title ta="center" size="h5" mb={10} mt={10}>
+            Welcome to <Logo size="h1" linksToHome={false} />
+          </Title>
+          <Stepper active={current.context.currentStepIndex} allowNextStepsSelect={false}>
+            {stepperSteps}
+          </Stepper>
+          <Group justify="center" mt="xl">
+            <Button variant="default" onClick={handlePrevious} disabled={!current.can({ type: 'E_PREVIOUS' })}>
+              Back
+            </Button>
+            <Button onClick={handleNext} disabled={!current.can({ type: 'E_NEXT' })}>
+              Next step
+            </Button>
+          </Group>
+        </Box>
+      </OnboardingAppShell>
+    </AppErrorBoundary>
   );
 }
