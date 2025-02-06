@@ -1,5 +1,5 @@
 import { Box, Chip, Group, Title } from '@mantine/core';
-import { map } from 'lodash';
+import { map, sortBy } from 'lodash';
 import { SelectedRegion } from './state/onboarding.state';
 
 export function SelectRegions({
@@ -52,7 +52,7 @@ export function SelectRegions({
         </Title>
         <Chip.Group value={selectedRegions.state} onChange={selectState} multiple={false}>
           <Group mt="xs">
-            {map(allRegions, (state) => (
+            {map(sortBy(allRegions, 'name'), (state) => (
               <Chip key={state.region_name_id} value={state.region_name_id} variant="outline">
                 {state.name}
               </Chip>
@@ -67,7 +67,7 @@ export function SelectRegions({
           </Title>
           <Chip.Group value={selectedRegions.district} onChange={selectDistrict} multiple={false}>
             <Group mt="xs">
-              {map(allRegions[selectedRegions.state].districts, (district) => (
+              {map(sortBy(allRegions[selectedRegions.state].districts, 'name'), (district) => (
                 <Chip key={district.region_name_id} value={district.region_name_id} variant="outline">
                   {district.name}
                 </Chip>
@@ -84,7 +84,10 @@ export function SelectRegions({
           <Chip.Group value={selectedRegions.loksabhaConstituency} onChange={selectLoksabha} multiple={false}>
             <Group mt="xs">
               {map(
-                allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies,
+                sortBy(
+                  allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies,
+                  'name'
+                ),
                 (loksabha) => (
                   <Chip key={loksabha.region_name_id} value={loksabha.region_name_id} variant="outline">
                     {loksabha.name}
@@ -104,9 +107,12 @@ export function SelectRegions({
           <Chip.Group value={selectedRegions.vidhansabhaConstituency} onChange={selectVidhansabha} multiple={false}>
             <Group mt="xs">
               {map(
-                allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies[
-                  selectedRegions.loksabhaConstituency
-                ]?.vidhansabha_constituencies,
+                sortBy(
+                  allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies[
+                    selectedRegions.loksabhaConstituency
+                  ]?.vidhansabha_constituencies,
+                  'name'
+                ),
                 (vidhansabha) => (
                   <Chip key={vidhansabha.region_name_id} value={vidhansabha.region_name_id} variant="outline">
                     {vidhansabha.name}
