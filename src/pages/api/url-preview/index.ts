@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 import { URL } from 'url';
 import { URLPreviewData } from '@/components/url-preview/url-preview';
 
@@ -23,9 +23,8 @@ const getURLPreview = async (url: string): Promise<URLPreviewData> => {
       const hostname = new URL(url).hostname;
 
       return { title, description, image, siteName, hostname };
-    } else {
-      throw new Error('Response is not HTML');
     }
+    throw new Error('Response is not HTML');
   } catch (error) {
     throw new Error(`Failed to fetch link preview: ${error}`);
   }
