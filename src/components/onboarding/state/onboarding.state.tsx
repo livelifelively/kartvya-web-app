@@ -1,7 +1,7 @@
 import { size } from 'lodash';
-import { assign, setup } from 'xstate';
-import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
-import { statesData } from './select-regions.data';
+import { assign, setup, fromPromise } from 'xstate';
+import { SubjectGroup } from './all-subjects-groups.data';
+import { adaptFromDgraph, transformData } from './select-regions.data';
 
 export interface SelectedRegion {
   state: Region | null;
@@ -51,6 +51,7 @@ export const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
 export const S_SELECT_REGIONS = 'S_SELECT_REGIONS';
 export const S_CONFIRMATION = 'S_CONFIRMATION';
 export const S_DONE = 'S_DONE';
+export const S_LOAD_DATA = 'S_LOAD_DATA';
 export const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
 export const G_MINIMUM_NUMBER_OF_REGIONS_SELECTED = 'G_MINIMUM_NUMBER_OF_REGIONS_SELECTED';
 
@@ -58,17 +59,44 @@ type OnboardingStepperEvents =
   | { type: 'E_NEXT' }
   | { type: 'E_PREVIOUS' }
   | { type: 'E_SELECTED_SUBJECTS_CHANGED'; selectedSubjects: string[] }
-  | { type: 'E_SELECTED_REGIONS_CHANGED'; selectedRegion: SelectedRegion };
+  | { type: 'E_SELECTED_REGIONS_CHANGED'; selectedRegion: SelectedRegion }
+  | { type: 'E_DATA_LOADED'; data: { subjects: SubjectGroup[]; regions: any } };
 
 const stepperMachine = setup({
   types: {
     context: {} as OnboardingStepperContext,
     events: {} as OnboardingStepperEvents,
   },
+  actors: {
+    loadData: fromPromise(async () => {
+      const response = await fetch('/api/citizen/region');
+      let regions = await response.json();
+
+      regions = adaptFromDgraph(regions);
+      regions = transformData(regions);
+
+      return regions;
+    }),
+  },
   actions: {
     A_UPDATE_STEP_INDEX: assign((_, params: { currentStepIndex: number }) => ({
       currentStepIndex: params.currentStepIndex,
     })),
+    A_UPDATE_DATA: assign(({ context, event }) => {
+      if (event.type !== 'E_DATA_LOADED') {
+        return {};
+      }
+      return {
+        selectSubjects: {
+          ...context.selectSubjects,
+          allSubjectsGroups: event.data.subjects,
+        },
+        selectRegions: {
+          ...context.selectRegions,
+          allRegions: event.data.regions,
+        },
+      };
+    }),
   },
   guards: {
     G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED: ({ context }) => {
@@ -91,11 +119,11 @@ const stepperMachine = setup({
   },
 }).createMachine({
   id: 'stepper',
-  initial: S_SELECT_SUBJECTS,
+  initial: S_LOAD_DATA,
   context: {
     currentStepIndex: 0,
     selectSubjects: {
-      allSubjectsGroups,
+      allSubjectsGroups: [],
       selectedSubjects: [],
       minimumSubjectsCount: 5,
       label: 'Select Subjects',
@@ -103,7 +131,7 @@ const stepperMachine = setup({
       description: 'Choose your subjects',
     },
     selectRegions: {
-      allRegions: statesData,
+      allRegions: {},
       selectedRegions: {
         state: null,
         district: null,
@@ -125,6 +153,19 @@ const stepperMachine = setup({
     },
   },
   states: {
+    [S_LOAD_DATA]: {
+      invoke: {
+        src: 'loadData',
+        onDone: {
+          target: S_SELECT_SUBJECTS,
+          actions: [{ type: 'A_UPDATE_DATA', params: ({ event }) => event.output }],
+        },
+        onError: {
+          // You might want to handle errors appropriately
+          target: S_LOAD_DATA,
+        },
+      },
+    },
     [S_SELECT_SUBJECTS]: {
       entry: assign({ currentStepIndex: 0 }),
       on: {
