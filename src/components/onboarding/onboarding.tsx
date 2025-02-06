@@ -25,8 +25,11 @@ export function Onboarding() {
   };
 
   const stepperSteps = onboardingStepperStates.map((state: any) => {
+    const stepContext =
+      state.name === S_SELECT_SUBJECTS ? current.context.selectSubjects : current.context.selectRegions;
+
     return (
-      <Stepper.Step key={state.name} label={state.label} description={state.subText}>
+      <Stepper.Step key={state.name} label={stepContext.label} description={stepContext.subText}>
         {state.name === S_SELECT_SUBJECTS && (
           <>
             <Title ta="center" size="h2" c="brandYellow" mt={20} pb={20}>
@@ -48,7 +51,7 @@ export function Onboarding() {
         {state.name === S_SELECT_REGIONS && (
           <>
             <Title ta="center" size="h2" c="brandYellow" mt={20} pb={20}>
-              Select your Region
+              {current.context.selectRegions.description}
             </Title>
             <SelectRegions
               allRegions={current.context.selectRegions.allRegions}

@@ -7,18 +7,19 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' }); // 405 Method Not Allowed
+  if (req.method === 'GET') {
+    const states = await getRegions();
+    res.status(200).json(states);
   }
+}
 
+async function getRegions() {
   const graphQLClient = await createGraphQLClient();
 
-  const states = await queryNodeTypeFilter(
-    '_Indian_State_Union_Territory_',
-    graphQLClient,
-    { name_id: { in: ['in-sut-himachal-pradesh', 'in-sut-punjab'] } },
-    [
-      `
+  const filter = { name_id: { in: ['in-sut-himachal-pradesh', 'in-sut-punjab'] } };
+
+  const states = await queryNodeTypeFilter('_Indian_State_Union_Territory_', graphQLClient, filter, [
+    `
       name_id
       names {
         name
@@ -69,8 +70,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       }
     `,
-    ]
-  );
+  ]);
 
-  res.status(200).json(states);
+  return states;
 }

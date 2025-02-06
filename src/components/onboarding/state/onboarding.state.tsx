@@ -4,23 +4,36 @@ import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
 import { statesData } from './select-regions.data';
 
 export interface SelectedRegion {
-  state: string;
-  district: string;
-  loksabhaConstituency: string;
-  vidhansabhaConstituency: string;
+  state: Region | null;
+  district: Region | null;
+  loksabhaConstituency: Region | null;
+  vidhansabhaConstituency: Region | null;
+}
+
+interface Region {
+  name: string;
+  name_id: string;
+  region_name_id: string;
 }
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
   selectSubjects: {
+    label: string;
+    subText?: string;
+    description: string;
     allSubjectsGroups: SubjectGroup[];
     selectedSubjects: string[];
     minimumSubjectsCount: number;
   };
   selectRegions: {
+    label: string;
+    subText?: string;
+    description: string;
     allRegions: any;
     selectedRegions: SelectedRegion;
     minimumRegionsCount: number;
+    error?: string;
   };
 }
 
@@ -160,12 +173,9 @@ const stepperMachine = setup({
     events: {} as OnboardingStepperEvents,
   },
   actions: {
-    A_UPDATE_STEP_INDEX: assign((_, params: { currentStepIndex: number }) => {
-      const { currentStepIndex } = params;
-      return {
-        currentStepIndex,
-      };
-    }),
+    A_UPDATE_STEP_INDEX: assign((_, params: { currentStepIndex: number }) => ({
+      currentStepIndex: params.currentStepIndex,
+    })),
   },
 }).createMachine({
   id: 'stepper',
@@ -176,16 +186,22 @@ const stepperMachine = setup({
       allSubjectsGroups,
       selectedSubjects: [],
       minimumSubjectsCount: 5,
+      label: 'Select Subjects',
+      subText: '',
+      description: 'Choose your subjects',
     },
     selectRegions: {
       allRegions: statesData,
       selectedRegions: {
-        state: '',
-        district: '',
-        loksabhaConstituency: '',
-        vidhansabhaConstituency: '',
+        state: null,
+        district: null,
+        loksabhaConstituency: null,
+        vidhansabhaConstituency: null,
       },
       minimumRegionsCount: 1,
+      label: 'Select Region',
+      description: 'Choose your region',
+      error: undefined,
     },
   },
   states: stepperMachineStates,
