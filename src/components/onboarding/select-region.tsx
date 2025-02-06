@@ -1,4 +1,4 @@
-import { Box, Group, Radio, Title } from '@mantine/core';
+import { Box, Chip, Group, Title } from '@mantine/core';
 import { map } from 'lodash';
 import { SelectedRegion } from './state/onboarding.state';
 
@@ -50,26 +50,30 @@ export function SelectRegions({
         <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
           Select State
         </Title>
-        <Radio.Group name="state" onChange={(value) => selectState(value)}>
+        <Chip.Group value={selectedRegions.state} onChange={selectState} multiple={false}>
           <Group mt="xs">
             {map(allRegions, (state) => (
-              <Radio key={state.region_name_id} value={state.region_name_id} label={state.name} />
+              <Chip key={state.region_name_id} value={state.region_name_id} variant="outline">
+                {state.name}
+              </Chip>
             ))}
           </Group>
-        </Radio.Group>
+        </Chip.Group>
       </Box>
       {selectedRegions.state && (
         <Box mb={32}>
           <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
             Select District
           </Title>
-          <Radio.Group name="district" onChange={(value) => selectDistrict(value)}>
+          <Chip.Group value={selectedRegions.district} onChange={selectDistrict} multiple={false}>
             <Group mt="xs">
               {map(allRegions[selectedRegions.state].districts, (district) => (
-                <Radio key={district.region_name_id} value={district.region_name_id} label={district.name} />
+                <Chip key={district.region_name_id} value={district.region_name_id} variant="outline">
+                  {district.name}
+                </Chip>
               ))}
             </Group>
-          </Radio.Group>
+          </Chip.Group>
         </Box>
       )}
       {selectedRegions.state && selectedRegions.district && (
@@ -77,16 +81,18 @@ export function SelectRegions({
           <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
             Select Loksabha Constituency
           </Title>
-          <Radio.Group name="loksabha" onChange={(value) => selectLoksabha(value)}>
+          <Chip.Group value={selectedRegions.loksabhaConstituency} onChange={selectLoksabha} multiple={false}>
             <Group mt="xs">
               {map(
                 allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies,
                 (loksabha) => (
-                  <Radio key={loksabha.region_name_id} value={loksabha.region_name_id} label={loksabha.name} />
+                  <Chip key={loksabha.region_name_id} value={loksabha.region_name_id} variant="outline">
+                    {loksabha.name}
+                  </Chip>
                 )
               )}
             </Group>
-          </Radio.Group>
+          </Chip.Group>
         </Box>
       )}
 
@@ -95,18 +101,20 @@ export function SelectRegions({
           <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
             Select Vidhansabha Constituency
           </Title>
-          <Radio.Group name="vidhansabha" onChange={(value) => selectVidhansabha(value)}>
+          <Chip.Group value={selectedRegions.vidhansabhaConstituency} onChange={selectVidhansabha} multiple={false}>
             <Group mt="xs">
               {map(
                 allRegions[selectedRegions.state]?.districts[selectedRegions.district]?.loksabha_constituencies[
                   selectedRegions.loksabhaConstituency
                 ]?.vidhansabha_constituencies,
                 (vidhansabha) => (
-                  <Radio key={vidhansabha.region_name_id} value={vidhansabha.region_name_id} label={vidhansabha.name} />
+                  <Chip key={vidhansabha.region_name_id} value={vidhansabha.region_name_id} variant="outline">
+                    {vidhansabha.name}
+                  </Chip>
                 )
               )}
             </Group>
-          </Radio.Group>
+          </Chip.Group>
         </Box>
       )}
     </>

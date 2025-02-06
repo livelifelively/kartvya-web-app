@@ -1,5 +1,4 @@
-import { Box, Checkbox, Grid, Group, Text, Title } from '@mantine/core';
-import classes from './onboarding.module.css';
+import { Box, Chip, Group, Title } from '@mantine/core';
 import { SubjectGroup } from './state/all-subjects-groups.data';
 
 export function SelectSubjects({
@@ -12,33 +11,23 @@ export function SelectSubjects({
   onSelectedSubjectsChanged: (selectedSubjects: string[]) => void;
 }) {
   return (
-    <Checkbox.Group
-      value={selectedSubjects}
-      onChange={(value) => {
-        onSelectedSubjectsChanged(value);
-      }}
-    >
-      {allSubjectsGroups.map((item) => (
+    <Box>
+      {allSubjectsGroups.map((item: SubjectGroup) => (
         <Box mb={32} key={item.id}>
           <Title mb={16} size="h4" style={{ textTransform: 'uppercase' }}>
             {item.name}
           </Title>
-          <Grid>
-            {item.linked_domains.map((domain) => (
-              <Grid.Col span={{ lg: 3, md: 4, sm: 6 }} key={domain}>
-                <Checkbox.Card className={classes.root} radius="md" value={domain}>
-                  <Group wrap="nowrap" align="flex-start" justify="stretch" style={{ alignItems: 'center' }}>
-                    <Checkbox.Indicator />
-                    <Box>
-                      <Text className={classes.label}>{domain.split('-').join(' ')}</Text>
-                    </Box>
-                  </Group>
-                </Checkbox.Card>
-              </Grid.Col>
-            ))}
-          </Grid>
+          <Chip.Group value={selectedSubjects} onChange={onSelectedSubjectsChanged} multiple>
+            <Group mt="xs">
+              {item.linked_domains.map((domain: string) => (
+                <Chip key={domain} value={domain} variant="outline" style={{ textTransform: 'capitalize' }}>
+                  {domain.split('-').join(' ')}
+                </Chip>
+              ))}
+            </Group>
+          </Chip.Group>
         </Box>
       ))}
-    </Checkbox.Group>
+    </Box>
   );
 }
