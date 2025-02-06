@@ -27,7 +27,6 @@ async function getRegions() {
       active_version {
         region {
           name_id
-          
           districts {
             name_id
             self {
@@ -71,7 +70,6 @@ async function getRegions() {
           }
         }
       }
-    }
     `,
   ]);
 

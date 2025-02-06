@@ -72,7 +72,7 @@ export async function queryNodeTypeFilter(nodetype: string, graphQLClient: any, 
 
   // Construct the query
   const query = `
-      query Get${nodetype}($value: String!) {
+      query Get${nodetype}($filter: ${nodetype}Filter!) {
           query${nodetype}(filter: $filter) {
               ${fields.join('\n')}
           }

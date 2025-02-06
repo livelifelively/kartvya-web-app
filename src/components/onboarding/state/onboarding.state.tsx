@@ -1,6 +1,6 @@
 import { size } from 'lodash';
 import { assign, setup, fromPromise } from 'xstate';
-import { SubjectGroup } from './all-subjects-groups.data';
+import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
 import { adaptFromDgraph, transformData } from './select-regions.data';
 
 export interface SelectedRegion {
@@ -82,18 +82,11 @@ const stepperMachine = setup({
     A_UPDATE_STEP_INDEX: assign((_, params: { currentStepIndex: number }) => ({
       currentStepIndex: params.currentStepIndex,
     })),
-    A_UPDATE_DATA: assign(({ context, event }) => {
-      if (event.type !== 'E_DATA_LOADED') {
-        return {};
-      }
+    A_UPDATE_DATA: assign(({ context }, params: { data: { regions: any } }) => {
       return {
-        selectSubjects: {
-          ...context.selectSubjects,
-          allSubjectsGroups: event.data.subjects,
-        },
         selectRegions: {
           ...context.selectRegions,
-          allRegions: event.data.regions,
+          allRegions: params.data.regions,
         },
       };
     }),
@@ -123,7 +116,7 @@ const stepperMachine = setup({
   context: {
     currentStepIndex: 0,
     selectSubjects: {
-      allSubjectsGroups: [],
+      allSubjectsGroups: allSubjectsGroups,
       selectedSubjects: [],
       minimumSubjectsCount: 5,
       label: 'Select Subjects',
@@ -158,10 +151,17 @@ const stepperMachine = setup({
         src: 'loadData',
         onDone: {
           target: S_SELECT_SUBJECTS,
-          actions: [{ type: 'A_UPDATE_DATA', params: ({ event }) => event.output }],
+          actions: assign(({ event, context }) => {
+            console.log('event.output', event.output);
+            return {
+              selectRegions: {
+                ...context.selectRegions,
+                allRegions: event.output,
+              },
+            };
+          }),
         },
         onError: {
-          // You might want to handle errors appropriately
           target: S_LOAD_DATA,
         },
       },
