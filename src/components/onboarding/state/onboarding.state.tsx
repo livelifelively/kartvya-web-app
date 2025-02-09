@@ -18,6 +18,8 @@ interface Region {
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
+  saving?: boolean;
+  error?: string;
   selectSubjects: {
     label: string;
     subText?: string;
@@ -51,6 +53,7 @@ export const S_SELECT_SUBJECTS = 'S_SELECT_SUBJECTS';
 export const S_SELECT_REGIONS = 'S_SELECT_REGIONS';
 export const S_CONFIRMATION = 'S_CONFIRMATION';
 export const S_DONE = 'S_DONE';
+export const S_SAVING = 'S_SAVING';
 export const S_LOAD_DATA = 'S_LOAD_DATA';
 export const G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED = 'G_MINIMUM_NUMBER_OF_SUBJECTS_SELECTED';
 export const G_MINIMUM_NUMBER_OF_REGIONS_SELECTED = 'G_MINIMUM_NUMBER_OF_REGIONS_SELECTED';
@@ -76,6 +79,36 @@ const stepperMachine = setup({
       regions = transformData(regions);
 
       return regions;
+    }),
+    saveSubjects: fromPromise(async ({ input }: { input: { selectedSubjects: string[] } }) => {
+      const response = await fetch('/api/citizen/subject', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subjects: input.selectedSubjects }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save subjects');
+      }
+
+      return await response.json();
+    }),
+    saveRegions: fromPromise(async ({ input }: { input: { selectedRegions: SelectedRegion } }) => {
+      const response = await fetch('/api/citizen/region', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ regions: input.selectedRegions }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save regions');
+      }
+
+      return await response.json();
     }),
   },
   actions: {
@@ -207,15 +240,52 @@ const stepperMachine = setup({
       entry: assign({ currentStepIndex: 2 }),
       on: {
         E_NEXT: {
-          target: S_DONE,
+          target: 'S_SAVING',
         },
         E_PREVIOUS: {
           target: S_SELECT_REGIONS,
         },
       },
     },
+    [S_SAVING]: {
+      entry: assign({ saving: true }),
+      invoke: [
+        {
+          src: 'saveSubjects',
+          input: ({ context }) => ({
+            selectedSubjects: context.selectSubjects.selectedSubjects,
+          }),
+          onError: {
+            target: S_CONFIRMATION,
+            actions: assign({
+              error: 'Failed to save subjects',
+              saving: false,
+            }),
+          },
+        },
+        {
+          src: 'saveRegions',
+          input: ({ context }) => ({
+            selectedRegions: context.selectRegions.selectedRegions,
+          }),
+          onError: {
+            target: S_CONFIRMATION,
+            actions: assign({
+              error: 'Failed to save regions',
+              saving: false,
+            }),
+          },
+        },
+      ],
+      onDone: [
+        {
+          target: S_DONE,
+          actions: assign({ saving: false }),
+        },
+      ],
+    },
     [S_DONE]: {
-      entry: assign({ currentStepIndex: 3 }),
+      entry: assign({ currentStepIndex: 3, saving: false }),
       type: 'final',
     },
   },
