@@ -149,7 +149,7 @@ const stepperMachine = setup({
   context: {
     currentStepIndex: 0,
     selectSubjects: {
-      allSubjectsGroups: allSubjectsGroups,
+      allSubjectsGroups,
       selectedSubjects: [],
       minimumSubjectsCount: 5,
       label: 'Select Subjects',
@@ -185,7 +185,6 @@ const stepperMachine = setup({
         onDone: {
           target: S_SELECT_SUBJECTS,
           actions: assign(({ event, context }) => {
-            console.log('event.output', event.output);
             return {
               selectRegions: {
                 ...context.selectRegions,
@@ -246,6 +245,11 @@ const stepperMachine = setup({
           target: S_SELECT_REGIONS,
         },
       },
+      exit: [
+        ({ event }) => {
+          console.log('event here here here', event);
+        },
+      ],
     },
     [S_SAVING]: {
       entry: assign({ saving: true }),

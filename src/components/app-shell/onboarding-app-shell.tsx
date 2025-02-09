@@ -2,10 +2,6 @@ import { AppShell, Container, MantineSize } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ReactNode } from 'react';
 
-import { BottomMobileTabs } from '../bottom-mobile-tabs/bottom-mobile-tabs';
-import { Header } from '../header/header';
-import { NavbarNested } from './navbar-nested';
-
 interface ResponsiveAppShellProps {
   children: ReactNode;
   containerSize?: MantineSize;
@@ -19,7 +15,7 @@ export function OnboardingAppShell({
   asideContent,
   navbarContent,
 }: ResponsiveAppShellProps) {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened] = useDisclosure();
   const navbarHiddenFrom: MantineSize = 'md';
   const asideHiddenFrom: MantineSize = 'md';
 
@@ -38,7 +34,7 @@ export function OnboardingAppShell({
       footer={{ height: { base: 60, md: 0 } }}
     >
       {navbarContent && (
-        <AppShell.Navbar py="sm" withBorder={true}>
+        <AppShell.Navbar py="sm" withBorder>
           {navbarContent}
         </AppShell.Navbar>
       )}
@@ -58,13 +54,10 @@ export function OnboardingAppShell({
         }}
         pt="0rem"
       >
-        <Container size={containerSize} px={20} h={'100vh'}>
+        <Container size={containerSize} px={20} h="100vh">
           {children}
         </Container>
       </AppShell.Main>
-      <AppShell.Footer p="none" withBorder={false}>
-        <BottomMobileTabs />
-      </AppShell.Footer>
     </AppShell>
   );
 }
