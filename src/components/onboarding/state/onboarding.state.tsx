@@ -80,7 +80,7 @@ const stepperMachine = setup({
 
       return regions;
     }),
-    saveSubjects: fromPromise(async ({ input }: { input: { selectedSubjects: string[] } }) => {
+    saveCitizenSelectedSubjects: fromPromise(async ({ input }: { input: { selectedSubjects: string[] } }) => {
       const response = await fetch('/api/citizen/subject', {
         method: 'POST',
         headers: {
@@ -95,7 +95,7 @@ const stepperMachine = setup({
 
       return await response.json();
     }),
-    saveRegions: fromPromise(async ({ input }: { input: { selectedRegions: SelectedRegion } }) => {
+    saveCitizenSelectedRegions: fromPromise(async ({ input }: { input: { selectedRegions: SelectedRegion } }) => {
       const response = await fetch('/api/citizen/region', {
         method: 'POST',
         headers: {
@@ -245,17 +245,12 @@ const stepperMachine = setup({
           target: S_SELECT_REGIONS,
         },
       },
-      exit: [
-        ({ event }) => {
-          console.log('event here here here', event);
-        },
-      ],
     },
     [S_SAVING]: {
       entry: assign({ saving: true }),
       invoke: [
         {
-          src: 'saveSubjects',
+          src: 'saveCitizenSelectedSubjects',
           input: ({ context }) => ({
             selectedSubjects: context.selectSubjects.selectedSubjects,
           }),
@@ -268,7 +263,7 @@ const stepperMachine = setup({
           },
         },
         {
-          src: 'saveRegions',
+          src: 'saveCitizenSelectedRegions',
           input: ({ context }) => ({
             selectedRegions: context.selectRegions.selectedRegions,
           }),
