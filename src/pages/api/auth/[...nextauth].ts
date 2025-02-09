@@ -12,6 +12,17 @@ const jwt = require('jsonwebtoken');
 // https://authjs.dev/concepts/session-strategies
 // https://datatracker.ietf.org/meeting/105/materials/slides-105-oauth-sessa-json-web-token-jwt-profile-for-oauth-20-access-tokens-02-00
 
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id?: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+}
+
 export default NextAuth({
   providers: [
     LinkedInProvider({
@@ -53,41 +64,21 @@ export default NextAuth({
     jwt: async ({ token, user, trigger }) => {
       if (user) {
         token.id = user.id;
-        // token.accessToken
       }
-
-      switch (trigger) {
-        case 'signIn':
-          console.log('User revisiting');
-          break;
-        case 'signUp':
-          console.log('New User Registered');
-          break;
-        case 'update':
-          console.log('udpate event');
-          break;
-      }
-
       return token;
     },
-    session: async ({ session, token }) =>
-      // session?.user?.id = token.id;
-      ({ ...session, token }),
-  },
-  jwt: {
-    // Load keys asynchronously
-    async encode({ token }) {
-      const key = process.env.VERIFICATION_KEY || '';
-      return jwt.sign(token, key, { algorithm: 'HS256' });
-    },
-    async decode({ token }) {
-      const key = process.env.VERIFICATION_KEY || '';
-      return jwt.verify(token, key, { algorithms: ['HS256'] });
+    session: async ({ session, token }) => {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
     },
   },
   session: {
     strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/auth',
     signOut: '/auth',
