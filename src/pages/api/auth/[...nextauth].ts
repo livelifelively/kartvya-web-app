@@ -82,7 +82,7 @@ export default NextAuth({
   pages: {
     signIn: '/auth',
     signOut: '/auth',
-    newUser: '/citizen/know',
+    newUser: '/citizen/welcome',
   },
   debug: process.env.NODE_ENV === 'development',
 } as NextAuthOptions);

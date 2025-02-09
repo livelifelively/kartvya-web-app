@@ -2,6 +2,7 @@ import { size } from 'lodash';
 import { assign, setup, fromPromise } from 'xstate';
 import { allSubjectsGroups, SubjectGroup } from './all-subjects-groups.data';
 import { adaptFromDgraph, transformData } from './select-regions.data';
+import router from 'next/router';
 
 export interface SelectedRegion {
   state: Region | null;
@@ -18,7 +19,10 @@ interface Region {
 
 interface OnboardingStepperContext {
   currentStepIndex: number;
-  saving?: boolean;
+  saved?: {
+    subjects?: boolean;
+    regions?: boolean;
+  };
   error?: string;
   selectSubjects: {
     label: string;
@@ -142,6 +146,9 @@ const stepperMachine = setup({
           selectedRegions.vidhansabhaConstituency
       );
     },
+    G_SAVING_COMPLETE: ({ context }) => {
+      return !context?.saved?.subjects && !context?.saved?.regions;
+    },
   },
 }).createMachine({
   id: 'stepper',
@@ -247,7 +254,7 @@ const stepperMachine = setup({
       },
     },
     [S_SAVING]: {
-      entry: assign({ saving: true }),
+      entry: assign({ saved: { subjects: false, regions: false } }),
       invoke: [
         {
           src: 'saveCitizenSelectedSubjects',
@@ -256,9 +263,24 @@ const stepperMachine = setup({
           }),
           onError: {
             target: S_CONFIRMATION,
-            actions: assign({
-              error: 'Failed to save subjects',
-              saving: false,
+            actions: assign(({ context }) => {
+              const { saved } = context;
+
+              return {
+                error: 'Failed to save subjects',
+                saved: { ...saved, subjects: false },
+              };
+            }),
+          },
+          onDone: {
+            target: S_DONE,
+            guard: 'G_SAVING_COMPLETE',
+            actions: assign(({ context }) => {
+              const { saved } = context;
+
+              return {
+                saved: { ...saved, subjects: true },
+              };
             }),
           },
         },
@@ -271,21 +293,38 @@ const stepperMachine = setup({
             target: S_CONFIRMATION,
             actions: assign({
               error: 'Failed to save regions',
-              saving: false,
+              saved: { subjects: false, regions: true },
+            }),
+          },
+          onDone: {
+            target: S_DONE,
+            guard: 'G_SAVING_COMPLETE',
+            actions: assign(({ context }) => {
+              const { saved } = context;
+
+              return {
+                saved: { ...saved, regions: true },
+              };
             }),
           },
         },
       ],
-      onDone: [
-        {
-          target: S_DONE,
-          actions: assign({ saving: false }),
-        },
-      ],
     },
     [S_DONE]: {
-      entry: assign({ currentStepIndex: 3, saving: false }),
-      type: 'final',
+      entry: assign({
+        currentStepIndex: 3,
+        saved: { subjects: false, regions: false },
+        error: undefined,
+      }),
+      after: {
+        3000: {
+          actions: [
+            () => {
+              router.push('/citizen/know');
+            },
+          ],
+        },
+      },
     },
   },
 });

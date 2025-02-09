@@ -1,9 +1,7 @@
 import { createGraphQLClient } from '@/be-components/dgraph-client/graphql-client';
 import { authenticateUser } from '@/be-components/auth';
 import { upsertCitizenProfile } from '@/be-components/citizen-profile';
-import { getServerSession } from 'next-auth';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import authOptions from '../../auth/[...nextauth]';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
