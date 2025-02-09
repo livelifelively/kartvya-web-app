@@ -13,7 +13,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const profileId = await upsertCitizenProfile(user);
     const { regions } = req.body;
 
-    await saveRegions(regions, profileId);
+    const response = await saveRegions(
+      regions.state,
+      regions.district,
+      regions.loksabhaConstituency,
+      regions.vidhansabhaConstituency,
+      profileId
+    );
+
+    res.status(200).json({ message: 'Regions saved successfully', response });
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }

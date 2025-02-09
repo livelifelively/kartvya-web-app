@@ -10,7 +10,7 @@ export async function upsertCitizenProfile(user: any) {
   const graphQLClient = await createGraphQLClient();
 
   // Check if user has a citizen profile
-  const userWithProfile = await queryNodeTypeFilter('User', graphQLClient, { id: { eq: user.id } }, [
+  const userWithProfile = await queryNodeTypeFilter('User', graphQLClient, { email: { eq: user.email } }, [
     'id',
     'citizen_profile { id }',
   ]);
@@ -21,7 +21,7 @@ export async function upsertCitizenProfile(user: any) {
 
   // Create new profile if doesn't exist
   const nodeData = {
-    user: { id: user.id },
+    user: { email: user.email },
     node_created_on: new Date().toISOString(),
   };
 
@@ -35,15 +35,32 @@ export async function upsertCitizenProfile(user: any) {
  * @param profileId - The id of the profile
  * @returns The id of the updated profile
  */
-export async function saveRegions(regions: any, profileId: string) {
+export async function saveRegions(
+  stateOrUnionTerritories: any,
+  districts: any,
+  loksabhaConstituencies: any,
+  vidhansabhaConstituencies: any,
+  profileId: string
+) {
   try {
     const graphQLClient = await createGraphQLClient();
 
     const mutation = `
-          mutation UpdateCitizenProfile($regions: _Citizen_Profile_Regions_Input!) {
+          mutation UpdateCitizenProfile(
+            $profileId: [ID!]!, 
+            $state_or_union_territories: [_Indian_State_Union_Territory_Ref], 
+            $districts: [_Indian_District_Ref], 
+            $loksabha_constituencies: [_Indian_Loksabha_Constituency_Ref], 
+            $vidhansabha_constituencies: [_Indian_Vidhansabha_Constituency_Ref]
+          ) {
             update_Citizen_Profile_(input: {
-              filter: { id: { eq: $profileId } }
-              set: $regions
+              filter: { id: $profileId }
+              set: {
+                state_or_union_territories: $state_or_union_territories
+                districts: $districts
+                loksabha_constituencies: $loksabha_constituencies
+                vidhansabha_constituencies: $vidhansabha_constituencies
+              }
             }) {
               _Citizen_Profile_ {
                 id
@@ -65,12 +82,10 @@ export async function saveRegions(regions: any, profileId: string) {
         `;
 
     const variables = {
-      regions: {
-        state_or_union_territories: [{ name_id: regions.state.name_id }],
-        districts: [{ name_id: regions.district.name_id }],
-        loksabha_constituencies: [{ name_id: regions.loksabhaConstituency.name_id }],
-        vidhansabha_constituencies: [{ name_id: regions.vidhansabhaConstituency.name_id }],
-      },
+      state_or_union_territories: [{ name_id: stateOrUnionTerritories.name_id }],
+      districts: [{ name_id: districts.name_id }],
+      loksabha_constituencies: [{ name_id: loksabhaConstituencies.name_id }],
+      vidhansabha_constituencies: [{ name_id: vidhansabhaConstituencies.name_id }],
       profileId,
     };
 
