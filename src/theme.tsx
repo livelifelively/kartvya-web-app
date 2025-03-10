@@ -158,7 +158,7 @@ export const themes = {
   'dark-default': darkTheme,
 };
 
-const DEFAULT_THEME: ThemeType = 'dark-default';
+export const DEFAULT_THEME: ThemeType = 'dark-default';
 
 // Define the shape of the context value
 const defaultValue = {
