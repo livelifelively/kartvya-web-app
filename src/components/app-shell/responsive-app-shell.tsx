@@ -1,6 +1,7 @@
 import { AppShell, Container, MantineSize } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { ReactNode } from 'react';
+import classes from './responsive-app-shell.module.css';
 
 import { BottomMobileTabs } from '../bottom-mobile-tabs/bottom-mobile-tabs';
 import { Header } from '../header/header';
@@ -28,7 +29,7 @@ export function ResponsiveAppShell({ children, containerSize = 'sm' }: Responsiv
       <AppShell.Header px={{ base: 'xs', sm: 'xl' }}>
         <Header navbarControls={{ opened, toggle, hiddenFrom: navbarHiddenFrom }} />
       </AppShell.Header>
-      <AppShell.Navbar py="sm" withBorder={true}>
+      <AppShell.Navbar py="sm" withBorder={true} className={classes.navbar}>
         <NavbarNested />
       </AppShell.Navbar>
       <AppShell.Main
