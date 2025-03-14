@@ -20,6 +20,7 @@ const meta = {
     userName: { control: 'text' },
     userHandle: { control: 'text' },
     profileImageUrl: { control: 'text' },
+    status: { control: 'text' },
     onShareProfile: { action: 'shared profile' },
     onClick: { action: 'clicked' },
   },
@@ -33,6 +34,7 @@ export const Basic: Story = {
   args: {
     userName: 'John Doe',
     userHandle: 'johndoe',
+    status: 'Citizen Journalist',
   },
 };
 
@@ -41,6 +43,7 @@ export const WithProfileImage: Story = {
   args: {
     ...Basic.args,
     profileImageUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop',
+    status: 'Political Analyst',
   },
 };
 
@@ -75,6 +78,7 @@ export const FemaleUser: Story = {
     userName: 'Jane Smith',
     userHandle: 'janesmith',
     profileImageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop',
+    status: 'Volunteer',
     onShareProfile: () => console.log('Profile shared'),
     onClick: () => console.log('Profile clicked'),
   },
@@ -86,6 +90,18 @@ export const LongUsername: Story = {
     userName: 'Alexandra Richardson Williamson',
     userHandle: 'alexrichardsonwilliamson',
     profileImageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1770&auto=format&fit=crop',
+    status: 'Political Analyst',
+    onShareProfile: () => console.log('Profile shared'),
+  },
+};
+
+// Long status example
+export const LongStatus: Story = {
+  args: {
+    userName: 'Michael Johnson',
+    userHandle: 'mjohnson',
+    profileImageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
+    status: 'Senior Political Correspondent and Community Organizer for Environmental Advocacy Group',
     onShareProfile: () => console.log('Profile shared'),
   },
 };

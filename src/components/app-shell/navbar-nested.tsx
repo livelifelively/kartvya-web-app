@@ -4,6 +4,7 @@ import classes from './navbar-nested.module.css';
 import { LinksGroup } from './navbar-links-group';
 import UserProfileSnippet from '../user-name-sidebar/user-name-sidebar';
 import UserMainLocationSidebar from '../user-main-location-sidebar/user-main-location-sidebar';
+import UserNameSidebar from '../user-name-sidebar/user-name-sidebar';
 
 const mockdata = [
   //   {
@@ -30,10 +31,11 @@ export function NavbarNested() {
   return (
     <ScrollArea className={classes.links}>
       <Box>
-        <UserProfileSnippet
-          userName="John Doe"
-          userHandle="johndoe"
+        <UserNameSidebar
+          userName="Ashish Rana"
+          userHandle="livelifelively"
           profileImageUrl="https://media.licdn.com/dms/image/v2/C4D03AQE_YrkBZCgHKQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516492214108?e=2147483647&v=beta&t=cfCDWwBS1R0Kusu6ssLBzkc_MtDAEFUxgei88KDd3MM"
+          status="Democracy is a system of government where power is held by the people and exercised through elected representatives."
         />
       </Box>
       <Box mt="xs">

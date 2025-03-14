@@ -9,12 +9,14 @@ interface UserNameSidebarProps {
   onShareProfile?: () => void;
   onEditProfile?: () => void;
   onClick?: () => void;
+  status: string;
 }
 
 function UserNameSidebar({
   userName,
   userHandle,
   profileImageUrl,
+  status,
   //   onShareProfile,
   //   onEditProfile,
   //   onClick,
@@ -24,16 +26,16 @@ function UserNameSidebar({
       className="user-profile-snippet"
       //   onClick={onClick} // Apply onClick to the entire snippet container
       //   style={{ cursor: onClick ? 'pointer' : 'default', padding: 10, paddingLeft: 32 }} // Indicate clickability if onClick is provided
-      style={{ padding: 10 }}
+      style={{ paddingHorizontal: 16, paddingVertical: 12 }}
     >
-      <Flex justify="space-between" align="start">
+      <Flex justify="space-between" align="start" mb="xs">
         <Group wrap="nowrap" align="center" display="flex" gap={10} style={{ alignItems: 'flex-start' }}>
           <Avatar radius="sm" size={50} src={profileImageUrl} alt={userName} />
           <Box>
-            <Text fw={500} size="sm">
+            <Text fw={500} size="md">
               {userName}
             </Text>
-            <Text c="dimmed" size="xs">
+            <Text c="dimmed" size="sm">
               @{userHandle}
             </Text>
           </Box>
@@ -51,6 +53,9 @@ function UserNameSidebar({
           </Menu.Dropdown>
         </Menu> */}
       </Flex>
+      <Box fw={500} size="md">
+        <Text size="xs">{status}</Text>
+      </Box>
     </Card>
   );
 }

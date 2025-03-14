@@ -14,7 +14,11 @@ interface UserMainLocationSidebarProps {
 
 function UserMainLocationSidebar({ mainLocation }: { mainLocation: UserMainLocationSidebarProps }) {
   return (
-    <Card className="sidebar-user-main-location" style={{ padding: 10 }} aria-label="User Location Information">
+    <Card
+      className="sidebar-user-main-location"
+      style={{ paddingHorizontal: 16, paddingVertical: 12 }}
+      aria-label="User Location Information"
+    >
       <Group
         wrap="nowrap"
         align="center"

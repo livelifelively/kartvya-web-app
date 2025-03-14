@@ -5,6 +5,7 @@ describe('UserProfileSnippet component', () => {
   const defaultProps = {
     userName: 'John Doe',
     userHandle: 'johndoe',
+    status: 'Citizen Journalist',
   };
 
   it('renders basic user information correctly', () => {
@@ -12,6 +13,12 @@ describe('UserProfileSnippet component', () => {
 
     expect(screen.getByText('John Doe')).toBeInTheDocument();
     expect(screen.getByText('@johndoe')).toBeInTheDocument();
+  });
+
+  it('renders user status correctly', () => {
+    render(<UserProfileSnippet {...defaultProps} />);
+
+    expect(screen.getByText('Citizen Journalist')).toBeInTheDocument();
   });
 
   it('renders the avatar with correct props', () => {
