@@ -1,5 +1,12 @@
-import { Anchor, Title } from '@mantine/core';
+import { Anchor, Title, TitleOrder } from '@mantine/core';
+import { Quicksand } from 'next/font/google';
 import classes from './logo.module.css';
+
+// Load the font
+const quicksand = Quicksand({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+});
 
 export interface LogoProps {
   size?: string | number;
@@ -9,7 +16,11 @@ export interface LogoProps {
 
 export function Logo({ size, linksToHome = true }: LogoProps) {
   const LogoContent = () => (
-    <Title size={size || 'h2'} className={classes.logoText}>
+    <Title
+      size={size || 'h2'}
+      className={`${classes.logoText}`}
+      order={typeof size === 'string' && size.startsWith('h') ? (parseInt(size.substring(1)) as TitleOrder) : 2}
+    >
       kartvya
     </Title>
   );
@@ -19,7 +30,7 @@ export function Logo({ size, linksToHome = true }: LogoProps) {
       <LogoContent />
     </Anchor>
   ) : (
-    <Anchor className={classes.logo}>
+    <Anchor data-testid="non-link-anchor" className={classes.logo}>
       <LogoContent />
     </Anchor>
   );
