@@ -1,0 +1,6 @@
+@media (min-width: $mantine-breakpoint-md) {
+  .navbar {
+    background-color: transparent;
+    border: none;
+  }
+}
