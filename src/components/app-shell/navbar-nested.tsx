@@ -5,6 +5,7 @@ import { LinksGroup } from './navbar-links-group';
 import UserProfileSnippet from '../user-name-sidebar/user-name-sidebar';
 import UserMainLocationSidebar from '../user-main-location-sidebar/user-main-location-sidebar';
 import UserNameSidebar from '../user-name-sidebar/user-name-sidebar';
+import UserSubjectsSidebar from '../user-subjects-sidebar/user-subjects-sidebar';
 
 const mockdata = [
   //   {
@@ -53,6 +54,25 @@ export function NavbarNested() {
         />
       </Box>
       {/* <div className={classes.linksInner}>{links}</div> */}
+      <Box mt="xs">
+        <UserSubjectsSidebar
+          subjects={[
+            { name: 'Defence', id: '1' },
+            { name: 'Foreign Relations', id: '2' },
+            { name: 'Economy', id: '3' },
+            { name: 'Healthcare', id: '4' },
+            { name: 'Education', id: '5' },
+            { name: 'Environment', id: '6' },
+            { name: 'Culture', id: '7' },
+            { name: 'Sports', id: '8' },
+            { name: 'Information Technology', id: '9' },
+            { name: 'State Government Finance', id: '10' },
+            { name: 'Union Government Finance', id: '11' },
+            { name: 'Politics', id: '12' },
+            { name: 'Law and Order', id: '13' },
+          ]}
+        />
+      </Box>
     </ScrollArea>
   );
 }
