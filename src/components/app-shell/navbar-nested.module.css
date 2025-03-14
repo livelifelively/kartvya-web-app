@@ -14,6 +14,7 @@
 .links {
   flex: 1;
   width: 100%;
+  padding-top: var(--mantine-spacing-xs);
 }
 
 .linksInner {
@@ -24,4 +25,17 @@
   margin-left: calc(var(--mantine-spacing-md) * -1);
   margin-right: calc(var(--mantine-spacing-md) * -1);
   border-top: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+@media (min-width: $mantine-breakpoint-md) {
+  .links {
+    padding-left: var(--mantine-spacing-xl);
+  }
+}
+
+@media (max-width: $mantine-breakpoint-md) {
+  .links {
+    padding-left: var(--mantine-spacing-xl);
+    padding-right: var(--mantine-spacing-xl);
+  }
 }

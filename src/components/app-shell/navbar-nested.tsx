@@ -1,13 +1,9 @@
-import { ScrollArea } from '@mantine/core';
-import {
-  IconBuildingBank,
-  IconAffiliate,
-  IconMessageDots,
-  IconBinoculars,
-  IconUserScan,
-} from '@tabler/icons-react';
+import { Box, ScrollArea } from '@mantine/core';
+import { IconBuildingBank, IconAffiliate, IconMessageDots, IconBinoculars, IconUserScan } from '@tabler/icons-react';
 import classes from './navbar-nested.module.css';
 import { LinksGroup } from './navbar-links-group';
+import UserProfileSnippet from '../user-name-sidebar/user-name-sidebar';
+import UserMainLocationSidebar from '../user-main-location-sidebar/user-main-location-sidebar';
 
 const mockdata = [
   //   {
@@ -33,7 +29,28 @@ export function NavbarNested() {
 
   return (
     <ScrollArea className={classes.links}>
-      <div className={classes.linksInner}>{links}</div>
+      <Box>
+        <UserProfileSnippet
+          userName="John Doe"
+          userHandle="johndoe"
+          profileImageUrl="https://media.licdn.com/dms/image/v2/C4D03AQE_YrkBZCgHKQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516492214108?e=2147483647&v=beta&t=cfCDWwBS1R0Kusu6ssLBzkc_MtDAEFUxgei88KDd3MM"
+        />
+      </Box>
+      <Box mt="xs">
+        <UserMainLocationSidebar
+          mainLocation={{
+            state: 'Maharashtra',
+            stateId: '1',
+            district: 'Mumbai',
+            districtId: '1',
+            vidhansabha: 'Mumbai Vidhansabha',
+            vidhansabhaId: '1',
+            loksabha: 'Mumbai Lok Sabha',
+            loksabhaId: '1',
+          }}
+        />
+      </Box>
+      {/* <div className={classes.linksInner}>{links}</div> */}
     </ScrollArea>
   );
 }
