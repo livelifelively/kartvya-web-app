@@ -6,28 +6,12 @@ interface UserNameSidebarProps {
   userName: string;
   userHandle: string;
   profileImageUrl?: string;
-  onShareProfile?: () => void;
-  onEditProfile?: () => void;
-  onClick?: () => void;
   status: string;
 }
 
-function UserNameSidebar({
-  userName,
-  userHandle,
-  profileImageUrl,
-  status,
-  //   onShareProfile,
-  //   onEditProfile,
-  //   onClick,
-}: UserNameSidebarProps) {
+function UserNameSidebar({ userName, userHandle, profileImageUrl, status }: UserNameSidebarProps) {
   return (
-    <Card
-      className="user-profile-snippet"
-      //   onClick={onClick} // Apply onClick to the entire snippet container
-      //   style={{ cursor: onClick ? 'pointer' : 'default', padding: 10, paddingLeft: 32 }} // Indicate clickability if onClick is provided
-      style={{ paddingHorizontal: 16, paddingVertical: 12 }}
-    >
+    <Card className="user-profile-snippet" style={{ paddingHorizontal: 16, paddingVertical: 12 }}>
       <Flex justify="space-between" align="start" mb="xs">
         <Group wrap="nowrap" align="center" display="flex" gap={10} style={{ alignItems: 'flex-start' }}>
           <Avatar radius="sm" size={50} src={profileImageUrl} alt={userName} />
