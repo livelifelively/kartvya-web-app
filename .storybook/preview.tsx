@@ -4,7 +4,8 @@ import React, { useEffect } from 'react';
 import { addons } from '@storybook/preview-api';
 import { DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
 import { MantineProvider, useMantineColorScheme } from '@mantine/core';
-import { theme } from '../theme';
+import { DEFAULT_THEME, ThemeProvider } from '../src/theme';
+import CustomMantineProvider from '../src/components/mantine-provider/mantine-provider';
 
 export const parameters = {
   layout: 'fullscreen',
@@ -29,5 +30,9 @@ function ColorSchemeWrapper({ children }: { children: React.ReactNode }) {
 
 export const decorators = [
   (renderStory: any) => <ColorSchemeWrapper>{renderStory()}</ColorSchemeWrapper>,
-  (renderStory: any) => <MantineProvider theme={theme}>{renderStory()}</MantineProvider>,
+  (renderStory: any) => (
+    <ThemeProvider themeType={DEFAULT_THEME}>
+      <CustomMantineProvider>{renderStory()}</CustomMantineProvider>
+    </ThemeProvider>
+  ),
 ];
